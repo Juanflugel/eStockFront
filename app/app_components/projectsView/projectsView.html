@@ -1,0 +1,82 @@
+
+  <div flex layout="row" layout-fill>  
+
+  <project-list-card layout="row" flex ="25" layout-fill></project-list-card>
+
+  <div flex layout="column">
+     <md-card>  
+            <md-subheader  class="md-no-sticky">        
+            <div layout="row" flex >
+               <p class="viewSubHeader text-center" flex="80" layout="row">
+                    <span flex>{{projectInfo.projectName}}</span>
+                    <span flex>{{projectInfo.projectNumber}}</span>
+                    <span flex>{{projectInfo.projectType}}</span>
+                    <span flex>{{projectInfo.projectAssemblies.length}} Baugruppen</span>
+
+                </p>
+               <span flex></span>
+                            
+                <p ng-hide="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertNewAssembly=true">
+                    <i   class="fa fa-plus fa-lg" ></i>
+                </p>
+                 <p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertarAssemnliesInProject()">
+                    <i   class="fa fa-check-circle fa-lg  text-success" ></i>
+                </p>
+                 <p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertNewAssembly=false">
+                    <i   class="fa fa-times fa-lg text-danger" ></i>
+                </p>
+               
+            </div>
+             </md-subheader>
+
+             <div ng-show="insertNewAssembly"> 
+                <md-divider flex></md-divider>
+                <!-- tabla para insertar ensambles en un projecto -->
+                <table class="table table-hover table-responsive panel">    
+                    <thead>
+                    <tr class="table" >
+                        <th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
+                            <p ng-click="order(key)">{{val}}</p>
+                        </th>
+                        <th class="text-center"><p>{{assembliesToInsert.length}} insert</p></th>                                  
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
+                        <td class="">{{sample.assemblyName | limitTo:17}}</td>                
+                        <td class="">{{sample.assemblyNumber}}</td>
+                        <td class="">{{sample.assemblyItems.length}}</td>
+                        <td class="">
+                        <input type="checkbox" ng-change="refreshFilter()" ng-model="sample.insert">               
+                        </td>
+                        
+                    </tr>
+                    </tbody>    
+                </table> 
+    <!-- tabla para insertar ensambles en un projecto --> 
+            </div>
+</md-card>
+<md-card flex>
+             <md-list flex>
+            <md-list-item class="md-3-line"  ng-click="null" ng-repeat="assembly in projectsAssemblies">
+              <img src="https://pbs.twimg.com/profile_images/764058966259331072/dRU48WTz_400x400.jpg" class="md-avatar" alt="" />
+              <div class="md-list-item-text" layout="column">
+                <p layout="row" layout-align="center" flex>
+                    <span flex>{{assembly.assemblyName}}</span>                  
+                    <span flex ="10">{{assembly.assemblyItems.length}} Bauteile</span>
+                    <span flex>{{assembly.pendingToBeAssembled}} Wating to be Assembled</span>
+                    <span >{{assembly.completed |limitTo:4}} % Completed</span>                       
+                </p>
+                <p><span flex>{{assembly.assemblyNumber}}</span></p>
+              </div>
+              <md-divider ></md-divider>
+            </md-list-item>         
+    </md-list>
+</md-card>
+  </div>
+    
+
+</div >
+
+

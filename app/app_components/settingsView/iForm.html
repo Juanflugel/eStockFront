@@ -1,0 +1,108 @@
+<md-card ng-show="editItem || newItem || viewItem">
+	<md-divider flex></md-divider>
+
+	<div layout-padding >
+	<br>
+		<div layout="row" layout-wrap>
+
+			<md-input-container >
+				<label>Item Id (Bar Code)</label>
+				<input type="text" ng-model="obj.itemCode" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container  flex="55">
+				<label>Item Name</label>
+				<input type="text" ng-model="obj.itemName" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container ng-hide ="!obj.itemType && justInfo">
+				<label>Item Type</label>
+				<input type="text" ng-model="obj.itemType" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container  ng-hide ="!obj.itemAmount && justInfo">
+				<label>Item Amount</label>
+				<input type="number" ng-model="obj.itemAmount" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container ng-hide ="!obj.itemBrand && justInfo">
+				<label>Item Brand</label>
+				<input type="text" ng-model="obj.itemBrand" ng-readonly="justInfo">
+			</md-input-container>
+			<!-- <md-input-container ng-hide ="!obj.itemProvider && justInfo">
+				<label>Item Provider</label>
+				<input type="text" ng-model="obj.itemProvider" ng-readonly="justInfo">
+			</md-input-container> -->
+			<md-input-container ng-hide ="!obj.itemProvider && justInfo" style="width:175px;margin-right:10px;">
+        		<label>Provider</label>
+		        <md-select ng-model="obj.itemProvider" ng-disabled="justInfo">    				
+		          <md-option ng-repeat="pro in providersList" value="{{pro}}">
+		            {{pro}}
+		          </md-option>
+		        </md-select>
+		     </md-input-container>
+			<md-input-container ng-hide ="!obj.itemBuyPrice && justInfo">
+				<label>Item Price</label>
+				<input type="number" ng-model="obj.itemBuyPrice" ng-readonly="justInfo">
+			</md-input-container>
+			<!-- input para assembly name -->
+			<md-input-container flex="20" ng-hide ="!obj.itemAssemblyName && justInfo" style="width:175px;margin-right:10px;">
+        		<label>Assembly Name</label>
+		        <md-select ng-model="obj.itemAssemblyName" ng-disabled="justInfo">
+		          <md-option ng-repeat="assembly in assembliesList" value="{{assembly}}">
+		            {{assembly}}
+		          </md-option>
+		        </md-select>
+		     </md-input-container>
+		     <!-- input para assembly name -->
+			<!-- <md-input-container ng-hide ="!obj.itemAssemblyName && justInfo">
+				<label>Assembly Name</label>
+				<input type="text" ng-model="obj.itemAssemblyName" ng-readonly="justInfo">
+			</md-input-container> -->
+			<md-input-container ng-hide ="!obj.itemCategorie && justInfo">
+				<label>Item Categorie</label>
+				<input type="text" ng-model="obj.itemCategorie" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container ng-hide ="!obj.itemLocation && justInfo">
+				<label>Item Location</label>
+				<input type="text" ng-model="obj.itemLocation" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container ng-hide ="!obj.itemRawMaterialProfil && justInfo">
+				<label>Item Profil</label>
+				<input type="text" ng-model="obj.itemRawMaterialProfil" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container ng-hide ="!obj.itemRawMaterialDimensions && justInfo">
+				<label>Item Raw Material Dimentions</label>
+				<input type="text" ng-model="obj.itemRawMaterialDimensions" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container ng-hide ="(!obj.itemLastDate && justInfo) || editItem || newItem"  >
+				<label>Last Date</label>
+				<input type="date" ng-model="obj.itemLastDate" datetime="MM/dd/yyyy" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container ng-show ="justInfo">
+				<label>Last Person</label>
+				<input type="text" ng-model="obj.itemLastPerson.userName" ng-readonly="justInfo">
+			</md-input-container>
+			<md-input-container ng-show ="justInfo">
+				<label>Last Person Amount</label>
+				<input type="text" ng-model="obj.itemLastPerson.insertedAmount" ng-readonly="justInfo">
+			</md-input-container>
+
+			
+			
+		    <div ng-show="editItem">
+		    	<i  ng-click="updateObj(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >	
+		    </i>&nbsp; &nbsp; &nbsp;
+		    </div>
+		    <div ng-show="editItem">
+		    	<i  ng-click="editItem=false"  layout-padding class="fa fa-times fa-2x text-danger"></i>
+		    	&nbsp; &nbsp; &nbsp;
+		    </div>
+		    <div ng-show="newItem">
+		    	 <i ng-click="createObj(obj)" layout-padding class="fa fa-check-circle fa-2x text-success"></i>
+		    	&nbsp; &nbsp; &nbsp;
+		    </div>
+		   
+		    <i ng-show="newItem" ng-click="newItem=false"  layout-padding class="fa fa-times fa-2x text-danger"></i>
+		    <i ng-show="viewItem" ng-click="viewItem=false"  layout-padding class="fa fa-times fa-2x text-danger"></i>
+		</div>
+		
+	</div>
+
+</md-card>

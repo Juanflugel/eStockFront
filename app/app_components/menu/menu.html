@@ -1,0 +1,44 @@
+<md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">          
+        <p ng-click="toggleLeft()" layout-padding>        	
+			<i class="fa fa-bars" aria-hidden="true"></i>
+        </p> 
+        <h2>
+          <span>eStock</span>
+          
+        </h2>        
+      </div>
+</md-toolbar>
+
+	<!-- Container #2 -->
+	<div layout="row" flex>
+		<!-- Container #3 -->
+		<md-sidenav  class="md-whiteframe-z2" layout="column" md-component-id="left">
+			<md-toolbar class="md-hue-2">
+		        <h1 class="md-toolbar-tools">Sidenav Right</h1>
+		     </md-toolbar>
+	        <a ui-sref="app.Pendings" class="md-button" ng-click="close()">Pending</a>
+	        <a ui-sref="app.Projects" class="md-button" ng-click="close()">Projects</a>
+	        <a ui-sref="app.Assemblies" class="md-button" ng-click="close()">Assemblies</a>
+	        <a ui-sref="app.Settings" class="md-button" ng-click="close()">Settings</a>
+	        <a ui-sref="app.Company" class="md-button">Company</a>
+
+		</md-sidenav>
+
+
+
+
+		<!-- Container #4 -->
+		<md-content flex id="content" layout="column">		
+			<div ui-view flex layout="row"></div>		  
+		</md-content>
+
+	</div>
+
+
+
+
+
+
+	
+  

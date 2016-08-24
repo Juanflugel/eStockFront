@@ -1,0 +1,34 @@
+<md-card>
+	<table class="table table-hover table-responsive panel">    
+    		<thead>
+	   		<tr class="table" >
+		  		<th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
+		  			<p ng-click="order(key)">{{val}}</p>
+		 		</th>
+		  		<th class="text-center"><p>Order</p></th>
+         
+	   		</tr>
+    		</thead>
+
+    		<tbody>
+	   		<tr ng-repeat="sample in collection | filter:search |filter:filtrar |orderBy:predicate:reverse" class="text-center">
+		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>
+		  		<!-- <td class="iTable">{{sample.itemName}}</td> -->
+		  		<td contentEditable="{{createAssembly}}" ng-model="sample.itemAmount" type="number">{{sample.itemAmount}}</td>
+		  		<!-- <td class="iTable">{{sample.insertedAmount}}</td> -->
+		  		<td class="iTable">{{sample.itemType}}</td>
+		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
+		  		<!-- <td class="iTable">{{sample.itemUnits}}</td> -->		  				  		
+		  		<td class="iTable">{{sample.itemBuyPrice}}</td>
+		  		<td class="iTable">{{sample.itemProvider}}</td>
+		 		<!-- <td ng-hide="createAssembly">
+		 		 	<i class="fa fa-pencil-square-o" ng-click="editObj(sample)"></i>&nbsp&nbsp
+		 		 	<i class="fa fa-info-circle" ng-click="readObj(sample)"></i>&nbsp&nbsp
+			 		<i class="fa fa-trash" ng-click="deleteObj(sample)"></i>
+			 		
+		  		</td> -->
+		  		<td class="iTable"><input type="checkbox" ng-change="" ng-model="sample.insert"></td>
+	   		</tr>
+    		</tbody>    
+	</table>  
+</md-card>

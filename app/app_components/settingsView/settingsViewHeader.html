@@ -1,0 +1,20 @@
+<md-card>
+<div layout="row" flex>
+		<md-input-container md-no-float flex>
+		<md-icon><i class="fa fa-search fa-lg "></i></md-icon>
+		<input type="text" ng-model="search" placeholder="Here you can find all the items you don't have in your Stock" ng-change="queryByCode()">
+	</md-input-container>
+	<md-input-container flex="20" md-no-float>
+		<md-select ng-model="filterModel" placeholder="Filter By">
+		<md-option ng-value ="opt" ng-repeat="opt in filterBy">{{opt.tagToShow | uppercase}}</md-option>
+		</md-select>
+	</md-input-container > <p layout-margin layout-padding style="padding-top:15px;">:</p>
+	<md-input-container flex="20" md-no-float> 
+		<md-select ng-model="queryTag" placeholder="Select a {{filterModel.tagToShow}}" ng-change="queryByFilter()">
+		<md-option ng-value ="tag" ng-repeat="tag in filterModel.array">{{tag}}</md-option>
+		</md-select>
+	</md-input-container>
+	<span class="headerHelp"><p ng-click="newItem=true"><i class="fa fa-plus fa-lg" ></i></p></span>
+	<span class="headerHelp"><p ng-click="newAssembly()"><i class="fa fa-cubes fa-lg text-info"></i></p></span>
+</div>
+</md-card>

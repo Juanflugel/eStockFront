@@ -1,0 +1,72 @@
+<md-card layout="column" flex>
+		<md-list flex>
+               <!--  sub header de la seccion assemblies -->
+                <md-subheader  class="md-no-sticky">       	
+        		<div layout="row">
+        			 <span flex>Assemblies</span>
+        			 <span flex></span>
+        			 <p ng-click="startNewAssembly=true"><i class="fa fa-plus fa-lg" ></i></p>
+        		</div>
+        	   </md-subheader>
+             <!--  sub header de la seccion assemblyos -->
+               <md-divider ></md-divider>
+               <!-- Form To create a new assembly -->
+               <div layout="column"  flex ng-show="startNewAssembly"> <br>
+                    <md-input-container >
+                        <label>assembly Name</label>
+                        <input type="text" ng-model="obj.assemblyName">
+                    </md-input-container>
+                    <md-input-container >
+                        <label>assembly Number</label>
+                        <input type="text" ng-model="obj.assemblyNumber">
+                    </md-input-container>
+                    <md-input-container >
+                        <label>assembly Type</label>
+                        <input type="text" ng-model="obj.assemblyType">
+                    </md-input-container>
+                    <div layout="row" layout-margin flex> &nbsp; &nbsp; &nbsp;
+                        <md-datepicker ng-model="obj.deadLine" md-placeholder="Dead Line" md-hide-icons="calendar" flex="75"></md-datepicker>
+
+                        <i  ng-click="createNewAssembly(obj)"  layout-margin class="fa fa-check-circle fa-2x text-success" >    
+                        </i>
+                        <i  ng-click="startNewAssembly=false" layout-margin   class="fa fa-times fa-2x text-danger"></i>
+                        <span flex></span>
+                    </div>      
+
+                </div>
+                <!-- Form To create a new assembly -->
+        	<md-divider ></md-divider>
+        		<md-list-item class="md-2-line"  ng-repeat="assembly in assemblies" ng-click="showAssemblyItems(assembly)">
+		          <img src="https://pbs.twimg.com/profile_images/764058966259331072/dRU48WTz_400x400.jpg" class="md-avatar" alt="" />
+		          <div class="md-list-item-text" layout="column">
+		            <p>{{assembly.assemblyName}}</p>
+		            <p>{{assembly.assemblyNumber}}</p>
+                 </div>
+                 <md-menu class="md-secondary">
+    <md-button class="md-icon-button" aria-label="Open" ng-click="$mdOpenMenu($event)">
+      <i class="listMenu fa fa-ellipsis-v fa-lg"aria-hidden="true"></i>
+    </md-button>
+    <md-menu-content width="4">
+      <md-menu-item>
+        <md-button ng-click="editProjectObj(project)">
+          Edit Project
+        </md-button>
+      </md-menu-item>
+      <md-menu-item>
+        <md-button>
+          Delete Project
+        </md-button>
+      </md-menu-item>
+      <md-menu-divider></md-menu-divider>
+      <md-menu-item>
+        <md-button>
+          Close Project
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+		          <md-divider ></md-divider>
+        		</md-list-item>        	
+		</md-list>
+
+	</md-card>
