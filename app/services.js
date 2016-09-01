@@ -125,11 +125,9 @@ angular.module('services', ['ngResource'])
     // },
     passProject: function(obj){
       currentProject = obj;
-
     },
     passAssembly: function(obj){
       currentAssembly = obj;
-
     },
     // remove: function(bill) {
     //   bills.splice(bills.indexOf(bill), 1);
@@ -140,7 +138,7 @@ angular.module('services', ['ngResource'])
 
     },
     getCurrentAssembly: function() {
-      // console.log('me llamaron:'+ currentAssembly);
+      console.log('me llamaron:'+ currentAssembly);
       return currentAssembly;
 
     },

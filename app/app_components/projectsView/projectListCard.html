@@ -26,7 +26,7 @@
                         <input type="text" ng-model="obj.projectType">
                     </md-input-container>
                     <div layout="row" layout-margin flex> &nbsp; &nbsp; &nbsp;
-                        <md-datepicker ng-model="obj.deadLine" md-placeholder="Dead Line" md-hide-icons="calendar" flex></md-datepicker>
+                        <md-datepicker ng-model="obj.deadLine" md-placeholder="Dead Line" md-hide-icons="calendar" type="date" flex></md-datepicker>
 
                         <i ng-hide="editProject" ng-show="startNewProject" ng-click="createNewProject(obj)"  layout-margin class="fa fa-check-circle fa-2x text-success" >    
                         </i>
@@ -43,9 +43,9 @@
         	
 
 
-<md-list-item class="md-2-line" ng-repeat="project in projects" ng-click="showProjectAssemblies(project)">
+<md-list-item class="md-2-line" ng-repeat="project in projects" ng-click="showProjectAssemblies(project)" ui-sref="app.Projects.Details({id:project.projectNumber})">
 <img src="icon.png" class="md-avatar" alt="" />
-<div class="md-list-item-text" layout="column"> 
+<div class="md-list-item-text" layout="column" > 
   <p>{{project.projectType}} - {{project.projectName}}</p>
   <p>{{project.projectNumber}} - {{project.deadLine | date:"MM.dd.yyyy"}}</p> 
 </div>

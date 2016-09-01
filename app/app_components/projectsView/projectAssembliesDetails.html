@@ -1,0 +1,95 @@
+<div flex layout="row">
+	<md-card layout="column" flex="25">
+		<md-list flex>
+	<!--  sub header de la seccion Projectos -->
+			<md-subheader  class="md-no-sticky">       	
+				<div layout="row">
+					<p flex>{{currentProject.projectName | uppercase}}</p>
+					<span flex>--</span>
+					<p flex> {{currentProject.projectNumber | uppercase}}</p>
+				</div>
+			</md-subheader>
+
+
+	<md-divider ></md-divider>
+	<md-divider ></md-divider>
+
+		<md-list-item class="md-2-line"  ng-repeat="assembly in assemblies" ng-click="seeAssembliesDetails(assembly)" ui-sref="app.assemblyDetails({idAssembly:assembly.assemblyNumber})">
+			<img src="icon.png" class="md-avatar" alt="" />
+			<div class="md-list-item-text" layout="column">
+				<p>{{assembly.assemblyName}}</p>
+				<p>{{assembly.assemblyNumber}}</p>
+			</div>
+			<md-menu class="md-secondary">
+				<md-button class="md-icon-button" aria-label="Open" ng-click="$mdOpenMenu($event)">
+				<i class="listMenu fa fa-ellipsis-v fa-lg"aria-hidden="true"></i>
+				</md-button>
+				<md-menu-content width="4">
+					<md-menu-item>
+					<md-button ng-click="editAssembly(assembly)">
+					Edit Assembly 
+					</md-button>
+					</md-menu-item>
+					<md-menu-item>
+					<md-button ng-click="deleteAssembly(assembly)">
+					Delete Assembly
+					</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+			<md-divider ></md-divider>
+		</md-list-item>  
+	</md-card>
+
+<md-card layout="column" flex >
+
+
+<md-list flex>      	
+<md-list-item class="md-2-line">
+			<img src="icon.png" class="md-avatar" alt="" />
+			<div class="md-list-item-text" layout="column">
+				<p layout="row" flex>
+					<span flex>{{currentAssembly.assemblyName}}</span>
+					<span flex>{{currentAssembly.assemblyItems.length}} Bauteile</span>
+					<span >{{currentAssembly.completed |limitTo:4}} % Completed</span>
+				</p>
+				<p layout="row" flex>
+					<span flex>{{currentAssembly.assemblyNumber}}</span>
+					<span flex>{{currentAssembly.pendingToBeAssembled}} Wating to be Assembled</span>
+
+				</p>
+			</div>
+</md-list-item>
+<md-list>
+<md-divider ></md-divider>
+
+	<table class="table table-hover table-responsive panel">    
+    		<thead>
+	   		<tr class="table" >
+		  		<th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
+		  			<p ng-click="order(key)">{{val}}</p>
+		 		</th>
+		  		<th class="text-center"><p>Handling</p></th>
+		  		          
+	   		</tr>
+    		</thead>
+
+    		<tbody>
+	   		<tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
+		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>		  		
+		  		<td class="iTable">{{sample.itemAmount}}</td>
+		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
+
+		 		<td class="iTable">
+		 		 	<i class="fa fa-pencil-square-o" ng-click="editObj(sample)"></i>&nbsp;&nbsp;
+			 		<i class="fa fa-trash" ng-click="deleteItemFromAssembly(sample)"></i>
+			 		
+		  		</td>
+	   		</tr>
+    		</tbody>    
+	</table>  
+
+
+</md-card>
+
+</div>

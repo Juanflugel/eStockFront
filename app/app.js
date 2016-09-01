@@ -9,6 +9,8 @@ angular.module('eStockFront',[
     'settingsModule',
     'pendingsModule',
     'projectsModule',
+    'projectsAssemblyDetailModule',
+    'projectsDetailsModule',
     'assembliesModule'
 
 
@@ -30,14 +32,14 @@ angular.module('eStockFront',[
   //
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/app/Settings");
-  // $urlRouterProvider.when('/app/Company','/app/Company/Employees');
+  $urlRouterProvider.when('/app/Projects','/app/Projects/Details');
   //
   // Now set up the states
   $stateProvider
    .state('app', {
             abstract: true,
             url: '/app',
-            templateUrl: 'menu/menu.html',
+            templateUrl: 'app_components/menu/menu.html',
             controller:'menuCtrl'
 
         })
@@ -58,6 +60,19 @@ angular.module('eStockFront',[
       controller:'projectsCtrl'
 
     })
+    .state('app.Projects.Details', {
+      url: "/:id",
+      templateUrl:"app_components/projectsView/projectDetails.html",
+      controller:'ProjectDetailsCtrl'
+
+    })
+   .state('app.assemblyDetails', {
+      url: "/Projects/:pId/:idAssembly",
+      templateUrl:"app_components/projectsView/projectAssembliesDetails.html",
+      controller:'projectsAssemblyDetailCtrl'
+
+    })
+
     .state('app.Assemblies', {
       url: "/Assemblies",
       templateUrl:"app_components/assembliesView/assembliesView.html",

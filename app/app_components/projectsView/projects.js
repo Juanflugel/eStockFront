@@ -2,7 +2,7 @@
 	'use strict';
 	angular.module('projectsModule',['services'])
 
-	.controller('projectsCtrl',['$scope','shop','$location','$anchorScroll',function ($scope,shop,$location,$anchorScroll){
+	.controller('projectsCtrl',['$scope','shop','$location','$anchorScroll','handleProjects',function ($scope,shop,$location,$anchorScroll,handleProjects){
 
 		$scope.firmaId = shop.getCompanyId();
 
@@ -164,6 +164,15 @@
 				});
 		};
 
+		$scope.passAssembly = function(obj){
+			console.log(obj);
+			handleProjects.passAssembly(obj);
+			handleProjects.passProject($scope.projectInfo);
+		};
+
+
+			
+		
 
 
   // assemblies in projects logic
