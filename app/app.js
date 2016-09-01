@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 angular.module('eStockFront',[
-    // 'templates',
+    'templates',
     'ui.router',
     'ngMaterial',
     'services',
@@ -13,18 +13,20 @@ angular.module('eStockFront',[
 
 
     ])
-.run(function (shop){
+.run(['shop','$rootScope',function (shop,$rootScope){
 
-  var firmaId = "RMB01"
+
+  var firmaId = "RMB01";
 
   shop.company.query({companyId:firmaId}, function (data){
         console.log('from run',data[0]);
         shop.passCompanyInfo(data[0]);
+        $rootScope.$broadcast("companyInfoAvailable");
     });
 
-})
+}])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/app/Settings");
@@ -35,7 +37,7 @@ angular.module('eStockFront',[
    .state('app', {
             abstract: true,
             url: '/app',
-            templateUrl: 'app_components/menu/menu.html',
+            templateUrl: 'menu/menu.html',
             controller:'menuCtrl'
 
         })
@@ -47,7 +49,7 @@ angular.module('eStockFront',[
     })
     .state('app.Pendings', {
       url: "/Pendings",
-      templateUrl:"app_components/pendingsView/pendingsView.html",
+      templateUrl:"pendingsView/pendingsView.html",
       controller:'pendingsCtrl'
     })
     .state('app.Projects', {
@@ -61,10 +63,10 @@ angular.module('eStockFront',[
       templateUrl:"app_components/assembliesView/assembliesView.html",
       controller:'assembliesCtrl'
 
-    })
+    });
 
     
-});
+}]);
 }());
 
 

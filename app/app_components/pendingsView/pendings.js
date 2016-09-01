@@ -18,14 +18,14 @@ $scope.queryItems = function(){
 		$scope.filtrar = j;
 };	
 
-	shop.prueba.query(query,function (data){
-		console.log(data.length,new Date(),query);
-		$scope.collection = data;
-		$scope.filterBy = shop.getCompanyFilters(); // tomar los filtros que usa la empresa
+shop.prueba.query(query,function (data){
+	console.log(data.length,new Date(),query);
+	$scope.collection = data;
+	$scope.filterBy = shop.getCompanyFilters(); // tomar los filtros que usa la empresa
 
-	},function (error){
+},function (error){
 		console.log(error);
-	});
+});
 
 
 	
@@ -44,7 +44,8 @@ $scope.queryItems = function(){
 	// Runs during compile
 	return {
 		restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-		templateUrl: 'app_components/pendingsView/pendingsViewHeader.html'		
+		templateUrl: 'pendingsView/pendingsViewHeader.html'
+		// templateUrl: 'app_components/pendingsView/pendingsViewHeader.html'		
 
 	};
 }])
@@ -52,7 +53,8 @@ $scope.queryItems = function(){
 	// Runs during compile
 	return {
 		restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-		templateUrl: 'app_components/pendingsView/pendingsTable.html',
+		templateUrl: 'pendingsView/pendingsTable.html',
+		// templateUrl: 'app_components/pendingsView/pendingsTable.html',
 		link: function($scope) {
 			$scope.order = function(predicate){
 				$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;

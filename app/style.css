@@ -8,7 +8,7 @@ th{
 	padding-top: 15px !important;
 
 }
-p:focus{
+p:focus,i:focus{
 	outline: none;
     border: 0;
 }
@@ -44,4 +44,8 @@ md-sidenav {
 }
 .listMenu{
 	color:rgba(0,0,0,0.54);;
-} 
+}
+.headerProject:hover{
+ cursor: pointer;
+ font-weight: 900;
+}

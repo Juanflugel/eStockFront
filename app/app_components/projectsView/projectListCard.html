@@ -3,11 +3,12 @@
                <!--  sub header de la seccion Projectos -->
                 <md-subheader  class="md-no-sticky">       	
         		<div layout="row">
-        			 <span flex>Open Projects</span>
-        			 <span flex>Closed Projects</span>
+        			 <p flex class="headerProject" ng-click="projectQuery(0,'open')" id="top">Open Projects</p>
+        			 <p flex class="headerProject" ng-click="projectQuery(0,'closed')">Closed Projects</p>
         			 <p ng-click="startNewProject=true"><i class="fa fa-plus fa-lg" ></i></p>
         		</div>
         	   </md-subheader>
+             <md-progress-linear md-mode="query" ng-disabled="progressBardisable"></md-progress-linear>
              <!--  sub header de la seccion Projectos -->
                <md-divider ></md-divider>
                <!-- Form To create a new project -->
@@ -25,7 +26,7 @@
                         <input type="text" ng-model="obj.projectType">
                     </md-input-container>
                     <div layout="row" layout-margin flex> &nbsp; &nbsp; &nbsp;
-                        <md-datepicker ng-model="obj.deadLine" md-placeholder="Dead Line" md-hide-icons="calendar" flex="75"></md-datepicker>
+                        <md-datepicker ng-model="obj.deadLine" md-placeholder="Dead Line" md-hide-icons="calendar" flex></md-datepicker>
 
                         <i ng-hide="editProject" ng-show="startNewProject" ng-click="createNewProject(obj)"  layout-margin class="fa fa-check-circle fa-2x text-success" >    
                         </i>
@@ -33,7 +34,7 @@
                         </i>
                         <i ng-hide="editProject" ng-show="startNewProject" ng-click="startNewProject=false" layout-margin   class="fa fa-times fa-2x text-danger"></i>
                         <i ng-hide="startNewProject" ng-show="editProject" ng-click="editProject=false" layout-margin   class="fa fa-times fa-2x text-danger"></i>
-                        <span flex></span>
+                        &nbsp; &nbsp;
                     </div>      
 
                 </div>
@@ -43,7 +44,7 @@
 
 
 <md-list-item class="md-2-line" ng-repeat="project in projects" ng-click="showProjectAssemblies(project)">
-<img src="https://pbs.twimg.com/profile_images/764058966259331072/dRU48WTz_400x400.jpg" class="md-avatar" alt="" />
+<img src="icon.png" class="md-avatar" alt="" />
 <div class="md-list-item-text" layout="column"> 
   <p>{{project.projectType}} - {{project.projectName}}</p>
   <p>{{project.projectNumber}} - {{project.deadLine | date:"MM.dd.yyyy"}}</p> 
@@ -60,13 +61,13 @@
         </md-button>
       </md-menu-item>
       <md-menu-item>
-        <md-button>
+        <md-button ng-click="deleteProjects(project)">
           Delete Project
         </md-button>
       </md-menu-item>
       <md-menu-divider></md-menu-divider>
       <md-menu-item>
-        <md-button>
+        <md-button ng-click="closeProject(project)">
           Close Project
         </md-button>
       </md-menu-item>

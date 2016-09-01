@@ -1,0 +1,65 @@
+
+		<md-card >
+			<md-subheader  class="md-no-sticky">        
+				<div layout="row" flex>
+					<p class="viewSubHeader text-center"  layout="row" flex="80">
+            <span flex>{{assemblyInfo.assemblyName}}</span>
+            <span flex>{{assemblyInfo.assemblyNumber}}</span>
+            <span flex>{{assemblyInfo.assemblyItems.length}} Bauteile</span>
+          </p>
+	 				<span flex></span>	 
+	 				<p class="viewSubHeader" ng-click="newObj()"><i   class="fa fa-plus fa-lg" ></i></p>
+	 
+ 				</div>
+			</md-subheader>
+
+			<div ng-show="editObjInAssembly || insertObjInAssembly">
+<md-divider flex></md-divider>
+
+  <div layout-padding >
+  <br>
+    <div layout="row" layout-wrap>
+
+      <md-input-container>
+        <label>Item Id (Bar Code)</label>
+        <input type="text" ng-model="obj.itemCode">
+      </md-input-container>
+      <md-input-container  flex="40">
+        <label>Item Name</label>
+        <input type="text" ng-model="obj.itemName">
+      </md-input-container>
+
+      <md-input-container flex="10">
+        <label>Item Amount</label>
+        <input type="number" ng-model="obj.itemAmount">
+      </md-input-container>
+          
+      &nbsp;
+      <!-- editing part -->
+        <div ng-show="editObjInAssembly" ng-hide="insertObjInAssembly">
+          <i  ng-click="updateItemInAssembly(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
+        </i>&nbsp; &nbsp; &nbsp;
+        </div>
+        <div ng-show="editObjInAssembly" ng-hide="insertObjInAssembly">
+          <i  ng-click="editObjInAssembly=false;closeForm()"  layout-padding class="fa fa-times fa-2x text-danger"></i>
+          &nbsp; &nbsp; &nbsp;
+        </div>
+        <!-- editing part -->
+        <!-- inserting part -->
+        <div ng-hide="editObjInAssembly" ng-show="insertObjInAssembly">
+          <i  ng-click="insertItemInAssembly(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
+        </i>&nbsp; &nbsp; &nbsp;
+        </div>
+        <div ng-hide="editObjInAssembly" ng-show="insertObjInAssembly">
+          <i  ng-click="insertObjInAssembly=false;closeForm()"  layout-padding class="fa fa-times fa-2x text-danger"></i>
+          &nbsp; &nbsp; &nbsp;
+        </div>
+        <!-- inserting part -->
+    
+    </div>
+    
+  </div>
+
+</div>
+
+		</md-card>
