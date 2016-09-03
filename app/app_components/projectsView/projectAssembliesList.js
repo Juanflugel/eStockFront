@@ -3,11 +3,7 @@
 	angular.module('projectsDetailsModule',['services'])
 	.controller('ProjectDetailsCtrl',['$scope','shop','handleProjects',function ($scope,shop,handleProjects){
 
-
-
 		// assemblies in projects logic
-
-
 		$scope.callAssemblies = function(){
 			var query = {};
 			query.companyId = $scope.firmaId;
@@ -24,9 +20,11 @@
 		};
 
 		$scope.header = {assemblyName:'Assembly Name',assemblyNumber:'Assembly Number',numberOfparts:'Parts'};
+		
 		$scope.refreshFilter = function(){
 			$scope.assembliesToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
 		};
+		
 		$scope.insertarAssemnliesInProject = function(){
 			$scope.progressBarInsertAssemblydisable = false;
 			var projectId = $scope.projectInfo._id;
@@ -45,10 +43,14 @@
 			};
 
 			$scope.passAssembly = function(obj){
-				console.log(obj);
+				// console.log(obj);
 				handleProjects.passAssembly(obj);
 				handleProjects.passProject($scope.projectInfo);
 			};
+
+			// $scope.showObj = function(obj){
+   //      	console.log(obj);
+   //      }
 
 
 			

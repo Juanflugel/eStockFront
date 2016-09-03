@@ -17,7 +17,7 @@ angular.module('assembliesModule',['services'])
                 $scope.assemblyInfo = $scope.assemblies[0];
                 $scope.collection = $scope.assemblyInfo.assemblyItems;
                 $scope.progressBardisable = true;
-                console.log(data.length);
+                // console.log(data.length);
             },function (error){
                 console.log(error);
             });
@@ -37,7 +37,7 @@ angular.module('assembliesModule',['services'])
     $scope.firmaId = shop.getCompanyId();
 
     if($scope.firmaId){
-        console.log('From service');
+        // console.log('From service');
         $scope.assembliesQuery();
     }
     $scope.$on("companyInfoAvailable",function(){ // to load filters and id without problems
@@ -84,7 +84,7 @@ angular.module('assembliesModule',['services'])
                 query.companyId = $scope.firmaId;
                 query._id = obj._id;
                 console.log(query);
-                shop.assembly.remove(query,function (data){
+                shop.assembly.remove(query,function (){
                  $scope.assembliesQuery();
                 },function (error){
                     console.log(error);
@@ -139,7 +139,7 @@ angular.module('assembliesModule',['services'])
         query.assemblyNumber = $scope.assemblyInfo.assemblyNumber;
         query['assemblyItems._id'] = obj._id;
 
-        shop.assemblyUpdate.update(query,obj,function (data){
+        shop.assemblyUpdate.update(query,obj,function (){
             //console.log(data);
             $scope.editObjInAssembly = false;
         },function (error){
@@ -155,7 +155,7 @@ angular.module('assembliesModule',['services'])
                 query.assemblyNumber = $scope.assemblyInfo.assemblyNumber;
                 query.itemCode = obj.itemCode;
                 console.log(query);
-                shop.assemblyUpdate.update(query,obj,function (data){
+                shop.assemblyUpdate.update(query,obj,function (){
                  $scope.collection.splice($scope.collection.indexOf(obj),1);
                 },function (error){
                     console.log(error);
@@ -196,8 +196,8 @@ angular.module('assembliesModule',['services'])
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    // templateUrl: 'assembliesView/assembliesListCard.html'
-    templateUrl: 'app_components/assembliesView/assembliesListCard.html'     
+    templateUrl: 'assembliesView/assembliesListCard.html'
+    // templateUrl: 'app_components/assembliesView/assembliesListCard.html'     
 
   };
 }])
@@ -205,8 +205,8 @@ angular.module('assembliesModule',['services'])
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    // templateUrl: 'assembliesView/assembliesListCard.html'
-    templateUrl: 'app_components/assembliesView/assemblyDetailsHeader.html'     
+    templateUrl: 'assembliesView/assemblyDetailsHeader.html'
+    // templateUrl: 'app_components/assembliesView/assemblyDetailsHeader.html'     
 
   };
 }])
@@ -214,8 +214,8 @@ angular.module('assembliesModule',['services'])
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    // templateUrl: 'assembliesView/assemblyTable.html',
-    templateUrl: 'app_components/assembliesView/assemblyTable.html',
+    templateUrl: 'assembliesView/assemblyTable.html',
+    // templateUrl: 'app_components/assembliesView/assemblyTable.html',
     link: function($scope) {
             $scope.order = function(predicate){
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;

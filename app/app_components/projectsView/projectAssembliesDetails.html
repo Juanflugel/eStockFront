@@ -1,12 +1,12 @@
-<div flex layout="row">
+<div flex layout="row" layout-fill>
 	<md-card layout="column" flex="25">
 		<md-list flex>
 	<!--  sub header de la seccion Projectos -->
 			<md-subheader  class="md-no-sticky">       	
 				<div layout="row">
-					<p flex>{{currentProject.projectName | uppercase}}</p>
-					<span flex>--</span>
-					<p flex> {{currentProject.projectNumber | uppercase}}</p>
+					<p flex class="text-center">{{currentProject.projectName | uppercase}}</p>
+					<span flex class="text-center">{{currentProject.projectType | uppercase}}</span>
+					<p flex class="text-center"> {{currentProject.projectNumber | uppercase}}</p>
 				</div>
 			</md-subheader>
 
@@ -20,7 +20,7 @@
 				<p>{{assembly.assemblyName}}</p>
 				<p>{{assembly.assemblyNumber}}</p>
 			</div>
-			<md-menu class="md-secondary">
+			<!-- <md-menu class="md-secondary">
 				<md-button class="md-icon-button" aria-label="Open" ng-click="$mdOpenMenu($event)">
 				<i class="listMenu fa fa-ellipsis-v fa-lg"aria-hidden="true"></i>
 				</md-button>
@@ -36,7 +36,7 @@
 					</md-button>
 					</md-menu-item>
 				</md-menu-content>
-			</md-menu>
+			</md-menu> -->
 			<md-divider ></md-divider>
 		</md-list-item>  
 	</md-card>
@@ -66,6 +66,7 @@
 	<table class="table table-hover table-responsive panel">    
     		<thead>
 	   		<tr class="table" >
+	   			
 		  		<th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
 		  			<p ng-click="order(key)">{{val}}</p>
 		 		</th>
@@ -75,14 +76,30 @@
     		</thead>
 
     		<tbody>
-	   		<tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
+    		<tr ng-repeat="sample in collection |filter:{itemAssembled:'!'}|orderBy:predicate:reverse" class="text-center">
+    			
+	   			<td ng-show="sample.itemAssembled===undefined"class="iTable"><i class="fa fa-times fa-lg text-danger"></i></td>
 		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>		  		
 		  		<td class="iTable">{{sample.itemAmount}}</td>
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
 
 		 		<td class="iTable">
-		 		 	<i class="fa fa-pencil-square-o" ng-click="editObj(sample)"></i>&nbsp;&nbsp;
-			 		<i class="fa fa-trash" ng-click="deleteItemFromAssembly(sample)"></i>
+		 		 	<i class="fa fa-pencil-square-o" ng-click="showObj(sample)"></i>&nbsp;&nbsp;
+			 		<i class="fa fa-trash" ng-click=""></i>
+			 		
+		  		</td>
+	   		</tr>
+	  
+	   		<tr ng-repeat="sample in collection |filter:{itemAssembled:'true'} |orderBy:predicate:reverse" class="text-center">
+				
+	   			<td ng-show="sample.itemAssembled"class="iTable"><i class="fa fa-check-circle fa-lg text-success" > </td>
+		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>		  		
+		  		<td class="iTable">{{sample.itemAmount}}</td>
+		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
+
+		 		<td class="iTable">
+		 		 	<i class="fa fa-pencil-square-o" ng-click="showObj(sample)"></i>&nbsp;&nbsp;
+			 		<i class="fa fa-trash" ng-click=""></i>
 			 		
 		  		</td>
 	   		</tr>

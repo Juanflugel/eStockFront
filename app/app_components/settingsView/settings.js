@@ -3,6 +3,7 @@
 angular.module('settingsModule',[])
 
 .controller('settingsCtrl',['$scope','shop','handleProjects',function ($scope,shop,handleProjects) {
+    $scope.createAssembly = false;
     var query = {itemType:'SCHRAUBE'};
 
     $scope.loadFilter = function(){
@@ -14,7 +15,7 @@ angular.module('settingsModule',[])
     // Retrieve data from API the whole list without filter
     $scope.queryData = function (){
         shop.items.query(query,function (data){
-            console.log(query);
+            // console.log(query);
             $scope.collection = data; // show the results
             var codesArray = handleProjects.getJustCode($scope.collection); // to consult all inserted items
             codesArray.push('0');
@@ -73,7 +74,7 @@ angular.module('settingsModule',[])
         q.codesArray = codesArray;
         shop.itemsInserted.query(q,function (data){
             handleProjects.addInsertedAmount($scope.collection,data);
-            console.log('todo bien');
+            // console.log('todo bien');
 
         },function (error){
             console.log(error);
@@ -221,34 +222,55 @@ angular.module('settingsModule',[])
 .directive('newAssemblyHeader', [function (){
     // Runs during compile
     return {
-        restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        // templateUrl: 'app_components/settingsView/settingsViewHeader.html'       
-        templateUrl: 'app_components/settingsView/newAssemblyHeader.html'
+        restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment    
+        // templateUrl: 'app_components/settingsView/newAssemblyHeader.html'
+        templateUrl: 'settingsView/newAssemblyHeader.html'
     };
 }])
 .directive('settingsViewHeader', [function (){
     // Runs during compile
     return {
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        templateUrl: 'app_components/settingsView/settingsViewHeader.html'      
-        // templateUrl: 'settingsView/settingsViewHeader.html'
+        // templateUrl: 'app_components/settingsView/settingsViewHeader.html'      
+        templateUrl: 'settingsView/settingsViewHeader.html'
     };
 }])
 .directive('iForm', [function (){
     // Runs during compile
     return {
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        templateUrl: 'app_components/settingsView/iForm.html'
-        // templateUrl:'settingsView/iForm.html'    
+        // templateUrl: 'app_components/settingsView/iForm.html'
+        templateUrl:'settingsView/iForm.html'    
 
     };
 }])
+.directive('contenteditable', function() {
+        return {
+            require: 'ngModel',
+            link: function(scope, elm, attrs, ctrl) {
+                // view -> model
+                elm.bind('blur', function() {
+                    scope.$apply(function() {
+                        ctrl.$setViewValue(elm.html());
+                    });
+                });
+
+                // model -> view
+                ctrl.$render = function() {
+                    elm.html(ctrl.$viewValue);
+                };
+
+                // load init value from DOM
+                //ctrl.$setViewValue(elm.html());
+            }
+        };
+    })
 .directive('iTable', [function (){
     // Runs during compile
     return {
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        templateUrl: 'app_components/settingsView/itable.html', 
-        // templateUrl:'settingsView/itable.html',  
+        // templateUrl: 'app_components/settingsView/itable.html', 
+        templateUrl:'settingsView/itable.html',  
         link: function($scope) {
             $scope.order = function(predicate){
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;

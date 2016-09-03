@@ -14,7 +14,6 @@ var gulp = require('gulp'),
 	del = require('del');
 	useref = require('gulp-useref');
 	gulpif = require('gulp-if');
-	ngAnnotate = require('ng-annotate');
 
 	gulp.task('scripts', function() {
 		return gulp.src('app/**/*.js')
@@ -24,29 +23,24 @@ var gulp = require('gulp'),
     });
 
 
-  gulp.task('templates', function () {
-  return gulp.src('app/app_components/**/*.html')
-	.pipe(templateCache({standalone:true}))
-	.pipe(gulp.dest('dist/assets/js'));
-  });
+	gulp.task('templates', function () {
+	  return gulp.src('app/app_components/**/*.html')
+		.pipe(templateCache({standalone:true}))
+		.pipe(gulp.dest('dist/assets/js'));
+	});
 
-  gulp.task('useref-process',function(){
-	return gulp.src('app/*.html')
-		.pipe(useref())
-		.pipe(gulpif('*.js', uglify()))
-		.pipe(gulp.dest('dist'));
-  });
+	gulp.task('useref-process',function(){
+		return gulp.src('app/*.html')
+			.pipe(useref())
+			.pipe(gulpif('*.js', uglify()))
+			.pipe(gulp.dest('dist'));
+	});
 
-  gulp.task('ng_annotate', function (done) {
-	  gulp.src('app/**/*.js')
-	 .pipe(ngAnnotate({single_quotes: true}))
-	 // .pipe(gulp.dest('./www/dist/dist_js/app'))
-	 .on('end', done);
-});
+
 
 
 gulp.task('default', function() {
-	gulp.start('templates','scripts','ng_annotate','useref-process');
+	gulp.start('templates','scripts','useref-process');
 });
 
 // Watch .js files

@@ -39,14 +39,16 @@ angular.module('eStockFront',[
    .state('app', {
             abstract: true,
             url: '/app',
-            templateUrl: 'app_components/menu/menu.html',
+            // templateUrl: 'app_components/menu/menu.html',
+            templateUrl: 'menu/menu.html',
             controller:'menuCtrl'
 
         })
 
     .state('app.Settings', {
       url: "/Settings",
-      templateUrl:"app_components/settingsView/settingsView.html",
+      // templateUrl:"app_components/settingsView/settingsView.html",
+      templateUrl:"settingsView/settingsView.html",
       controller:'settingsCtrl'
     })
     .state('app.Pendings', {
@@ -56,26 +58,30 @@ angular.module('eStockFront',[
     })
     .state('app.Projects', {
       url: "/Projects",
-      templateUrl:"app_components/projectsView/projectsView.html",
+      // templateUrl:"app_components/projectsView/projectsView.html",
+      templateUrl:"projectsView/projectsView.html",
       controller:'projectsCtrl'
 
     })
     .state('app.Projects.Details', {
       url: "/:id",
-      templateUrl:"app_components/projectsView/projectDetails.html",
+      // templateUrl:"app_components/projectsView/projectDetails.html",
+      templateUrl:"projectsView/projectDetails.html",
       controller:'ProjectDetailsCtrl'
 
     })
    .state('app.assemblyDetails', {
       url: "/Projects/:pId/:idAssembly",
-      templateUrl:"app_components/projectsView/projectAssembliesDetails.html",
+      // templateUrl:"app_components/projectsView/projectAssembliesDetails.html",
+      templateUrl:"projectsView/projectAssembliesDetails.html",
       controller:'projectsAssemblyDetailCtrl'
 
     })
 
     .state('app.Assemblies', {
       url: "/Assemblies",
-      templateUrl:"app_components/assembliesView/assembliesView.html",
+      // templateUrl:"app_components/assembliesView/assembliesView.html",
+      templateUrl:"assembliesView/assembliesView.html",
       controller:'assembliesCtrl'
 
     });

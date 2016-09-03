@@ -2,7 +2,7 @@
 	'use strict';
 	angular.module('projectsModule',['services'])
 
-	.controller('projectsCtrl',['$scope','shop','$location','$anchorScroll','handleProjects',function ($scope,shop,$location,$anchorScroll,handleProjects){
+	.controller('projectsCtrl',['$scope','shop','$location','$anchorScroll',function ($scope,shop,$location,$anchorScroll){
 
 		$scope.firmaId = shop.getCompanyId();
 
@@ -125,57 +125,7 @@
 		 	
 		};
 
-		 // assemblies in projects logic
-
-
-		 $scope.callAssemblies = function(){
-		 	var query = {};
-		 	query.companyId = $scope.firmaId;
-		 	shop.assembly.query(query,function (data){
-		 		$scope.collection = data;
-		 	},function (error){
-		 		console.log(error);
-		 	});
-		 };
-
-		 $scope.showAssemblies = function(){
-		 	$scope.callAssemblies();
-		 	$scope.insertNewAssembly = true;
-		 };
-
-		 $scope.header = {assemblyName:'Assembly Name',assemblyNumber:'Assembly Number',numberOfparts:'Parts'};
-		 $scope.refreshFilter = function(){
-		 	$scope.assembliesToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
-		 };
-		$scope.insertarAssemnliesInProject = function(){
-		 	$scope.progressBarInsertAssemblydisable = false;
-		 	var projectId = $scope.projectInfo._id;
-		 	var assembliesCollection = $scope.assembliesToInsert;
-				// console.log('aqui voy a llamar a la api para guardar esa monda');
-				shop.projectUpdate.update({_id:projectId},assembliesCollection,function (){
-					$scope.assembliesToInsert=[];
-					$scope.callAssemblies();   
-					var  indexOfProject = $scope.projects.indexOf($scope.projectInfo);      
-					$scope.projectQuery(indexOfProject);
-					$scope.insertNewAssembly = false;
-					// $scope.progressBarInsertAssemblydisable = true;
-				},function (error){
-					console.log(error);
-				});
-		};
-
-		$scope.passAssembly = function(obj){
-			console.log(obj);
-			handleProjects.passAssembly(obj);
-			handleProjects.passProject($scope.projectInfo);
-		};
-
-
-			
-		
-
-
-  // assemblies in projects logic
+		 
 
 
 
@@ -194,8 +144,8 @@
   // Runs during compile
   return {
 	restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-	// templateUrl: 'projectsView/projectListCard.html'
-	templateUrl: 'app_components/projectsView/projectListCard.html'    
+	templateUrl: 'projectsView/projectListCard.html'
+	// templateUrl: 'app_components/projectsView/projectListCard.html'    
 
 };
 }])
@@ -203,10 +153,10 @@
   // Runs during compile
   return {
 	restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-	// templateUrl: 'projectsView/projectListCard.html'
-	templateUrl: 'app_components/projectsView/projectDetails.html'    
+	templateUrl: 'projectsView/projectListCard.html'
+	// templateUrl: 'app_components/projectsView/projectDetails.html'    
 
 };
-}])
+}]);
 
 }());

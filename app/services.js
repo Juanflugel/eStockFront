@@ -33,7 +33,7 @@ angular.module('services', ['ngResource'])
 .factory('Config', function () {
   return {
       version : '0.0.1',
-      ip: 'localhost', //www.estock.website
+      ip: 'www.estock.website', // localhost
       port: 5006,
       protocol: 'http'
   };
@@ -138,7 +138,7 @@ angular.module('services', ['ngResource'])
 
     },
     getCurrentAssembly: function() {
-      console.log('me llamaron:'+ currentAssembly);
+      // console.log('me llamaron:'+ currentAssembly);
       return currentAssembly;
 
     },

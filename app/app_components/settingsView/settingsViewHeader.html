@@ -2,7 +2,7 @@
 <div layout="row" flex>
 		<md-input-container md-no-float flex>
 		<md-icon><i class="fa fa-search fa-lg "></i></md-icon>
-		<input type="text" ng-model="search" placeholder="Here you can find all the items you have in your Stock" ng-change="queryByCode()">
+		<input type="text" ng-model="search" ng-model-options="{ debounce: 400 }" placeholder="Here you can find all the items you have in your Stock" ng-change="queryByCode()">
 	</md-input-container>
 	<md-input-container flex="20" md-no-float>
 		<md-select ng-model="filterModel" placeholder="Filter By">

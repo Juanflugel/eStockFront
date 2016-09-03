@@ -3,8 +3,8 @@ var express = require('express'),
 	server = require('http').createServer(app),
 	port = 5000;
 
-app.use('/app', express.static(__dirname + '/app'));
-app.use('/dist', express.static(__dirname + '/dist'));
+// app.use('/app', express.static(__dirname + '/app'));
+app.use('/', express.static(__dirname + '/dist'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 // app.use('/app1', express.static(__dirname + '/app1'));
 
