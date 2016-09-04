@@ -23,6 +23,7 @@
                 $scope.predicate = predicate;
             };
 
+        
 
 	}]);
 

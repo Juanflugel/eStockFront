@@ -2,7 +2,7 @@
 	<md-card layout="column" flex="25">
 		<md-list flex>
 	<!--  sub header de la seccion Projectos -->
-			<md-subheader  class="md-no-sticky">       	
+			<md-subheader  class="md-no-sticky link" ui-sref="app.Projects.Details({id:currentProject.projectNumber})">       	
 				<div layout="row">
 					<p flex class="text-center">{{currentProject.projectName | uppercase}}</p>
 					<span flex class="text-center">{{currentProject.projectType | uppercase}}</span>

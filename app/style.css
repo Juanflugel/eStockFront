@@ -49,3 +49,7 @@ md-sidenav {
  cursor: pointer;
  font-weight: 900;
 }
+.link:hover{
+cursor: pointer;
+background-color: rgba(158,158,158,0.2);
+}

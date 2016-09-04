@@ -36,7 +36,7 @@
 					var  indexOfProject = $scope.projects.indexOf($scope.projectInfo);      
 					$scope.projectQuery(indexOfProject);
 					$scope.insertNewAssembly = false;
-					// $scope.progressBarInsertAssemblydisable = true;
+					$scope.progressBarInsertAssemblydisable = true;
 				},function (error){
 					console.log(error);
 				});

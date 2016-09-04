@@ -2,7 +2,7 @@
 	'use strict';
 	angular.module('projectsModule',['services'])
 
-	.controller('projectsCtrl',['$scope','shop','$location','$anchorScroll',function ($scope,shop,$location,$anchorScroll){
+	.controller('projectsCtrl',['$scope','shop','$location','$anchorScroll','$stateParams','$state',function ($scope,shop,$location,$anchorScroll,$stateParams,$state){
 
 		$scope.firmaId = shop.getCompanyId();
 
@@ -10,42 +10,69 @@
 
 		$scope.projectQuery = function(index,state){
 			$scope.progressBardisable = false;
+			var id = $state.params.id;
 			var query = {};
 			query.companyId = $scope.firmaId;
 			query.projectState = state || 'open';
-			shop.project.query(query,function (data){
+			shop.project.query(query,function (data){				
 
 				$scope.projects = data;
-				$scope.projectInfo = $scope.projects[index]|| $scope.projects[0] || {projectName:'No Open Projects'};
-				$scope.projectsAssemblies = $scope.projectInfo.projectAssemblies ||[];
-				$scope.showProjectAssemblies($scope.projectInfo);
-				$scope.progressBardisable = true;
-				$scope.progressBarInsertAssemblydisable = true;
+
+				if(id && id !=='Detail'){
+					var indexid = $scope.projects.map(function(e) { return e.projectNumber; }).indexOf(id);
+					console.log(indexid,id);
+					if(indexid >= 0){
+						$scope.projectInfo = $scope.projects[indexid];
+						$scope.projectsAssemblies = $scope.projectInfo.projectAssemblies ||[];
+						$scope.showProjectAssemblies($scope.projectInfo);
+						$scope.progressBardisable = true;
+						$scope.progressBarInsertAssemblydisable = true;
+
+					}
+					else{
+						$scope.projectInfo = $scope.projects[0] || {projectName:'No Open Projects'};
+						$scope.projectsAssemblies = $scope.projectInfo.projectAssemblies ||[];
+						$scope.showProjectAssemblies($scope.projectInfo);
+						$scope.progressBardisable = true;
+						$scope.progressBarInsertAssemblydisable = true;
+					}
+					
+				}
+				else{
+					$scope.projectInfo = $scope.projects[index]|| $scope.projects[0] || {projectName:'No Open Projects'};
+					$scope.projectsAssemblies = $scope.projectInfo.projectAssemblies ||[];
+					$scope.showProjectAssemblies($scope.projectInfo);
+					$scope.progressBardisable = true;
+					$scope.progressBarInsertAssemblydisable = true;
+					console.log($state.params.id+'cuajando el else');
+				}
+				
+				
 
 			},function (error){
 				console.log(error);
 			});
-		};
+};
 
 
-		if($scope.firmaId){
+if($scope.firmaId){
 			// console.log('from service');
-			$scope.projectQuery(); // to call all projects
+			$scope.projectQuery(0,'open'); // to call all projects
 		}
 		$scope.$on('companyInfoAvailable',function(){
 			$scope.firmaId = shop.getCompanyId();
 			// console.log('from run');
-			$scope.projectQuery();
+			$scope.projectQuery(0,'open');
 		});
 
 		$scope.gotoHash = function(x) {
-	      var newHash = x;
-	      if ($location.hash() !== newHash) {
-	        $location.hash(x);
-	      } else {	        
-	        $anchorScroll();
-	      }
-    	};
+			var newHash = x;
+			if ($location.hash() !== newHash) {
+				$location.hash(x);
+			} else {	        
+				$anchorScroll();
+			}
+		};
 
 		$scope.showProjectAssemblies = function (project) {
 
@@ -74,7 +101,7 @@
 				$scope.startNewProject = false; // ng-show
 				$scope.projects.push(data);
 				$scope.progressBardisable = true;
-		 		$scope.obj = {};
+				$scope.obj = {};
 			});
 
 		};
@@ -110,20 +137,20 @@
 		 	});
 		 };
 
-		$scope.deleteProjects = function(obj){
-			var r = confirm('Are you sure to delete Item: '+ obj.projectName);
-			if(r===true){
-				shop.project.remove({_id:obj._id},function (){
-			 		console.log('borrado');
-			 		$scope.projectQuery();
-			 		},function (error){
-			 		console.log(error);
+		 $scope.deleteProjects = function(obj){
+		 	var r = confirm('Are you sure to delete Item: '+ obj.projectName);
+		 	if(r===true){
+		 		shop.project.remove({_id:obj._id},function (){
+		 			console.log('borrado');
+		 			$scope.projectQuery();
+		 		},function (error){
+		 			console.log(error);
 		 		});
-			}else{
-				return;
-			}
+		 	}else{
+		 		return;
+		 	}
 		 	
-		};
+		 };
 
 		 
 
@@ -131,7 +158,7 @@
 
 
 
-}])
+		}])
 
 
 

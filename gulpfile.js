@@ -14,6 +14,8 @@ var gulp = require('gulp'),
 	del = require('del');
 	useref = require('gulp-useref');
 	gulpif = require('gulp-if');
+	cssnano = require('gulp-cssnano');
+
 
 	gulp.task('scripts', function() {
 		return gulp.src('app/**/*.js')
@@ -29,18 +31,24 @@ var gulp = require('gulp'),
 		.pipe(gulp.dest('dist/assets/js'));
 	});
 
-	gulp.task('useref-process',function(){
+	gulp.task('useref',function(){
 		return gulp.src('app/*.html')
 			.pipe(useref())
 			.pipe(gulpif('*.js', uglify()))
+			.pipe(gulpif('*.css', cssnano()))
 			.pipe(gulp.dest('dist'));
 	});
 
 
 
 
+
+
+
+
+
 gulp.task('default', function() {
-	gulp.start('templates','scripts','useref-process');
+	gulp.start('templates','scripts','useref');
 });
 
 // Watch .js files
