@@ -72,8 +72,8 @@ angular.module('eStockFront',[
     })
    .state('app.assemblyDetails', {
       url: "/Projects/:pId/:idAssembly",
-      // templateUrl:"app_components/projectsView/projectAssembliesDetails.html",
-      templateUrl:"projectsView/projectAssembliesDetails.html",
+      templateUrl:"app_components/projectsView/projectAssembliesDetails.html",
+      // templateUrl:"projectsView/projectAssembliesDetails.html",
       controller:'projectsAssemblyDetailCtrl'
 
     })

@@ -2,7 +2,17 @@
   'use strict';
 angular.module('settingsModule',[])
 
-.controller('settingsCtrl',['$scope','shop','handleProjects',function ($scope,shop,handleProjects) {
+.controller('settingsCtrl',['$scope','shop','handleProjects','$location','$anchorScroll',function ($scope,shop,handleProjects,$location,$anchorScroll) {
+    
+    $scope.gotoHash = function(x) {
+      var newHash = x;
+      if ($location.hash() !== newHash) {
+        $location.hash(x);
+      } else {        
+        $anchorScroll();
+      }
+    };
+
     $scope.createAssembly = false;
     var query = {itemType:'SCHRAUBE'};
 
@@ -95,7 +105,9 @@ angular.module('settingsModule',[])
                 $scope.viewItem = false;
                 $scope.justInfo = false;
                 $scope.editItem = true;
+                $scope.gotoHash('top');
             };
+
             // just display the Object Information
     $scope.readObj = function(item){
                 item.itemLastDate = new Date(item.itemLastDate);// string to Date obj
@@ -105,6 +117,7 @@ angular.module('settingsModule',[])
                 $scope.editItem = false;
                 $scope.justInfo = true;
                 $scope.viewItem = true;
+                $scope.gotoHash('top');
                 
             };
 
@@ -124,8 +137,8 @@ angular.module('settingsModule',[])
             };
 
     $scope.createObj = function(obj){
-                    obj.companyId = $scope.firmaId;
-                    shop.items.save(obj,function (data){
+        obj.companyId = $scope.firmaId;
+        shop.items.save(obj,function (data){
                         if(data){
                             $scope.obj = {};
                         $scope.newItem = false;
@@ -144,6 +157,16 @@ angular.module('settingsModule',[])
                          }, function (error){
                             alert('The item amount was not updated:'+error);
                          });
+    };
+
+    $scope.newitem = function(){
+        $scope.obj = {};
+        $scope.createAssembly = false;
+        $scope.editItem = false;
+        $scope.justInfo = false;
+        $scope.viewItem = false;
+        $scope.newItem = true;
+        console.log($scope.obj);
     };
     // table functionality
 

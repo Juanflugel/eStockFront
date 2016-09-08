@@ -9,6 +9,7 @@
   "author": "Juan Garcia",
   "license": "UNLICENSED",
   "dependencies": {
+    "compression": "^1.6.2",
     "express": "^4.14.0",
     "gulp-if": "^2.0.1",
     "ng-annotate": "^1.2.1"

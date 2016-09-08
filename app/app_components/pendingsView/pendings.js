@@ -4,7 +4,7 @@
 
 	.controller('pendingsCtrl', ['$scope','shop',function ($scope,shop){
 // table set up
-	$scope.header = {itemCode:'Item Code',itemAmount:'Stock',itemType:'Type',itemName:'Name',itemBuyPrice:'Price',itemProvider:'Provider'};
+	$scope.header = {itemCode:'Item Code',itemAmount:'Stock',itemNeed:'Remain',itemType:'Type',itemName:'Name',itemBuyPrice:'Price',itemProvider:'Provider'};
 
 	var query = {};
 	query.companyId = 'RMB01';

@@ -48,31 +48,31 @@ angular.module('assembliesModule',['services'])
     $scope.editAssembly = function(obj){ // open the form to update assembly info
         $scope.Objassembly = obj;
         $scope.editAssemblyInfo = true;
-        $scope.gotoHash('assemblyForm');
-        
+        $scope.gotoHash('top');
     };
-    $scope.closeForm = function(){
-        $location.hash('top');
-        $anchorScroll('top');
-    };
+    
 
     $scope.updateAssemblyInfo = function(obj){ // update the info in the server
+        $scope.progressBardisable = false;
         var idDocument = obj._id;
         obj.assemblyName = obj.assemblyName.toUpperCase();
         shop.assemblyUpdate.update({_id:idDocument},obj,function (data){
             console.log(data);
             $scope.editAssemblyInfo = false;
+            $scope.progressBardisable = true;
         },function (error){
             alert(error);
         });
     };
 
     $scope.createAssembly = function(obj){
+        
         obj.companyId = $scope.firmaId;
         shop.assembly.save(obj,function (data){
-        console.log(data);
-        $scope.startNewAssembly = false; // ng-show
-        $scope.assembliesQuery();
+            console.log(data);
+            $scope.startNewAssembly = false; // ng-show
+            $scope.assembliesQuery();
+
         });
     };
 
@@ -102,14 +102,14 @@ angular.module('assembliesModule',['services'])
     $scope.showAssemblyItems = function(obj){ // show all the items that belong to an assembly
         $scope.assemblyInfo = obj;
         $scope.collection = obj.assemblyItems;
-        $scope.gotoHash('assemblyForm');
+        $scope.gotoHash('top');
     };
 
     $scope.editObj = function(obj){ // edit a item inside an assembly
         $scope.obj = obj;
         $scope.insertObjInAssembly = false;
         $scope.editObjInAssembly = true;
-        $scope.gotoHash('assemblyForm');
+        $scope.gotoHash('top');
 
     };
     $scope.newObj = function(){ // insert a  new Item in an assembly

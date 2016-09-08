@@ -33,7 +33,7 @@ angular.module('services', ['ngResource'])
 .factory('Config', function () {
   return {
       version : '0.0.1',
-      ip: 'www.estock.website', // localhost www.estock.website
+      ip: 'localhost', // localhost www.estock.website
       port: 5006,
       protocol: 'http'
   };
@@ -49,6 +49,7 @@ angular.module('services', ['ngResource'])
     
     // request to the API
     prueba : $resource('http://' + Config.ip + ':' + Config.port + '/handleProjects'),
+    pruebaUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/handleProjects',{},{ update: {method: 'PUT'}}),
     list : $resource('http://' + Config.ip + ':' + Config.port + '/items'),
     items: $resource('http://' + Config.ip + ':' + Config.port + '/items',{}),
     itemsInserted: $resource('http://' + Config.ip + ':' + Config.port + '/insertedItems',{}),

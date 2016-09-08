@@ -2,7 +2,7 @@
 	'use strict';
 	angular.module('projectsAssemblyDetailModule',['services'])
 
-	.controller('projectsAssemblyDetailCtrl',['$scope','handleProjects',function ($scope,handleProjects){
+	.controller('projectsAssemblyDetailCtrl',['$scope','handleProjects','shop',function ($scope,handleProjects,shop){
 		
 		
 		$scope.header = {itemStatus:'Status',itemCode:'Item Code',neededAmount:'Amount',itemName:'Name'};
@@ -19,11 +19,25 @@
 		};
 
 		$scope.order = function(predicate){
-                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                $scope.predicate = predicate;
-            };
+            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+            $scope.predicate = predicate;
+        };
 
-        
+        $scope.passObjToEdit = function(obj){
+        	$scope.obj = obj;
+        	$scope.editObjInAssemblyProject = true;
+        };
+
+        $scope.updateItems = function(){
+        	var query = {};
+        	query._id = $scope.currentProject._id;
+        	query['projectAssemblies._id'] = $scope.currentAssembly._id;
+        	shop.pruebaUpdate.update(query,$scope.collection,function (data){
+
+        	},function (error){
+
+        	});
+        };
 
 	}]);
 
