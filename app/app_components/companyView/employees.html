@@ -1,0 +1,122 @@
+<div flex layout="column">
+	<md-card>  
+		<md-subheader  class="md-no-sticky">        
+			<div layout="row" flex >
+				<p class="viewSubHeader text-center" flex="80" layout="row">
+					<span flex>Rohde Maschinenbau GmbH</span>
+					<span flex>23701</span>
+					<span flex>{{employees.length}} Employees Registered</span>
+					<span flex>Deutschland</span>
+				</p>
+			<span flex></span>
+
+			<p ng-hide="insertNewemployee" class="viewSubHeader text-center" ng-click="startNewEmployee()">
+				<i   class="fa fa-plus fa-lg" ></i>
+			</p>
+			<p ng-show="insertNewemployee" class="viewSubHeader text-center" ng-click="insertarAssemnliesInProject()">
+				<i   class="fa fa-check-circle fa-lg  text-success" ></i>
+			</p>
+			<p ng-show="insertNewemployee" class="viewSubHeader text-center" ng-click="insertNewemployee=false">
+				<i   class="fa fa-times fa-lg text-danger" ></i>
+			</p>
+
+			</div>
+		</md-subheader>
+
+	<md-progress-linear md-mode="query" ng-disabled="progressBarInsertemployeedisable"></md-progress-linear>
+
+	
+<div ng-show="editUser || newUser">
+<md-divider flex></md-divider>
+
+  <div layout-padding >
+  <br>
+    <div layout="row" layout-wrap>
+
+      <md-input-container flex ="25">
+        <label>Real Name</label>
+        <input type="text" ng-model="obj.userRealName">
+      </md-input-container>
+      <md-input-container  flex ="25">
+        <label>Real Last Name</label>
+        <input type="text" ng-model="obj.userRealLastName">
+      </md-input-container>
+
+      <md-input-container flex ="25">
+        <label>User Name</label>
+        <input type="text" ng-model="obj.userName">
+      </md-input-container>
+      <md-input-container flex="25">
+        <label>User Role</label>
+        <input type="text" ng-model="obj.userRole">
+      </md-input-container>
+     
+          
+      &nbsp;
+      <!-- editing part -->
+        <div ng-show="editUser" ng-hide="newUser">
+          <i  ng-click="updateUser(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
+        </i>&nbsp; &nbsp; &nbsp;
+        </div>
+        <div ng-show="editUser" ng-hide="newUser">
+          <i  ng-click="editUser=false"  layout-padding class="fa fa-times fa-2x text-danger"></i>
+          &nbsp; &nbsp; &nbsp;
+        </div>
+        <!-- editing part -->
+        <!-- inserting part -->
+        <div ng-hide="editUser" ng-show="newUser">
+          <i  ng-click="createUser(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
+        </i>&nbsp; &nbsp; &nbsp;
+        </div>
+        <div ng-hide="editUser" ng-show="newUser">
+          <i  ng-click="newUser=false"  layout-padding class="fa fa-times fa-2x text-danger"></i>
+          &nbsp; &nbsp; &nbsp;
+        </div>
+        <!-- inserting part -->
+    
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+	</md-card>
+
+	<md-card flex>
+		<md-list flex>
+			<md-list-item class="md-2-line"  ng-repeat="employee in employees"ng-click="passemployee(employee)">
+				<img src="icon.png" class="md-avatar" alt="" />
+				<div class="md-list-item-text" layout="column">
+					<p layout="row" layout-align="center" flex>
+						<span flex>{{employee.userRealName}}</span>                  
+						<span flex >{{employee.userRealLastName}}</span>
+						<span flex>{{employee.userRole}}</span>
+						<span >{{employee.userName}}</span>                       
+					</p>
+					<p><span flex>{{employee.employeeNumber}}</span></p>
+				</div>
+				<md-menu class="md-secondary">
+					<md-button class="md-icon-button" aria-label="Open" ng-click="$mdOpenMenu($event)">
+					<i class="listMenu fa fa-ellipsis-v fa-lg"aria-hidden="true"></i>
+					</md-button>
+					<md-menu-content width="4">
+						<md-menu-item>
+						<md-button ng-click="editUserInfo(employee)">
+						Edit Employee Information
+						</md-button>
+						</md-menu-item>
+						<md-menu-item>
+						<md-button ng-click="deleteUser(employee,$index)">
+						Delete Employee
+						</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			<div ></div>
+			<md-divider ></md-divider>
+			</md-list-item>         
+		</md-list>
+	</md-card>
+</div>

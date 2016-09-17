@@ -33,7 +33,7 @@ angular.module('services', ['ngResource'])
 .factory('Config', function () {
   return {
       version : '0.0.1',
-      ip: 'www.estock.website', // localhost www.estock.website
+      ip: 'localhost', // localhost www.estock.website
       port: 5006,
       protocol: 'http'
   };
@@ -63,6 +63,8 @@ angular.module('services', ['ngResource'])
     assemblyUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/assemblies',{},{ update: {method: 'PUT'}}),
     company: $resource('http://' + Config.ip + ':' + Config.port + '/company',{}),
     companyInfoUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/company',{},{ update: {method: 'PUT'}}),
+    users:$resource('http://' + Config.ip + ':' + Config.port + '/users',{}),
+    usersUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/users',{},{ update: {method: 'PUT'}}),
     // request to the API
     // company Information
     passCompanyInfo: function(objCompany){
@@ -83,6 +85,9 @@ angular.module('services', ['ngResource'])
     },
     getCompanyFilters:function(){
       return companyFilters;
+    },
+    getTotalCompanyInfo:function(){
+      return totalCompanyInfo;
     }
 
   };
