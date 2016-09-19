@@ -1,0 +1,61 @@
+<div flex layout="column">
+	<md-card>  
+		<md-subheader  class="md-no-sticky">        
+			<div layout="row" flex >
+				<p class="viewSubHeader text-center" flex="80" layout="row">
+					<span flex ng-hide="showFilters"> Select a filter to look details</span>
+					<span flex ng-show="showFilters">{{currentFilter.tagToShow}}</span>
+					<span flex ng-show="showFilters">{{currentFilter.array.length}} Filters Registered</span>
+					
+				</p>
+			<span flex></span>
+
+			<p ng-show="showFilters" class="viewSubHeader text-center" ng-click="saveChangesInFilters()">
+				Save Changes
+			</p>
+
+			</div>
+		</md-subheader>
+	</md-card>
+
+	<md-card ng-show="showFilters" layout-padding>
+			<md-chips ng-model="myFilters" placeholder="Add an item to filter by">
+			</md-chips>
+	</md-card>
+
+	<md-card flex>
+		<md-list flex>
+			<md-list-item class="md-2-line"  ng-repeat="filterTag in filterTags" ng-click="filtersDetails(filterTag)">
+				<img src="icon.png" class="md-avatar" alt="" />
+				<div class="md-list-item-text" layout="column">
+					<p layout="row" layout-align="center" flex>
+						<span flex>{{filterTag.tagToShow}}</span>                  
+						<span flex >{{filterTag.array.length}} Filters Registered</span>
+						<span flex>{{}}</span>
+						<span >{{}}</span>                       
+					</p>
+					<p><span flex>{{}}</span></p>
+				</div>
+				<md-menu class="md-secondary">
+					<md-button class="md-icon-button" aria-label="Open" ng-click="$mdOpenMenu($event)">
+					<i class="listMenu fa fa-ellipsis-v fa-lg"aria-hidden="true"></i>
+					</md-button>
+					<md-menu-content width="4">
+						<md-menu-item>
+						<md-button ng-click="editUserInfo(employee)">
+						Edit Filter Information
+						</md-button>
+						</md-menu-item>
+						<md-menu-item>
+						<md-button ng-click="">
+						Anything esle
+						</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			<div ></div>
+			<md-divider ></md-divider>
+			</md-list-item>         
+		</md-list>
+	</md-card>
+</div>

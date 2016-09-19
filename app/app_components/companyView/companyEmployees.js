@@ -3,6 +3,7 @@
 angular.module('companyEmployeesModule',[])
 
 .controller('employeesCtrl',['$scope','shop',function ($scope,shop){
+	
 	$scope.companyId = shop.getCompanyId();
 	var query = {};
 	query.companyId = $scope.companyId;
@@ -30,6 +31,7 @@ angular.module('companyEmployeesModule',[])
 			console.log('nuevo user creado');
 			$scope.newUser = false;
 			$scope.progressBarInsertemployeedisable = true;
+			$scope.queryEmployees();
 		},function(error){})
 	};
 

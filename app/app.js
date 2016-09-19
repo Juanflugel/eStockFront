@@ -13,7 +13,8 @@ angular.module('eStockFront',[
     'projectsDetailsModule',
     'assembliesModule',
     'companyModule',
-    'companyEmployeesModule'
+    'companyEmployeesModule',
+    'companyFiltersModule'
 
 
     ])
@@ -105,6 +106,12 @@ angular.module('eStockFront',[
       url: "/Employees",
       templateUrl:"app_components/companyView/employees.html",     
       controller:'employeesCtrl'
+
+    })
+    .state('app.Company.Filters', {
+      url: "/Filters",
+      templateUrl:"app_components/companyView/companyFilters.html",     
+      controller:'filterCtrl'
 
     });
 

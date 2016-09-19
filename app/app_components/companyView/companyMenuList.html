@@ -15,7 +15,7 @@
                
                 <!-- Form To create a new assembly -->
             <md-divider ></md-divider>
-                <md-list-item class="md-2-line"  ng-repeat="items in menu" ng-click="showAssemblyItems(assembly)">
+                <md-list-item class="md-2-line"  ng-repeat="items in menu" ng-click="showAssemblyItems(assembly)" ui-sref="app.Company.{{items.menuItem}}">
                     <img src="icon.png" class="md-avatar" alt="" />
                     <div class="md-list-item-text" layout="column">
                         <p>{{items.menuItem}}</p>
