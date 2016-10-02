@@ -32,10 +32,10 @@
         	var query = {};
         	query._id = $scope.currentProject._id;
         	query['projectAssemblies._id'] = $scope.currentAssembly._id;
-        	shop.pruebaUpdate.update(query,$scope.collection,function (data){
-
+        	shop.pruebaUpdate.update(query,$scope.collection,function (){
+        		console.log('items updated');
         	},function (error){
-
+        		console.log(error);
         	});
         };
 

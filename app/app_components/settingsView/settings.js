@@ -182,12 +182,22 @@ angular.module('settingsModule',[])
 
     $scope.itemsNewAssembly = [];
 
-    $scope.refreshFilter = function(){
+    $scope.refreshFilter = function(){ // filter for all intems to be inserted
     $scope.itemsToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
     };
 
     $scope.insertItemInAssembly = function(){
-        $scope.itemsNewAssembly.push.apply($scope.itemsNewAssembly,$scope.itemsToInsert);
+        if($scope.itemsToInsert.length > 0){
+            _.each($scope.itemsToInsert,function(obj){
+                obj.itemAssembled = false;
+            });
+            $scope.itemsNewAssembly.push.apply($scope.itemsNewAssembly,$scope.itemsToInsert);
+            $scope.refresh();
+            $scope.itemsToInsert =[];
+        }else{
+            return;
+        }
+       
     };
 
     $scope.createNewAssembly = function(){ // funcion para crear nuevo emsamble desde la vista configraciones

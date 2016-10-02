@@ -168,6 +168,74 @@ angular.module('assembliesModule',['services'])
     };
     // assembly details logic - once you select an assembly
 
+    // assembly update logic - insert multiple items from stock
+
+    $scope.queryByCode = function(){ // funcion para poder buscar una pieza cualquiera por codigo desde el input principal
+                var query = {};
+                query.companyId = $scope.firmaId;
+                query.itemCode = $scope.search;
+                shop.itemsCode.query(query,function (data){
+                    $scope.itemsForAssembly = data;
+                    
+            },function (error){
+                console.log(error);
+            });         
+        
+    };
+    $scope.loadFilter = function(){
+        $scope.filterBy = shop.getCompanyFilters();// cargando los filtros de la Empresa
+        $scope.assembliesList = $scope.filterBy[3].array; // lista de assemblies
+        $scope.providersList = $scope.filterBy[1].array; // lista de proveedores
+    };
+
+    $scope.queryByFilter = function(){ // function to query by any registerd filter
+        var j = {};
+        j[$scope.filterModel.queryObjKey] = $scope.queryTag;
+        var query = j;
+        query.companyId = $scope.firmaId;
+        shop.items.query(query,function (data){
+            $scope.itemsForAssembly  = data; // show the results
+        },function (error){
+            console.log(error);
+        });
+    };
+
+    $scope.refreshFilter = function(){ // filter for all intems to be inserted
+        $scope.itemsToInsert =_.filter($scope.itemsForAssembly, function(obj){ return obj.insert === true; });
+    };
+
+    $scope.listOfitemsToInsertInAssembly = [];
+    $scope.itemsToInsert = [];
+
+    $scope.insertItemInAssembly = function(){
+        if($scope.itemsToInsert.length > 0){
+            $scope.progressBardisable = false;
+            _.each($scope.itemsToInsert,function(obj){
+                obj.itemAssembled = false;
+            });
+            $scope.listOfitemsToInsertInAssembly.push.apply($scope.listOfitemsToInsertInAssembly,$scope.itemsToInsert);
+                        
+            var updateQuery = {};
+            updateQuery.companyId = $scope.companyId;
+            updateQuery.assemblyNumber = $scope.assemblyInfo.assemblyNumber;
+            shop.assemblyUpdate.update(updateQuery,$scope.listOfitemsToInsertInAssembly,function (data){
+                console.log('listo el pollo');
+                $scope.queryByFilter();
+                $scope.itemsToInsert =[];
+                $scope.progressBardisable = true;
+                $scope.insertObjInAssembly = false;
+            },function (error){
+
+            });
+        }else{
+            return;
+        }
+       
+    };
+
+
+    // assembly update logic - insert multiple items from stock
+
 }])
 
 

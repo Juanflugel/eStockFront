@@ -32,6 +32,6 @@ angular.module('companyModule',['services'])
 	templateUrl: 'app_components/companyView/companyMenuList.html'    
 
 };
-}])
+}]);
 
 }());

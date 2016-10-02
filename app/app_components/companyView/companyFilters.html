@@ -18,9 +18,11 @@
 		</md-subheader>
 	</md-card>
 
-	<md-card ng-show="showFilters" layout-padding>
-			<md-chips ng-model="myFilters" placeholder="Add an item to filter by">
+	<md-card ng-show="showFilters" layout-padding layout="row" flex>
+			<md-chips ng-model="myFilters" placeholder="Add an item to filter by"  md-on-remove="removeFilter($chip)" md-on-add="pushFilter($chip)" flex>
 			</md-chips>
+			<i  ng-click="showFilters=false"  layout-padding class="fa fa-times fa-2x text-danger"></i>
+          
 	</md-card>
 
 	<md-card flex>

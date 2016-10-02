@@ -112,9 +112,9 @@
     		</thead>
 
     		<tbody>
-    		<tr ng-repeat="sample in collection  | filter:search |filter:{itemAssembled:'!'} |orderBy:predicate:reverse" class="text-center">
+    		<tr ng-repeat="sample in collection  | filter:search |filter:{itemAssembled:'false'} |orderBy:predicate:reverse" class="text-center">
     			
-	   			<td ng-show="sample.itemAssembled===undefined"class="iTable"><i class="fa fa-times fa-lg text-danger"></i></td>
+	   			<td ng-show="sample.itemAssembled===false"class="iTable"><i class="fa fa-times fa-lg text-danger"></i></td>
 		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>		  		
 		  		<td class="iTable">{{sample.itemAmount}}</td>
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
@@ -128,7 +128,7 @@
 	  
 	   		<tr ng-repeat="sample in collection | filter:search |filter:{itemAssembled:'true'} |orderBy:predicate:reverse" class="text-center">
 				
-	   			<td ng-show="sample.itemAssembled"class="iTable"><i class="fa fa-check-circle fa-lg text-success" > </td>
+	   			<td ng-show="sample.itemAssembled" class="iTable"><i class="fa fa-check-circle fa-lg text-success" > </td>
 		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>		  		
 		  		<td class="iTable">{{sample.itemAmount}}</td>
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>

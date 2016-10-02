@@ -13,7 +13,7 @@ angular.module('companyEmployeesModule',[])
 		$scope.employees = data;
 		$scope.progressBarInsertemployeedisable = true;
 		},function (error){
-
+			console(error);
 		});
 	};
 
@@ -28,11 +28,13 @@ angular.module('companyEmployeesModule',[])
 		$scope.progressBarInsertemployeedisable = false;
 		obj.companyId = $scope.companyId;
 		shop.users.save(obj,function (data){
-			console.log('nuevo user creado');
+			console.log('nuevo user creado', data);
 			$scope.newUser = false;
 			$scope.progressBarInsertemployeedisable = true;
 			$scope.queryEmployees();
-		},function(error){})
+		},function (error){
+			console.log(error);
+		});
 	};
 
 	$scope.editUserInfo = function(obj){
@@ -44,10 +46,10 @@ angular.module('companyEmployeesModule',[])
 		var query = {};
 		query._id = obj._id;
 		shop.usersUpdate.update(query,obj,function (data){
-			console.log('todo bien perro');
+			console.log('todo bien perro',data);
 			$scope.editUser = false;
 		},function (error){
-			alert('error');
+			alert(error);
 		});
 		
 	};
