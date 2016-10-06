@@ -5,6 +5,7 @@ angular.module('eStockFront',[
     'ui.router',
     'ngMaterial',
     'services',
+    'auxiliarFunctions',
     'menuModule',
     'settingsModule',
     'pendingsModule',
