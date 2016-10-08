@@ -28,8 +28,8 @@ angular.module('companyModule',['services'])
   // Runs during compile
   return {
 	restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-	// templateUrl: 'projectsView/projectListCard.html'
-	templateUrl: 'app_components/companyView/companyMenuList.html'    
+	// templateUrl: 'app_components/companyView/companyMenuList.html'
+	templateUrl: 'companyView/companyMenuList.html'   
 
 };
 }]);

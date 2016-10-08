@@ -218,14 +218,14 @@ angular.module('assembliesModule',['services'])
             var updateQuery = {};
             updateQuery.companyId = $scope.companyId;
             updateQuery.assemblyNumber = $scope.assemblyInfo.assemblyNumber;
-            shop.assemblyUpdate.update(updateQuery,$scope.listOfitemsToInsertInAssembly,function (data){
+            shop.assemblyUpdate.update(updateQuery,$scope.listOfitemsToInsertInAssembly,function (){
                 console.log('listo el pollo');
                 $scope.queryByFilter();
                 $scope.itemsToInsert =[];
                 $scope.progressBardisable = true;
                 $scope.insertObjInAssembly = false;
             },function (error){
-
+                console.log(error);
             });
         }else{
             return;

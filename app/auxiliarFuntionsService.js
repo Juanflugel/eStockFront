@@ -6,6 +6,27 @@ angular
 
     function handleProjects (){
 
+      var currentProject = {};
+      var currentAssembly = {};
+
+         var passProject =function(obj){
+          currentProject = obj;
+        };
+
+    var passAssembly = function(obj){
+      currentAssembly = obj;
+    };
+
+     var getCurrentProject = function() {
+        return currentProject;
+     };
+
+     var getCurrentAssembly = function() {
+       
+       return currentAssembly;
+ 
+    };
+
         var getJustCode = function(collection){
           var codeCol = [];
           _.each(collection,function (obj){
@@ -85,13 +106,33 @@ angular
 
         };
 
+        var orderObjects = function(obj){ // this is a function to ensure the csv files has all the properties it need to be consistent
+
+            var orderObj = {};
+            orderObj.itemCode = obj.itemCode;
+            orderObj.itemName = obj.itemName || 'NONE';
+            orderObj.itemType = obj.itemType || 'NONE';
+            orderObj.itemProvider = obj.itemProvider || 'NONE';
+            orderObj.itemAssemblyName = obj.itemAssemblyName || 'NONE';
+            orderObj.itemAmount = obj.itemAmount;
+            orderObj.remainingAmount = Math.abs(obj.remainingAmount) ;
+
+            return orderObj;
+
+        };
+
         return {
             getJustCode : getJustCode,
             resumeCodeAndAmount : resumeCodeAndAmount,
             subtract2arrays : subtract2arrays,
             checkIfNegative : checkIfNegative,
             addAmountFromStock : addAmountFromStock,
-            addInsertedAmount : addInsertedAmount
+            addInsertedAmount : addInsertedAmount,
+            passProject : passProject,
+            passAssembly : passAssembly,
+            getCurrentAssembly : getCurrentAssembly,
+            getCurrentProject : getCurrentProject,
+            orderObjects : orderObjects
         };
   
   }

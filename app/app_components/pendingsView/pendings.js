@@ -2,7 +2,7 @@
 	'use strict';
 	angular.module('pendingsModule',[])
 
-	.controller('pendingsCtrl', ['$scope','shop',function ($scope,shop){
+	.controller('pendingsCtrl', ['$scope','shop','handleProjects',function ($scope,shop,handleProjects){
 // table set up
 	$scope.header = {itemCode:'Item Code',itemAmount:'Stock',itemNeed:'Remain',itemType:'Type',itemName:'Name',itemBuyPrice:'Price',itemProvider:'Provider'};
 
@@ -18,16 +18,22 @@
 		$scope.filtrar = j;
 	};	
 
+	$scope.toDownload = [];
+
 	shop.prueba.query(query,function (data){
-		console.log(data.length,new Date(),query);
+		
 		$scope.collection = data;
 		$scope.filterBy = shop.getCompanyFilters(); // tomar los filtros que usa la empresa
+
+		var l = $scope.collection.length;		
+		for (var i=0; i<l;i++){
+			var obj = handleProjects.orderObjects($scope.collection[i]);
+			$scope.toDownload.push(obj);
+		}
 
 	},function (error){
 		console.log(error);
 	});
-
-
 
 
 	}])

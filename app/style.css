@@ -43,7 +43,8 @@ md-sidenav {
 	margin: 5px;
 }
 .listMenu{
-	color:rgba(0,0,0,0.54);;
+	color:rgba(0,0,0,0.54);
+	cursor: pointer;
 }
 .headerProject:hover{
  cursor: pointer;

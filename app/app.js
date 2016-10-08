@@ -1,6 +1,8 @@
 (function(){
   'use strict';
 angular.module('eStockFront',[
+    'ngSanitize',
+    'ngCsv',
     'templates',
     'ui.router',
     'ngMaterial',
@@ -92,26 +94,29 @@ angular.module('eStockFront',[
     })
     .state('app.LogIn', {
       url: "/LogIn",
-      templateUrl:"app_components/logIn/logIn.html"
+      templateUrl:"logIn/logIn.html"
      
       // controller:'assembliesCtrl'
 
     })
     .state('app.Company', {
       url: "/Company",
-      templateUrl:"app_components/companyView/companyView.html",     
+      // templateUrl:"app_components/companyView/companyView.html",
+      templateUrl:"companyView/companyView.html",     
       controller:'companyCtrl'
 
     })
     .state('app.Company.Employees', {
       url: "/Employees",
-      templateUrl:"app_components/companyView/employees.html",     
+      // templateUrl:"app_components/companyView/employees.html",
+      templateUrl:"companyView/employees.html",     
       controller:'employeesCtrl'
 
     })
     .state('app.Company.Filters', {
       url: "/Filters",
-      templateUrl:"app_components/companyView/companyFilters.html",     
+      // templateUrl:"app_components/companyView/companyFilters.html",
+       templateUrl:"companyView/companyFilters.html",
       controller:'filterCtrl'
 
     });

@@ -13,7 +13,7 @@ angular.module('companyEmployeesModule',[])
 		$scope.employees = data;
 		$scope.progressBarInsertemployeedisable = true;
 		},function (error){
-			console(error);
+			console.log(error);
 		});
 	};
 
