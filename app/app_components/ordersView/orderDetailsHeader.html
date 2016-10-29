@@ -1,11 +1,11 @@
-
 <md-card id="top">
 	<md-subheader  class="md-no-sticky">        
 		<div layout="row" flex>
 			<p class="viewSubHeader text-center"  layout="row" flex="80">
-                <span flex>{{assemblyInfo.assemblyName}}</span>
-                <span flex>{{assemblyInfo.assemblyNumber}}</span>
-                <span flex>{{assemblyInfo.assemblyItems.length}} Bauteile</span>
+                <span flex>{{orderInfo.orderNumber}}</span>
+                <span flex>{{orderInfo.orderProvider}}</span>
+                <span flex>{{orderInfo.orderedItems.length}} Items</span>
+                <span flex>{{orderInfo.orderCreationDate | date:"MM.dd.yyyy"}}</span>
                 
             </p>
             <span flex></span>

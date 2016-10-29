@@ -1,0 +1,39 @@
+
+<md-card ng-show="newBuyOrder">
+
+	<md-divider flex></md-divider> 
+
+	<div  layout="row" layout-aling="center center" layout-margin>
+
+		<md-input-container md-no-float flex ="15">
+		      <input ng-model="orderObj.orderNumber" type="text" placeholder="Order Number" flex>
+		</md-input-container>
+		<md-input-container flex="15"> 
+		<md-select ng-model="orderObj.orderProvider" placeholder="Select a Provider">
+			<md-option ng-value ="tag" ng-repeat="tag in providers">{{tag}}</md-option>
+		</md-select>
+	    </md-input-container>
+
+
+		<div flex ng-repeat="item in items" layout-margin>
+              <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)" class="md-primary" >
+                {{ item }} 
+              </md-checkbox>
+        </div>
+
+
+		<p class="listMenu" layout="row" flex ="15" layout-align="center center">
+			{{itemsNewOrder.length}} items to Order
+		</p>
+		<span ></span>
+
+		<p  class="listMenu" ng-click="createNewOrder(orderObj)" layout="row" layout-align="center center">
+			<i class="fa fa-check-circle fa-lg text-success"></i>
+			 &nbsp; Create Order
+		</p>
+		<p  class="listMenu" ng-click="newBuyOrder=!newBuyOrder" layout="row" layout-align="center center">
+			<i class="fa fa-times fa-lg text-danger"></i>
+		</p>
+
+	</div>
+</md-card>

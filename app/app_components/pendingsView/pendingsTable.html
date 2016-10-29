@@ -5,7 +5,8 @@
 		  		<th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
 		  			<p ng-click="order(key)">{{val}}</p>
 		 		</th>
-		  		<th class="text-center"><p>Order</p></th>
+		 		<th ng-show="newBuyOrder" class="text-center"><p>Amount To Order</p></th>
+		  		<th ng-show="newBuyOrder" class="text-center"><p>Order</p></th>
          
 	   		</tr>
     		</thead>
@@ -14,20 +15,17 @@
 	   		<tr ng-repeat="sample in collection | filter:search |filter:filtrar |orderBy:predicate:reverse" class="text-center">
 		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>
 		  		<!-- <td class="iTable">{{sample.itemName}}</td> -->
-		  		<td contentEditable="{{createAssembly}}" ng-model="sample.itemAmount" type="number">{{sample.itemAmount}}</td>
+		  		<td class="iTable" type="number">{{sample.itemAmount}}</td>
 		  		<td class="iTable">{{sample.remainingAmount}}</td>
+		  		
 		  		<td class="iTable">{{sample.itemType}}</td>
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
 		  		<!-- <td class="iTable">{{sample.itemUnits}}</td> -->		  				  		
 		  		<td class="iTable">{{sample.itemBuyPrice}}</td>
 		  		<td class="iTable">{{sample.itemProvider}}</td>
-		 		<!-- <td ng-hide="createAssembly">
-		 		 	<i class="fa fa-pencil-square-o" ng-click="editObj(sample)"></i>&nbsp&nbsp
-		 		 	<i class="fa fa-info-circle" ng-click="readObj(sample)"></i>&nbsp&nbsp
-			 		<i class="fa fa-trash" ng-click="deleteObj(sample)"></i>
-			 		
-		  		</td> -->
-		  		<td class="iTable"><input type="checkbox" ng-change="" ng-model="sample.insert"></td>
+
+				<td ng-show="newBuyOrder" class="iTable" contentEditable="{{newBuyOrder}}" ng-model="sample.amountOrdered" type="number">1</td>
+		  		<td ng-show="newBuyOrder" class="iTable"><input type="checkbox" ng-change="filterItemsToOrder()" ng-model="sample.order"></td>
 	   		</tr>
     		</tbody>    
 	</table>  

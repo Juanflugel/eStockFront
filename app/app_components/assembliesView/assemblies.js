@@ -4,17 +4,18 @@ angular.module('assembliesModule',['services'])
 
 .controller('assembliesCtrl',['$scope','shop','$location','$anchorScroll',function ($scope,shop,$location,$anchorScroll){
     
+    var assemblyIndex = 0;
     
     $scope.header = {itemCode:'Item Code',neededAmount:'Amount',itemName:'Name'};  
     
 
-    $scope.assembliesQuery = function(){
-        var query ={};
+    $scope.assembliesQuery = function(index){
+        var query = {};
         query.companyId = $scope.firmaId;
         $scope.progressBardisable = false;
         shop.assembly.query(query,function (data){
                 $scope.assemblies = data;
-                $scope.assemblyInfo = $scope.assemblies[0];
+                $scope.assemblyInfo = $scope.assemblies[index] || $scope.assemblies[0];
                 $scope.collection = $scope.assemblyInfo.assemblyItems;
                 $scope.progressBardisable = true;
                 // console.log(data.length);
@@ -99,7 +100,8 @@ angular.module('assembliesModule',['services'])
 
     // assembly details logic - once you select an assembly
 
-    $scope.showAssemblyItems = function(obj){ // show all the items that belong to an assembly
+    $scope.showAssemblyItems = function(obj,index){ // show all the items that belong to an assembly
+        assemblyIndex = index;
         $scope.assemblyInfo = obj;
         $scope.collection = obj.assemblyItems;
         $scope.gotoHash('top');
@@ -116,10 +118,11 @@ angular.module('assembliesModule',['services'])
         $scope.obj = {};
         $scope.editObjInAssembly = false;
         $scope.insertObjInAssembly = true;
+        
     };
 
     $scope.insertItemInAssembly = function(obj){ // query to the api to insert a new item
-        console.log(obj);
+        
         var query = {};
         query.companyId = $scope.firmaId;
         query.assemblyNumber = $scope.assemblyInfo.assemblyNumber;
@@ -169,7 +172,7 @@ angular.module('assembliesModule',['services'])
     // assembly details logic - once you select an assembly
 
     // assembly update logic - insert multiple items from stock
-
+    $scope.filterModel = {};
     $scope.queryByCode = function(){ // funcion para poder buscar una pieza cualquiera por codigo desde el input principal
                 var query = {};
                 query.companyId = $scope.firmaId;
@@ -220,8 +223,12 @@ angular.module('assembliesModule',['services'])
             updateQuery.assemblyNumber = $scope.assemblyInfo.assemblyNumber;
             shop.assemblyUpdate.update(updateQuery,$scope.listOfitemsToInsertInAssembly,function (){
                 console.log('listo el pollo');
-                $scope.queryByFilter();
-                $scope.itemsToInsert =[];
+                //$scope.queryByFilter();
+                $scope.assembliesQuery(assemblyIndex);
+                $scope.filterModel = {};
+                $scope.itemsToInsert = [];
+                $scope.itemsForAssembly = []; // just to clean de inserted items array
+                $scope.search = ''; // just to clean the model when the insertion process ocurs
                 $scope.progressBardisable = true;
                 $scope.insertObjInAssembly = false;
             },function (error){

@@ -5,7 +5,12 @@
             <div layout="row">
                 <span flex >Assemblies</span>
                 <span flex></span>
-                     <p ng-click="startNewAssembly=true"><i class="fa fa-plus fa-lg" ></i></p>
+                     <p ng-click="startNewAssembly=true">
+                        <i class="fa fa-plus fa-lg" ></i>
+                        <md-tooltip>
+                            Create a New Asembly
+                        </md-tooltip>
+                    </p>
                 </div>
         </md-subheader>
              
@@ -42,7 +47,7 @@
                 </div>
                 <!-- Form To create a new assembly -->
             <md-divider ></md-divider>
-                <md-list-item class="md-2-line"  ng-repeat="assembly in assemblies" ng-click="showAssemblyItems(assembly)">
+                <md-list-item class="md-2-line"  ng-repeat="assembly in assemblies" ng-click="showAssemblyItems(assembly,$index)">
                     <img src="icon.png" class="md-avatar" alt="" />
                     <div class="md-list-item-text" layout="column">
                         <p>{{assembly.assemblyName}}</p>

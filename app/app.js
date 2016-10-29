@@ -11,6 +11,7 @@ angular.module('eStockFront',[
     'menuModule',
     'settingsModule',
     'pendingsModule',
+    'ordersModule',
     'projectsModule',
     'projectsAssemblyDetailModule',
     'projectsDetailsModule',
@@ -60,8 +61,15 @@ angular.module('eStockFront',[
     })
     .state('app.Pendings', {
       url: "/Pendings",
+      //templateUrl:"app_components/pendingsView/pendingsView.html",
       templateUrl:"pendingsView/pendingsView.html",
       controller:'pendingsCtrl'
+    })
+    .state('app.Orders', {
+      url: "/Orders",
+      //templateUrl:"app_components/pendingsView/pendingsView.html",
+      templateUrl:"app_components/ordersView/ordersView.html",
+      controller:'ordersCtrl'
     })
     .state('app.Projects', {
       url: "/Projects",

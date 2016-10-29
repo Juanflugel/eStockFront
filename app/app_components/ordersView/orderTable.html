@@ -1,0 +1,28 @@
+<md-card>
+	<table class="table table-hover table-responsive panel">    
+    		<thead>
+	   		<tr class="table" >
+		  		<th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
+		  			<p ng-click="order(key)">{{val}}</p>
+		 		</th>
+		  		
+		  		          
+	   		</tr>
+    		</thead>
+
+    		<tbody>
+	   		<tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
+		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>		  		
+		  		<td class="iTable">{{sample.amountOrdered}}</td>
+		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
+		  		<td class="iTable">{{sample.itemPrice | limitTo:30}}</td>
+
+		 		<td class="iTable">
+		 		 	<i class="fa fa-pencil-square-o" ng-click="editObj(sample)"></i>&nbsp;&nbsp;
+			 		<i class="fa fa-trash" ng-click="deleteItemFromAssembly(sample)"></i>
+			 		
+		  		</td>
+	   		</tr>
+    		</tbody>    
+	</table>  
+</md-card>

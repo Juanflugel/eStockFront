@@ -17,11 +17,23 @@
 			<md-toolbar class="md-hue-2">
 		        <h1 class="md-toolbar-tools">Sidenav Right</h1>
 		     </md-toolbar>
-	        <a ui-sref="app.Pendings" class="md-button" ng-click="close()">Pending</a>
-	        <a ui-sref="app.Projects" class="md-button" ng-click="close()">Projects</a>
-	        <a ui-sref="app.Assemblies" class="md-button" ng-click="close()">Assemblies</a>
-	        <a ui-sref="app.Settings" class="md-button" ng-click="close()">Settings</a>
-	        <a ui-sref="app.Company" class="md-button" ng-click="close()">Company</a>
+	        <a ui-sref="app.Pendings" class="md-button" ng-click="close()">
+	        	<i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>&nbsp; Pending</a>
+	        <a ui-sref="app.Orders" class="md-button" ng-click="close()">
+	         <i class="fa fa-book fa-lg" aria-hidden="true"></i>&nbsp; Orders
+	     	</a>
+	        <a ui-sref="app.Projects" class="md-button" ng-click="close()">
+	        	<i class="fa fa-puzzle-piece fa-lg" aria-hidden="true"></i>&nbsp; Projects
+	        </a>
+	        <a ui-sref="app.Assemblies" class="md-button" ng-click="close()">
+	        	<i class="fa fa-cubes fa-lg" aria-hidden="true"></i>&nbsp; Assemblies
+	        </a>
+	        <a ui-sref="app.Settings" class="md-button" ng-click="close()">
+	        	<i class="fa fa-cog fa-spin fa-lg"></i>&nbsp; Settings
+	        </a>
+	        <a ui-sref="app.Company" class="md-button" ng-click="close()">
+	        	<i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp; Company
+	        </a>
 
 		</md-sidenav>
 

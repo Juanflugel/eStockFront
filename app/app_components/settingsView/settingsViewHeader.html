@@ -14,7 +14,21 @@
 		<md-option ng-value ="tag" ng-repeat="tag in filterModel.array">{{tag}}</md-option>
 		</md-select>
 	</md-input-container>
-	<span class="headerHelp listMenu"><p ng-click="newitem()"><i class="fa fa-plus fa-lg" ></i></p></span>
-	<span class="headerHelp listMenu"><p ng-click="newAssembly()"><i class="fa fa-cubes fa-lg"></i></p></span>
+	<span class="headerHelp listMenu">
+		<p ng-click="newitem()">
+		<i class="fa fa-plus fa-lg" ></i>
+			<md-tooltip>
+                 Create a New Item
+            </md-tooltip>
+		</p>
+	</span>
+	<span class="headerHelp listMenu">
+		<p ng-click="newAssembly()">
+			<i class="fa fa-cubes fa-lg"></i>
+			<md-tooltip>
+                 Create a New Assembly
+            </md-tooltip>
+		</p>
+	</span>
 </div>
 </md-card>

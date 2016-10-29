@@ -3,12 +3,12 @@
                <!--  sub header de la seccion Projectos -->
                 <md-subheader  class="md-no-sticky">       	
         		<div layout="row">
-        			 <p flex class="headerProject" ng-click="projectQuery(0,'open')" id="top">Open Projects</p>
-        			 <p flex class="headerProject" ng-click="projectQuery(0,'closed')">Closed Projects</p>
+        			 <p flex class="headerProject" ng-click="projectQuery(0,'open')" id="top">Open Orders</p>
+        			 <p flex class="headerProject" ng-click="projectQuery(0,'closed')">Closed Orders</p>
         			 <p ng-click="startNewProject=true">
                 <i class="fa fa-plus fa-lg" ></i> 
                 <md-tooltip>
-                  Create a New Project
+                  Create a New Order
                 </md-tooltip>
                </p>
         		</div>
@@ -48,11 +48,11 @@
         	
 
 
-<md-list-item class="md-2-line" ng-repeat="project in projects" ng-click="showProjectAssemblies(project)" ui-sref="app.Projects.Details({id:project.projectNumber})">
+<md-list-item class="md-2-line" ng-repeat="order in orders" ng-click="showOrderDetails(order)">
 <img src="icon.png" class="md-avatar" alt="" />
 <div class="md-list-item-text" layout="column" > 
-  <p>{{project.projectType}} - {{project.projectName}}</p>
-  <p>{{project.projectNumber}} - {{project.deadLine | date:"MM.dd.yyyy"}}</p> 
+  <p>{{order.orderNumber}} - {{order.orderProvider}}</p>
+  <p>{{order.orderedItems.length}} Items - {{order.orderCreationDate | date:"MM.dd.yyyy"}}</p> 
 </div>
 
     <md-menu class="md-secondary">
@@ -61,19 +61,19 @@
     </md-button>
     <md-menu-content width="4">
       <md-menu-item>
-        <md-button ng-click="editProjectObj(project)">
-          Edit Project
+        <md-button ng-click="editOrderObj(order)">
+          Edit Order
         </md-button>
       </md-menu-item>
       <md-menu-item>
-        <md-button ng-click="deleteProjects(project)">
-          Delete Project
+        <md-button ng-click="deleteOrder(order)">
+          Delete Order
         </md-button>
       </md-menu-item>
       <md-menu-divider></md-menu-divider>
       <md-menu-item>
-        <md-button ng-click="closeProject(project)">
-          Close Project
+        <md-button ng-click="closeOrder(order)">
+          Close Order
         </md-button>
       </md-menu-item>
     </md-menu-content>

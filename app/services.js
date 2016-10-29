@@ -33,7 +33,7 @@ angular.module('services', ['ngResource'])
 .factory('Config', function () {
   return {
       version : '0.0.1',
-      ip: 'www.estock.website', // localhost www.estock.website
+      ip: 'localhost', // localhost www.estock.website
       port: 5006,
       protocol: 'http'
   };
@@ -45,10 +45,10 @@ angular.module('services', ['ngResource'])
     var companyProviders = [];
     var companyFilters = [];
     var companyId ;
+    var root = 'http://' + Config.ip + ':' + Config.port;
   return {
     
     // request to the API
-    csv : $resource('http://' + Config.ip + ':' + Config.port + '/csv'),
     prueba : $resource('http://' + Config.ip + ':' + Config.port + '/handleProjects'),
     pruebaUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/handleProjects',{},{ update: {method: 'PUT'}}),
     list : $resource('http://' + Config.ip + ':' + Config.port + '/items'),
@@ -67,6 +67,7 @@ angular.module('services', ['ngResource'])
     companyFiltersUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/companyFilters',{},{ update: {method: 'PUT'}}),
     users:$resource('http://' + Config.ip + ':' + Config.port + '/users',{}),
     usersUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/users',{},{ update: {method: 'PUT'}}),
+    orders :$resource(root + '/orders',{}),
     // request to the API
     // company Information
     passCompanyInfo: function(objCompany){
