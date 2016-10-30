@@ -3,9 +3,9 @@
                <!--  sub header de la seccion Projectos -->
                 <md-subheader  class="md-no-sticky">       	
         		<div layout="row">
-        			 <p flex class="headerProject" ng-click="projectQuery(0,'open')" id="top">Open Orders</p>
-        			 <p flex class="headerProject" ng-click="projectQuery(0,'closed')">Closed Orders</p>
-        			 <p ng-click="startNewProject=true">
+        			 <p flex class="headerProject" ng-click="queryOrders(0,'open')" id="top">Open Orders</p>
+        			 <p flex class="headerProject" ng-click="queryOrders(0,'closed')">Closed Orders</p>
+        			 <p ng-click="startNewOrder=true">
                 <i class="fa fa-plus fa-lg" ></i> 
                 <md-tooltip>
                   Create a New Order
@@ -17,28 +17,36 @@
              <!--  sub header de la seccion Projectos -->
                <md-divider ></md-divider>
                <!-- Form To create a new project -->
-               <div layout="column"  flex ng-show="startNewProject ||editProject"> <br>
+               <div layout="column"  flex ng-show="startNewOrder ||editOrder"> <br>
                     <md-input-container >
-                        <label>Project Name</label>
-                        <input type="text" ng-model="obj.projectName">
+                        <label>Order Number</label>
+                        <input type="text" ng-model="obj.orderNumber">
                     </md-input-container>
                     <md-input-container >
-                        <label>Project Number</label>
-                        <input type="text" ng-model="obj.projectNumber">
+                        <label>Provider</label>
+                        <input type="text" ng-model="obj.orderProvider">
                     </md-input-container>
-                    <md-input-container >
-                        <label>Project Type</label>
-                        <input type="text" ng-model="obj.projectType">
-                    </md-input-container>
-                    <div layout="row" layout-margin flex> &nbsp; &nbsp; &nbsp;
-                        <md-datepicker ng-model="obj.deadLine" md-placeholder="Dead Line" md-hide-icons="calendar" type="date" flex></md-datepicker>
+                    <md-input-container  > 
+                        <label>Order Status</label>
+                        <md-select ng-model="obj.orderStatus">            
+                          <md-option ng-repeat="status in statusList" value="{{status}}">
+                            {{status}}
+                          </md-option>
+                        </md-select>
+                     </md-input-container>
 
-                        <i ng-hide="editProject" ng-show="startNewProject" ng-click="createNewProject(obj)"  layout-margin class="fa fa-check-circle fa-2x text-success" >    
+                    <div layout="row" flex>
+                      <md-input-container> 
+                        <label>Delivery Date</label>
+                        <md-datepicker ng-model="obj.orderDeliveringDate" type="date" md-hide-icons="calendar"></md-datepicker>
+                        </md-input-container>
+                      
+                        <i ng-hide="editOrder" ng-show="startNewOrder" ng-click="createNewProject(obj)"  layout-margin class="fa fa-check-circle fa-2x text-success" >    
                         </i>
-                        <i ng-hide="startNewProject" ng-show="editProject" ng-click="updateProject(obj)"  layout-margin class="fa fa-check-circle fa-2x text-success" >    
+                        <i ng-hide="startNewOrder" ng-show="editOrder" ng-click="updateOrder(obj)"  layout-margin class="fa fa-check-circle fa-2x text-success" >    
                         </i>
-                        <i ng-hide="editProject" ng-show="startNewProject" ng-click="startNewProject=false" layout-margin   class="fa fa-times fa-2x text-danger"></i>
-                        <i ng-hide="startNewProject" ng-show="editProject" ng-click="editProject=false" layout-margin   class="fa fa-times fa-2x text-danger"></i>
+                        <i ng-hide="editOrder" ng-show="startNewOrder" ng-click="startNewOrder=false" layout-margin   class="fa fa-times fa-2x text-danger"></i>
+                        <i ng-hide="startNewOrder" ng-show="editOrder" ng-click="editOrder=false" layout-margin   class="fa fa-times fa-2x text-danger"></i>
                         &nbsp; &nbsp;
                     </div>      
 
@@ -52,7 +60,7 @@
 <img src="icon.png" class="md-avatar" alt="" />
 <div class="md-list-item-text" layout="column" > 
   <p>{{order.orderNumber}} - {{order.orderProvider}}</p>
-  <p>{{order.orderedItems.length}} Items - {{order.orderCreationDate | date:"MM.dd.yyyy"}}</p> 
+  <p>{{order.orderedItems.length}} Items - {{order.orderDeliveringDate | date:"MM.dd.yyyy"}}</p> 
 </div>
 
     <md-menu class="md-secondary">
