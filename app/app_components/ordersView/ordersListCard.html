@@ -59,7 +59,7 @@
 <md-list-item class="md-2-line" ng-repeat="order in orders" ng-click="showOrderDetails(order)">
 <img src="icon.png" class="md-avatar" alt="" />
 <div class="md-list-item-text" layout="column" > 
-  <p>{{order.orderNumber}} - {{order.orderProvider}}</p>
+  <p>{{order.orderNumber}} - {{order.orderProvider}} - {{order.orderStatus}}</p>
   <p>{{order.orderedItems.length}} Items - {{order.orderDeliveringDate | date:"MM.dd.yyyy"}}</p> 
 </div>
 

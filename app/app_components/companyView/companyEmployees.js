@@ -3,12 +3,14 @@
 angular.module('companyEmployeesModule',[])
 
 .controller('employeesCtrl',['$scope','shop',function ($scope,shop){
+
 	
-	$scope.companyId = shop.getCompanyId();
+	$scope.firmaId = shop.getCompanyId();
 	var query = {};
-	query.companyId = $scope.companyId;
+	
 
 	$scope.queryEmployees = function(){
+		query.companyId = $scope.firmaId;
 		shop.users.query(query,function (data){
 		$scope.employees = data;
 		$scope.progressBarInsertemployeedisable = true;
@@ -17,7 +19,17 @@ angular.module('companyEmployeesModule',[])
 		});
 	};
 
-	$scope.queryEmployees();
+	
+
+	if($scope.firmaId){
+		$scope.queryEmployees();
+	}
+
+	$scope.$on('companyInfoAvailable',function(){
+			$scope.firmaId = shop.getCompanyId();
+			//console.log('from run');
+			$scope.queryEmployees();
+	});
 
 	$scope.startNewEmployee = function(){
 		$scope.obj = {};
@@ -26,7 +38,7 @@ angular.module('companyEmployeesModule',[])
 
 	$scope.createUser = function(obj){
 		$scope.progressBarInsertemployeedisable = false;
-		obj.companyId = $scope.companyId;
+		obj.companyId = $scope.firmaId;
 		shop.users.save(obj,function (data){
 			console.log('nuevo user creado', data);
 			$scope.newUser = false;

@@ -33,7 +33,7 @@ angular.module('services', ['ngResource'])
 .factory('Config', function () {
   return {
       version : '0.0.1',
-      ip: 'www.estock.website', // localhost www.estock.website
+      ip: 'localhost', // localhost www.estock.website
       port: 5006,
       protocol: 'http'
   };
@@ -65,8 +65,8 @@ angular.module('services', ['ngResource'])
     company: $resource('http://' + Config.ip + ':' + Config.port + '/company',{}),
     companyInfoUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/company',{},{ update: {method: 'PUT'}}),
     companyFiltersUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/companyFilters',{},{ update: {method: 'PUT'}}),
-    users:$resource('http://' + Config.ip + ':' + Config.port + '/users',{}),
-    usersUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/users',{},{ update: {method: 'PUT'}}),
+    users:$resource(root + '/users',{}),
+    usersUpdate:$resource(root+ '/users',{},{ update: {method: 'PUT'}}),
     orders :$resource(root + '/orders',{}),
     ordersUpdate :$resource(root + '/orders',{},{ update: {method: 'PUT'}}),
     // request to the API

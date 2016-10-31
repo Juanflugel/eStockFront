@@ -9,11 +9,11 @@
                 
             </p>
             <span flex></span>
-                <p ng-show="insertObjInAssembly" class="listMenu" layout="row" layout-align="center center" ng-click="insertItemInAssembly()" flex ="15">
+                <!-- <p ng-show="insertObjInOrder" class="listMenu" layout="row" layout-align="center center" ng-click="insertItemInOrder()" flex ="15">
                     <i class="fa fa-upload text-success"></i> &nbsp; Insert Items
-                </p>
+                </p> -->
 
-	 			<p ng-hide="insertObjInAssembly" class="viewSubHeader" ng-click="newObj();loadFilter()"><i   class="fa fa-plus fa-lg" ></i>
+	 			<p ng-hide="insertObjInOrder" class="viewSubHeader" ng-click="insertObjInOrder=true"><i   class="fa fa-plus fa-lg" ></i>
                     <md-tooltip>
                  Insert Items 
                     </md-tooltip>
@@ -22,7 +22,7 @@
  		</div>
 	</md-subheader>
 <md-progress-linear md-mode="query" ng-disabled="progressBardisable"></md-progress-linear>
-	<div ng-show="editObjInAssembly">
+	<div ng-show="editObjInOrder || insertObjInOrder">
         <md-divider flex></md-divider>
 
         <div layout-padding >
@@ -34,34 +34,43 @@
                 <input type="text" ng-model="obj.itemCode">
             </md-input-container>
 
-            <md-input-container  flex="40">
+            <md-input-container  flex="30">
                 <label>Item Name</label>
                 <input type="text" ng-model="obj.itemName">
             </md-input-container>
 
             <md-input-container flex="10">
-                <label>Item Amount</label>
-                <input type="number" ng-model="obj.itemAmount">
+                <label>Amount</label>
+                <input type="number" ng-model="obj.amountOrdered" ng-change="totalPrice()">
             </md-input-container>
-              
+            <md-input-container flex="15">
+                <label>Unit Price</label>
+                <input type="number" ng-model="obj.itemPrice" ng-change="totalPrice()">
+            </md-input-container>
+
+            <md-input-container flex="15">
+                <label>total Price</label>
+                <input type="number" ng-model="obj.totalPrice" ng-vlaue="">
+            </md-input-container>
+            <span flex></span>
             &nbsp;
           <!-- editing part -->
-            <div ng-show="editObjInAssembly" ng-hide="insertObjInAssembly">
-                <i  ng-click="updateItemInAssembly(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
+            <div ng-show="editObjInOrder" ng-hide="insertObjInOrder">
+                <i  ng-click="updateItemInOrder(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
                 </i>&nbsp; &nbsp; &nbsp;
             </div>
-            <div ng-show="editObjInAssembly" ng-hide="insertObjInAssembly">
-                <i  ng-click="editObjInAssembly=false;closeForm()"  layout-padding class="fa fa-times fa-2x text-danger">                    
+            <div ng-show="editObjInOrder" ng-hide="insertObjInOrder">
+                <i  ng-click="editObjInOrder=false;closeForm()"  layout-padding class="fa fa-times fa-2x text-danger">                    
                 </i>&nbsp; &nbsp; &nbsp;              
             </div>
             <!-- editing part -->
             <!-- inserting part -->
-            <div ng-hide="editObjInAssembly" ng-show="insertObjInAssembly">
-              <i  ng-click="insertItemInAssembly(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
+            <div ng-hide="editObjInOrder" ng-show="insertObjInOrder">
+              <i  ng-click="insertItemInOrder(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
             </i>&nbsp; &nbsp; &nbsp;
             </div>
-            <div ng-hide="editObjInAssembly" ng-show="insertObjInAssembly">
-              <i  ng-click="insertObjInAssembly=false;closeForm()"  layout-padding class="fa fa-times fa-2x text-danger"></i>
+            <div ng-hide="editObjInOrder" ng-show="insertObjInOrder">
+              <i  ng-click="insertObjInOrder=false;closeForm()"  layout-padding class="fa fa-times fa-2x text-danger"></i>
               &nbsp; &nbsp; &nbsp;
             </div>
             <!-- inserting part -->
@@ -71,47 +80,7 @@
   </div>
 
 </div>
-    <div ng-show="insertObjInAssembly">
-        <div layout="row" flex>
-            <md-input-container md-no-float flex>
-            <md-icon><i class="fa fa-search fa-lg "></i></md-icon>
-            <input type="text" ng-model="search" ng-model-options="{ debounce: 400 }" placeholder="Here you can find all the items you have in your Stock" ng-change="queryByCode()">
-        </md-input-container>
-        <md-input-container flex="20" md-no-float>
-            <md-select ng-model="filterModel" placeholder="Filter By">
-            <md-option ng-value ="opt" ng-repeat="opt in filterBy">{{opt.tagToShow | uppercase}}</md-option>
-            </md-select>
-        </md-input-container > <p layout-margin layout-padding style="padding-top:15px;">:</p>
-        <md-input-container flex="20" md-no-float> 
-            <md-select ng-model="queryTag" placeholder="Select a {{filterModel.tagToShow}}" ng-change="queryByFilter()">
-            <md-option ng-value ="tag" ng-repeat="tag in filterModel.array">{{tag}}</md-option>
-            </md-select>
-        </md-input-container>
-    </div>
 
-    <table class="table table-hover table-responsive panel" ng-show="itemsForAssembly">    
-            <thead>
-            <tr class="table" >
-                <th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
-                    <p ng-click="order(key)">{{val}}</p>
-                </th>
-                <th ng-hide="createAssembly" class="text-center"><p>Handling</p></th>
-                <th ng-show="createAssembly" class="text-center"><p>{{itemsToInsert.length}} Selected</p></th>          
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr ng-repeat="sample in itemsForAssembly | filter:search | orderBy:predicate:reverse" class="text-center">
-                <td class="iTable">{{sample.itemCode | limitTo:17}}</td>
-                <!-- <td class="iTable">{{sample.itemName}}</td> -->
-                <td class="iTable" contentEditable="true" ng-model="sample.itemAmount" type="number">{{sample.itemAmount}}</td>
-
-                <td class="iTable">{{sample.itemName | limitTo:30}}</td>                
-                <td ng-show="createAssembly"><input type="checkbox" ng-change="refreshFilter()" ng-model="sample.insert"></td>
-            </tr>
-            </tbody>    
-    </table>  
-    </div>
     
 
 		</md-card>

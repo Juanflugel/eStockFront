@@ -28,6 +28,17 @@
         console.log('from run');
         $scope.queryOrders();
      });
+
+     $scope.totalPrice = function(){
+      $scope.obj.totalPrice = $scope.obj.amountOrdered * $scope.obj.itemPrice;
+    };
+
+    $scope.editItemInOrder = function(obj){
+      $scope.obj = obj;
+      $scope.obj.totalPrice = obj.amountOrdered * obj.itemPrice;
+      $scope.editObjInOrder = true;
+    };
+     
     
 
 }])
@@ -36,8 +47,8 @@
   // Runs during compile
   return {
 	  restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-	//templateUrl: 'projectsView/projectListCard.html'
-      templateUrl: 'ordersView/ordersListCard.html',
+	 templateUrl: 'app_components/ordersView/ordersListCard.html',
+      //templateUrl: 'ordersView/ordersListCard.html',
       link: function ($scope){
             
                 $scope.progressBardisable = false;
@@ -99,8 +110,8 @@
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    //templateUrl: 'app_components/ordersView/orderDetailsHeader.html'
-    templateUrl: 'ordersView/orderDetailsHeader.html'    
+    templateUrl: 'app_components/ordersView/orderDetailsHeader.html'
+    //templateUrl: 'ordersView/orderDetailsHeader.html'    
 
 };
 }])
@@ -108,8 +119,8 @@
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    //templateUrl: 'app_components/ordersView/orderTable.html',
-    templateUrl: 'ordersView/orderTable.html',
+    templateUrl: 'app_components/ordersView/orderTable.html',
+    //templateUrl: 'ordersView/orderTable.html',
     link: function($scope) {
       $scope.header = {itemCode:'Item Code',itemAmount:'Ordered Amount',itemName:'Name',itemBuyPrice:'Price',handle:'Handle'};
       $scope.order = function(predicate){
