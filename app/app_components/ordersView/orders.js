@@ -3,6 +3,8 @@
 
   angular.module('ordersModule',[])
   .controller('ordersCtrl',['$scope','shop',function ($scope,shop){
+
+    $scope.oindex = 0;
     
     $scope.firmaId = shop.getCompanyId();
     var query = {};
@@ -36,6 +38,7 @@
     $scope.editItemInOrder = function(obj){
       $scope.obj = obj;
       $scope.obj.totalPrice = obj.amountOrdered * obj.itemPrice;
+      $scope.insertObjInOrder = false;
       $scope.editObjInOrder = true;
     };
      
@@ -54,7 +57,8 @@
                 $scope.progressBardisable = false;
                 $scope.statusList = ['Pending','Ordered','Paid','Delivered'];   
 
-                $scope.showOrderDetails = function(obj){
+                $scope.showOrderDetails = function(obj,index){
+                    $scope.oindex = index;
                     $scope.orderInfo = obj;
                     $scope.collection = $scope.orderInfo.orderedItems;
                 };
@@ -106,12 +110,53 @@
 };
 }])
 
-.directive('orderDetailsHeader', [function (){
+.directive('orderDetailsHeader', ['shop',function (shop){
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    templateUrl: 'app_components/ordersView/orderDetailsHeader.html'
-    //templateUrl: 'ordersView/orderDetailsHeader.html'    
+    templateUrl: 'app_components/ordersView/orderDetailsHeader.html',    
+    //templateUrl: 'ordersView/orderDetailsHeader.html' 
+    link: function($scope) {
+
+        $scope.insertNewItemInOrder = function(){
+            $scope.obj = {};
+            $scope.editOrder = false;
+            $scope.insertObjInOrder = true;
+
+        };
+
+        $scope.createItemInOrder = function(item){
+            var query = {};
+            query. companyId = $scope.firmaId;
+            query.orderNumber = $scope.orderInfo.orderNumber;
+            shop.ordersUpdate.update(query,item,function (data){
+                console.log('exito');
+                $scope.queryOrders($scope.oindex,'open');
+                $scope.insertObjInOrder = false;
+
+            },function (error){
+
+            });
+        }
+
+        $scope.updateItemInOrder = function(item){
+            $scope.progressBardisable = false;
+            var query = {};
+            query.companyId = $scope.firmaId;
+            query['orderedItems._id'] = item._id;
+            query.orderNumber = $scope.orderInfo.orderNumber;
+            shop.ordersUpdate.update(query,item,function (data){
+                console.log('exito');
+                $scope.progressBardisable = true;
+                $scope.editObjInOrder = false;
+
+            },function (error){
+
+            });
+            console.log(query);
+
+        };
+    }  
 
 };
 }])
@@ -122,7 +167,7 @@
     templateUrl: 'app_components/ordersView/orderTable.html',
     //templateUrl: 'ordersView/orderTable.html',
     link: function($scope) {
-      $scope.header = {itemCode:'Item Code',itemAmount:'Ordered Amount',itemName:'Name',itemBuyPrice:'Price',handle:'Handle'};
+      $scope.header = {itemCode:'Item Code',itemName:'Name',itemAmount:'Ordered Amount',itemBuyPrice:'Price',totalPrice:'Total',handle:'Handle'};
       $scope.order = function(predicate){
         $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
         $scope.predicate = predicate;

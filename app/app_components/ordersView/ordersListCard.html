@@ -56,7 +56,7 @@
         	
 
 
-<md-list-item class="md-2-line" ng-repeat="order in orders" ng-click="showOrderDetails(order)">
+<md-list-item class="md-2-line" ng-repeat="order in orders" ng-click="showOrderDetails(order,$index)">
 <img src="icon.png" class="md-avatar" alt="" />
 <div class="md-list-item-text" layout="column" > 
   <p>{{order.orderNumber}} - {{order.orderProvider}} - {{order.orderStatus}}</p>

@@ -12,10 +12,11 @@
 
     		<tbody>
 	   		<tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
-		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>		  		
-		  		<td class="iTable">{{sample.amountOrdered}}</td>
+		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>			  		
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
-		  		<td class="iTable">{{sample.itemPrice | limitTo:30}}</td>
+		  		<td class="iTable">{{sample.amountOrdered}}</td>
+		  		<td class="iTable">{{sample.itemPrice | number}}</td>
+		  		<td class="iTable">{{sample.totalPrice | number}}</td>
 
 		 		<td class="iTable">
 		 		 	<i class="fa fa-pencil-square-o" ng-click="editItemInOrder(sample)"></i>&nbsp;&nbsp;

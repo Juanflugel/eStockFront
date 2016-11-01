@@ -13,7 +13,7 @@
                     <i class="fa fa-upload text-success"></i> &nbsp; Insert Items
                 </p> -->
 
-	 			<p ng-hide="insertObjInOrder" class="viewSubHeader" ng-click="insertObjInOrder=true"><i   class="fa fa-plus fa-lg" ></i>
+	 			<p ng-hide="insertObjInOrder" class="viewSubHeader" ng-click="insertNewItemInOrder()"><i   class="fa fa-plus fa-lg" ></i>
                     <md-tooltip>
                  Insert Items 
                     </md-tooltip>
@@ -22,6 +22,7 @@
  		</div>
 	</md-subheader>
 <md-progress-linear md-mode="query" ng-disabled="progressBardisable"></md-progress-linear>
+
 	<div ng-show="editObjInOrder || insertObjInOrder">
         <md-divider flex></md-divider>
 
@@ -66,7 +67,7 @@
             <!-- editing part -->
             <!-- inserting part -->
             <div ng-hide="editObjInOrder" ng-show="insertObjInOrder">
-              <i  ng-click="insertItemInOrder(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
+              <i  ng-click="createItemInOrder(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
             </i>&nbsp; &nbsp; &nbsp;
             </div>
             <div ng-hide="editObjInOrder" ng-show="insertObjInOrder">
