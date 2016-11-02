@@ -121,6 +121,16 @@ angular
 
         };
 
+        var orderObjectsForOrder = function(obj){
+          var objready = {};
+          objready.itemCode = obj.itemCode;
+          objready.itemName = obj.itemName;
+          objready.amountOrdered = obj.amountOrdered;
+          objready.itemPrice = obj.itemPrice;
+          objready.totalPrice = obj.totalPrice;
+          return objready;
+        }
+
         return {
             getJustCode : getJustCode,
             resumeCodeAndAmount : resumeCodeAndAmount,
@@ -132,7 +142,8 @@ angular
             passAssembly : passAssembly,
             getCurrentAssembly : getCurrentAssembly,
             getCurrentProject : getCurrentProject,
-            orderObjects : orderObjects
+            orderObjects : orderObjects,
+            orderObjectsForOrder : orderObjectsForOrder
         };
   
   }

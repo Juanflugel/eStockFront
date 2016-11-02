@@ -2,13 +2,14 @@
   'use strict';
 
   angular.module('ordersModule',[])
-  .controller('ordersCtrl',['$scope','shop',function ($scope,shop){
+  .controller('ordersCtrl',['$scope','shop','handleProjects',function ($scope,shop,handleProjects){
 
     $scope.oindex = 0;
-    
+    $scope.toDownload = [];
     $scope.firmaId = shop.getCompanyId();
     var query = {};
     query.companyId = $scope.firmaId;
+
     $scope.queryOrders = function(index,state){
                   query.orderState = state || 'open';  
                   shop.orders.query(query,function (data){
@@ -17,6 +18,11 @@
                     $scope.orderInfo = data[index] || data[0] || [];
                     $scope.collection = $scope.orderInfo.orderedItems || [];
                     $scope.progressBardisable = true;
+
+                    _.each($scope.collection,function(obj){
+                      var i = handleProjects.orderObjectsForOrder(obj);
+                      $scope.toDownload.push(i);
+                    });
                     },function (error){
                         console.log(error);
                     });  
@@ -46,7 +52,7 @@
 
 }])
 
-  .directive('ordersListCard', ['shop',function (shop){
+  .directive('ordersListCard', ['shop','handleProjects',function (shop,handleProjects){
   // Runs during compile
   return {
 	  restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
@@ -61,6 +67,11 @@
                     $scope.oindex = index;
                     $scope.orderInfo = obj;
                     $scope.collection = $scope.orderInfo.orderedItems;
+                    $scope.toDownload = [];
+                    _.each($scope.collection,function(obj){
+                      var i = handleProjects.orderObjectsForOrder(obj);
+                      $scope.toDownload.push(i);
+                    });
                 };
 
                 $scope.deleteOrder = function(order,index){
@@ -126,6 +137,7 @@
         };
 
         $scope.createItemInOrder = function(item){
+            $scope.progressBardisable = false;
             var query = {};
             query. companyId = $scope.firmaId;
             query.orderNumber = $scope.orderInfo.orderNumber;
@@ -160,18 +172,41 @@
 
 };
 }])
-.directive('orderTable', [function (){
+.directive('orderTable', ['shop',function (shop){
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
     templateUrl: 'app_components/ordersView/orderTable.html',
     //templateUrl: 'ordersView/orderTable.html',
     link: function($scope) {
+
+      $scope.deleteItemFromOrder = function(item){
+
+                var r = confirm('Are you sure to delete the item: '+ item.itemCode);
+                    if (r === true) {
+                      $scope.progressBardisable = false;
+                      var query = {};
+                      query.companyId = $scope.firmaId;
+                      query.orderNumber = $scope.orderInfo.orderNumber;
+                      query.itemCode = item.itemCode;
+                     shop.ordersUpdate.update(query,item,function (data){
+                        alert('item: '+ item.itemCode +' successfully deleted');
+                        $scope.queryOrders($scope.oindex,'open');
+                     });
+                    } else {
+                        return;
+                    }
+
+                };
+
+
       $scope.header = {itemCode:'Item Code',itemName:'Name',itemAmount:'Ordered Amount',itemBuyPrice:'Price',totalPrice:'Total',handle:'Handle'};
       $scope.order = function(predicate){
         $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
         $scope.predicate = predicate;
-    };
+      };
+
+
 }    
 
 };

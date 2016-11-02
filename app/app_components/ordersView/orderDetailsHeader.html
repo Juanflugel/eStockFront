@@ -12,7 +12,12 @@
                 <!-- <p ng-show="insertObjInOrder" class="listMenu" layout="row" layout-align="center center" ng-click="insertItemInOrder()" flex ="15">
                     <i class="fa fa-upload text-success"></i> &nbsp; Insert Items
                 </p> -->
-
+                <p class="viewSubHeader" ng-csv="toDownload" filename="{{orderInfo.orderNumber}}.csv" csv-header="['Item Code','Item Name', 'amount','price','total']" charset="utf-8">
+                    <md-tooltip>
+                        Download CSV File
+                    </md-tooltip>
+                    <i class="fa fa-download fa-lg" aria-hidden="true"></i>&nbsp; &nbsp;
+                </p>
 	 			<p ng-hide="insertObjInOrder" class="viewSubHeader" ng-click="insertNewItemInOrder()"><i   class="fa fa-plus fa-lg" ></i>
                     <md-tooltip>
                  Insert Items 
