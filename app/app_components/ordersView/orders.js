@@ -200,7 +200,7 @@
                 };
 
 
-      $scope.header = {itemCode:'Item Code',itemName:'Name',itemAmount:'Ordered Amount',itemBuyPrice:'Price',totalPrice:'Total',handle:'Handle'};
+      $scope.header = {isDelivered:'Delivered',itemCode:'Item Code',itemName:'Name',itemAmount:'Ordered Amount',itemBuyPrice:'Price',totalPrice:'Total',handle:'Handle'};
       $scope.order = function(predicate){
         $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
         $scope.predicate = predicate;

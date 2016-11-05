@@ -48,9 +48,9 @@
 				handleProjects.passProject($scope.projectInfo);
 			};
 
-			// $scope.showObj = function(obj){
-   //      	console.log(obj);
-   //      }
+			$scope.deleteAssemblyFromProject = function(){
+				
+			}
 
 
 			

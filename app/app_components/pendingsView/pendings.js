@@ -160,8 +160,8 @@
 	// Runs during compile
 		return {
 			restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-			templateUrl: 'pendingsView/pendingsTable.html',
-			// templateUrl: 'app_components/pendingsView/pendingsTable.html',
+			//templateUrl: 'pendingsView/pendingsTable.html',
+			templateUrl: 'app_components/pendingsView/pendingsTable.html',
 			link: function($scope) {
 				$scope.order = function(predicate){
 					$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;

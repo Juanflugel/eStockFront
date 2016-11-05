@@ -80,8 +80,8 @@ angular.module('eStockFront',[
     })
     .state('app.Projects.Details', {
       url: "/:id",
-      // templateUrl:"app_components/projectsView/projectDetails.html",
-      templateUrl:"projectsView/projectDetails.html",
+      templateUrl:"app_components/projectsView/projectDetails.html",
+      //templateUrl:"projectsView/projectDetails.html",
       controller:'ProjectDetailsCtrl'
 
     })

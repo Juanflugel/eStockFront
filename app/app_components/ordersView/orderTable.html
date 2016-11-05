@@ -12,6 +12,10 @@
 
     		<tbody>
 	   		<tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
+	   			<td class="iTable" ng-show="sample.isDelivered"><i class="fa fa-check-circle fa-lg text-success" > </i> </td>
+	   				
+	   			<td class="iTable" ng-hide="sample.isDelivered">
+	   				<i ng-hide="sample.isDelivered" class="fa fa-times fa-lg text-danger"></i></td>
 		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>			  		
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
 		  		<td class="iTable">{{sample.amountOrdered}}</td>

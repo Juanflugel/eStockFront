@@ -57,7 +57,7 @@
 		<!-- tabla para insertar ensambles en un projecto --> 
 	</div>
 	</md-card>
-
+<!-- component to show the all asemblies that are part of a project-->	
 	<md-card flex>
 		<md-list flex>
 			<md-list-item class="md-2-line"  ng-repeat="assembly in projectsAssemblies" ui-sref="app.assemblyDetails({pId:projectInfo.projectNumber,idAssembly:assembly.assemblyNumber})" ng-click="passAssembly(assembly)">
@@ -83,7 +83,7 @@
 						</md-menu-item>
 						<md-menu-item>
 						<md-button>
-						Delete Project
+						Delete Assembly From Project
 						</md-button>
 						</md-menu-item>
 					</md-menu-content>
