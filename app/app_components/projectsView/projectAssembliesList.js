@@ -48,9 +48,40 @@
 				handleProjects.passProject($scope.projectInfo);
 			};
 
-			$scope.deleteAssemblyFromProject = function(){
+			$scope.deleteAssemblyFromProject = function(obj){
+
 				
-			}
+				var filterItemsToAddBack =  _.filter(obj.assemblyItems,function (item){
+					return item.itemAssembled === true;
+				});
+
+				var itemsToAddBack =  handleProjects.resumeCodeAndAmount(filterItemsToAddBack);
+
+				console.log(itemsToAddBack);
+				var r = confirm('Are you sure to delete Assembly: '+ obj.assemblyName);
+				 	if(r===true){
+				 		var query = {};
+				 		query.companyId = $scope.firmaId;
+				 		query.projectNumber = $scope.projectInfo.projectNumber;
+				 		query['projectAssemblies._id'] = obj._id;
+				 		shop.projectUpdate.update(query,{},function (data){
+				 			console.log(data);
+				 			var query1 = {};
+				 				query.companyId = $scope.firmaId;
+				 			shop.itemIncrement.update(query1,itemsToAddBack,function (){
+				 				alert('items amount restored');
+				 			},function (error){
+				 				console.log(error);
+				 			});
+				 			
+				 		},function (error){
+				 			console.log(error);
+				 		});
+				 	}else{
+				 		return;
+				 	}
+				
+			};
 
 
 			

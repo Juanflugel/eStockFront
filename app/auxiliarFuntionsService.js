@@ -129,7 +129,7 @@ angular
           objready.itemPrice = obj.itemPrice;
           objready.totalPrice = obj.totalPrice;
           return objready;
-        }
+        };
 
         return {
             getJustCode : getJustCode,

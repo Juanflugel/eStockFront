@@ -56,8 +56,8 @@
   // Runs during compile
   return {
 	  restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-	 templateUrl: 'app_components/ordersView/ordersListCard.html',
-      //templateUrl: 'ordersView/ordersListCard.html',
+	 //templateUrl: 'app_components/ordersView/ordersListCard.html',
+      templateUrl: 'ordersView/ordersListCard.html',
       link: function ($scope){
             
                 $scope.progressBardisable = false;
@@ -125,8 +125,8 @@
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    templateUrl: 'app_components/ordersView/orderDetailsHeader.html',    
-    //templateUrl: 'ordersView/orderDetailsHeader.html' 
+    //templateUrl: 'app_components/ordersView/orderDetailsHeader.html',    
+    templateUrl: 'ordersView/orderDetailsHeader.html',
     link: function($scope) {
 
         $scope.insertNewItemInOrder = function(){
@@ -141,15 +141,15 @@
             var query = {};
             query. companyId = $scope.firmaId;
             query.orderNumber = $scope.orderInfo.orderNumber;
-            shop.ordersUpdate.update(query,item,function (data){
-                console.log('exito');
+            shop.ordersUpdate.update(query,item,function (){
+                //console.log('exito');
                 $scope.queryOrders($scope.oindex,'open');
                 $scope.insertObjInOrder = false;
 
             },function (error){
-
+               console.log(error);
             });
-        }
+        };
 
         $scope.updateItemInOrder = function(item){
             $scope.progressBardisable = false;
@@ -157,15 +157,15 @@
             query.companyId = $scope.firmaId;
             query['orderedItems._id'] = item._id;
             query.orderNumber = $scope.orderInfo.orderNumber;
-            shop.ordersUpdate.update(query,item,function (data){
-                console.log('exito');
+            shop.ordersUpdate.update(query,item,function (){
+                //console.log('exito');
                 $scope.progressBardisable = true;
                 $scope.editObjInOrder = false;
 
             },function (error){
-
+              console.log(error);
             });
-            console.log(query);
+            
 
         };
     }  
@@ -176,8 +176,8 @@
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    templateUrl: 'app_components/ordersView/orderTable.html',
-    //templateUrl: 'ordersView/orderTable.html',
+    //templateUrl: 'app_components/ordersView/orderTable.html',
+    templateUrl: 'ordersView/orderTable.html',
     link: function($scope) {
 
       $scope.deleteItemFromOrder = function(item){
@@ -189,7 +189,7 @@
                       query.companyId = $scope.firmaId;
                       query.orderNumber = $scope.orderInfo.orderNumber;
                       query.itemCode = item.itemCode;
-                     shop.ordersUpdate.update(query,item,function (data){
+                     shop.ordersUpdate.update(query,item,function (){
                         alert('item: '+ item.itemCode +' successfully deleted');
                         $scope.queryOrders($scope.oindex,'open');
                      });

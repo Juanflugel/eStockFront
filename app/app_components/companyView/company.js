@@ -7,7 +7,7 @@ angular.module('companyModule',['services'])
 	$scope.companyId = shop.getCompanyId();
 	$scope.currentCompany = shop.getTotalCompanyInfo();
 
-	$scope.menu = [{menuItem:'Employees'},{menuItem:'Providers'},{menuItem:'Filters'}];
+	$scope.menu = [{menuItem:'Employees'},{menuItem:'Filters'}]; //,{menuItem:'Providers'}
 }])
 
 

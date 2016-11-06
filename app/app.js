@@ -40,7 +40,7 @@ angular.module('eStockFront',[
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/app/Settings");
   $urlRouterProvider.when('/app/Projects','/app/Projects/Details');
-  $urlRouterProvider.when('/app/Company','app.Company.Employees');
+  $urlRouterProvider.when('/app/Company','app/Company/Employees');
   //
   // Now set up the states
   $stateProvider
@@ -80,8 +80,8 @@ angular.module('eStockFront',[
     })
     .state('app.Projects.Details', {
       url: "/:id",
-      templateUrl:"app_components/projectsView/projectDetails.html",
-      //templateUrl:"projectsView/projectDetails.html",
+      //templateUrl:"app_components/projectsView/projectDetails.html",
+      templateUrl:"projectsView/projectDetails.html",
       controller:'ProjectDetailsCtrl'
 
     })
