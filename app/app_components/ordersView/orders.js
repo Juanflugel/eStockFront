@@ -4,6 +4,7 @@
   angular.module('ordersModule',[])
   .controller('ordersCtrl',['$scope','shop','handleProjects',function ($scope,shop,handleProjects){
 
+
     $scope.oindex = 0;
     $scope.toDownload = [];
     $scope.firmaId = shop.getCompanyId();
@@ -25,11 +26,15 @@
                     });
                     },function (error){
                         console.log(error);
-                    });  
+                    });
+
+                    $scope.filters = shop.getCompanyFilters();
+                    $scope.providerList = $scope.filters[1].array;  
                 };
 
      if ($scope.firmaId){
         $scope.queryOrders();
+        
       }
      $scope.$on('companyInfoAvailable',function(){
         $scope.firmaId = shop.getCompanyId();
@@ -56,8 +61,8 @@
   // Runs during compile
   return {
 	  restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-	 //templateUrl: 'app_components/ordersView/ordersListCard.html',
-      templateUrl: 'ordersView/ordersListCard.html',
+	  templateUrl: 'app_components/ordersView/ordersListCard.html',
+    // templateUrl: 'ordersView/ordersListCard.html',
       link: function ($scope){
             
                 $scope.progressBardisable = false;

@@ -1,23 +1,36 @@
 <md-card layout="column" flex>
 		<md-list flex>
                <!--  sub header de la seccion Projectos -->
-                <md-subheader  class="md-no-sticky">       	
+          <md-subheader  class="md-no-sticky">       	
         		<div layout="row">
         			 <p flex class="headerProject" ng-click="queryOrders(0,'open')" id="top">Open Orders</p>
         			 <p flex class="headerProject" ng-click="queryOrders(0,'closed')">Closed Orders</p>
         			 <p ng-click="startNewOrder=true">
-                <i class="fa fa-plus fa-lg" ></i> 
+                <i class="fa fa-filter fa-lg" aria-hidden="true" ng-click="filter=true"></i>
                 <md-tooltip>
-                  Create a New Order
+                  Filter by Provider
                 </md-tooltip>
                </p>
         		</div>
+            <div layout="row" flex ng-show="filter">              
+                <md-input-container flex class="viewSubHeader"> 
+                        <!-- <label>Filter By Provider</label>  -->
+                        <md-select ng-model="joda" placeholder="Filter by Provider">            
+                          <md-option ng-repeat="provider in providerList  " value="{{provider}}">
+                            {{provider}}
+                          </md-option>
+                        </md-select>
+                     </md-input-container>
+                    <p class="viewSubHeader">
+                      <i   ng-click="filter=false;joda=''" layout-margin   class="fa fa-times fa-lg"></i>
+                    </p> 
+            </div>
         	   </md-subheader>
              <md-progress-linear md-mode="query" ng-disabled="progressBardisable"></md-progress-linear>
              <!--  sub header de la seccion Projectos -->
                <md-divider ></md-divider>
                <!-- Form To create a new project -->
-               <div layout="column"  flex ng-show="startNewOrder ||editOrder"> <br>
+               <div layout="column"  flex ng-show="editOrder"> <br>
                     <md-input-container >
                         <label>Order Number</label>
                         <input type="text" ng-model="obj.orderNumber">
@@ -56,7 +69,7 @@
         	
 
 
-<md-list-item class="md-2-line" ng-repeat="order in orders" ng-click="showOrderDetails(order,$index)">
+<md-list-item class="md-2-line" ng-repeat="order in orders | filter:{orderProvider:joda}" ng-click="showOrderDetails(order,$index)">
 <img src="icon.png" class="md-avatar" alt="" />
 <div class="md-list-item-text" layout="column" > 
   <p>{{order.orderNumber}} - {{order.orderProvider}} - {{order.orderStatus}}</p>
