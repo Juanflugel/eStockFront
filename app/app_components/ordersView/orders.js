@@ -61,8 +61,8 @@
   // Runs during compile
   return {
 	  restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-	  templateUrl: 'app_components/ordersView/ordersListCard.html',
-    // templateUrl: 'ordersView/ordersListCard.html',
+	  //templateUrl: 'app_components/ordersView/ordersListCard.html',
+    templateUrl: 'ordersView/ordersListCard.html',
       link: function ($scope){
             
                 $scope.progressBardisable = false;

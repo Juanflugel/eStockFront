@@ -4,6 +4,7 @@
 
 	.controller('projectsCtrl',['$scope','shop','$location','$anchorScroll','$stateParams','$state',function ($scope,shop,$location,$anchorScroll,$stateParams,$state){
 
+		$scope.pindex = 0;
 		$scope.firmaId = shop.getCompanyId();
 
 		$scope.progressBarInsertAssemblydisable = true;
@@ -74,8 +75,8 @@ if($scope.firmaId){
 			}
 		};
 
-		$scope.showProjectAssemblies = function (project) {
-
+		$scope.showProjectAssemblies = function (project,index) {
+			$scope.pindex = index;
 			$scope.projectInfo = project;
 			$scope.projectsAssemblies = $scope.projectInfo.projectAssemblies;
 
@@ -172,7 +173,7 @@ if($scope.firmaId){
   return {
 	restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
 	templateUrl: 'projectsView/projectListCard.html'
-	// templateUrl: 'app_components/projectsView/projectListCard.html'    
+	//templateUrl: 'app_components/projectsView/projectListCard.html'    
 
 };
 }])

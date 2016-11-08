@@ -66,8 +66,8 @@ angular.module('settingsModule',[])
     $scope.queryByCode = function(){ // funcion para poder buscar una pieza cualquiera por codigo desde el input principal
                 query = {};
                 query.companyId = $scope.firmaId;
-                query.itemCode = $scope.search;
-                shop.itemsCode.query(query,function (data){
+                query.string = $scope.search;
+                shop.itemsCodeOrName.query(query,function (data){
                     $scope.collection = data;
                     var codesArray = handleProjects.getJustCode($scope.collection);
                     codesArray.push('0');

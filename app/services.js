@@ -33,7 +33,7 @@ angular.module('services', ['ngResource'])
 .factory('Config', function () {
   return {
       version : '0.0.1',
-      ip: 'localhost', // localhost www.estock.website
+      ip: 'www.estock.website', // localhost www.estock.website
       port: 5006,
       protocol: 'http'
   };
@@ -55,7 +55,7 @@ angular.module('services', ['ngResource'])
     items: $resource('http://' + Config.ip + ':' + Config.port + '/items',{}),
     itemIncrement:$resource('http://' + Config.ip + ':' + Config.port + '/increment',{},{ update: {method: 'PUT'}}),
     itemsInserted: $resource('http://' + Config.ip + ':' + Config.port + '/insertedItems',{}),
-    itemsCode: $resource('http://' + Config.ip + ':' + Config.port + '/itemsCode',{}),// con regular expresions
+    itemsCodeOrName: $resource('http://' + Config.ip + ':' + Config.port + '/itemsCodeOrName',{}),// con regular expresions
     itemidUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/items',{},{ update: {method: 'PUT'}}),
     project:$resource('http://' + Config.ip + ':' + Config.port + '/projects',{}),
     projectRequiredAmounts:$resource('http://' + Config.ip + ':' + Config.port + '/requiredAmounts',{}),

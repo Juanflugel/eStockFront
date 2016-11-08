@@ -13,7 +13,7 @@
 				console.log(error);
 			});
 		};
-
+		//console.log($state);
 		$scope.showAssemblies = function(){
 			$scope.callAssemblies();
 			$scope.insertNewAssembly = true;
@@ -70,6 +70,7 @@
 				 				query.companyId = $scope.firmaId;
 				 			shop.itemIncrement.update(query1,itemsToAddBack,function (){
 				 				alert('items amount restored');
+				 				$scope.projectQuery($scope.pindex,'open');
 				 			},function (error){
 				 				console.log(error);
 				 			});

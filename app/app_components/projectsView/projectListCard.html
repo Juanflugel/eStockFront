@@ -48,7 +48,7 @@
         	
 
 
-<md-list-item class="md-2-line" ng-repeat="project in projects" ng-click="showProjectAssemblies(project)" ui-sref="app.Projects.Details({id:project.projectNumber})">
+<md-list-item class="md-2-line" ng-repeat="project in projects" ng-click="showProjectAssemblies(project,$index)" ui-sref="app.Projects.Details({id:project.projectNumber})">
 <img src="icon.png" class="md-avatar" alt="" />
 <div class="md-list-item-text" layout="column" > 
   <p>{{project.projectType}} - {{project.projectName}}</p>
