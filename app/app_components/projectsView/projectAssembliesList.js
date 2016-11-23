@@ -20,7 +20,7 @@
 		};
 
 		$scope.header = {assemblyName:'Assembly Name',assemblyNumber:'Assembly Number',numberOfparts:'Parts'};
-		
+		$scope.headerForCsv = {itemCode:'Item Code',itemName:'Item Name',itemAmount:'Amount'};
 		$scope.refreshFilter = function(){
 			$scope.assembliesToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
 		};
@@ -92,6 +92,43 @@
   // assemblies in projects logic
 
 
+}])
+
+.directive('inputTag', [function (){
+    // Runs during compile
+    return {
+        
+        // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+        restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
+        templateUrl: 'app_components/projectsView/input.html',
+        
+        link: function($scope, iElm, iAttrs, controller) {
+
+            var inputFile = angular.element('#i-input');
+
+                inputFile.bind("change", function(e){
+                  
+                    $scope.file = (e.srcElement || e.target).files[0];
+                    Papa.parse($scope.file,{
+                            header:true,
+                            complete:function(result){                                    
+                                    $scope.prueba = result.data;
+                                    var l = $scope.prueba.length;
+                                    $scope.prueba.splice((l-1),1);
+                                    $scope.collection = $scope.prueba;
+                                    $scope.$apply();           
+                            }
+                    });
+                });
+
+                $scope.click = function(){
+                        console.log('click desde directiva');
+                        inputFile.trigger('click');
+                }
+        }
+            
+        
+    }
 }]);
 
 }());
