@@ -22,6 +22,7 @@
 				if(id && id !=='Detail'){
 					var indexid = $scope.projects.map(function(e) { return e.projectNumber; }).indexOf(id);
 					console.log(indexid,id);
+
 					if(indexid >= 0){
 						$scope.projectInfo = $scope.projects[indexid];
 						$scope.projectsAssemblies = $scope.projectInfo.projectAssemblies ||[];
@@ -56,10 +57,11 @@
 };
 
 
-if($scope.firmaId){
+		if($scope.firmaId){
 			// console.log('from service');
 			$scope.projectQuery(0,'open'); // to call all projects
 		}
+		
 		$scope.$on('companyInfoAvailable',function(){
 			$scope.firmaId = shop.getCompanyId();
 			// console.log('from run');
@@ -121,10 +123,14 @@ if($scope.firmaId){
 		 	var idDocument = obj._id;
 		 	obj.projectNumber = obj.projectNumber.toUpperCase();
 		 	shop.projectUpdate.update({_id:idDocument},obj,function (data){
-		 		console.log(data);
+		 		var  indexOfProject = $scope.projects.indexOf($scope.projectInfo);      
+				$scope.projectQuery(indexOfProject);
 		 		$scope.editProject = false;
 		 		$scope.progressBardisable = true;
 		 		$scope.obj = {};
+
+		 	},function (error){
+		 		alert('updated faild');
 		 	});
 		 };
 

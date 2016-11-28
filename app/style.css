@@ -54,3 +54,12 @@ md-sidenav {
 cursor: pointer;
 background-color: rgba(158,158,158,0.2);
 }
+
+.green{
+	color:#3c763d;
+	font-weight: bold;
+}
+.red{
+	color:#a94442;
+	font-weight: bold;
+}

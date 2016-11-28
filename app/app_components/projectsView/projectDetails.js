@@ -19,19 +19,23 @@
 			$scope.insertNewAssembly = true;
 		};
 
+		$scope.objAssembly = {}; // obj to model the info comming from CSV
+
 		$scope.header = {assemblyName:'Assembly Name',assemblyNumber:'Assembly Number',numberOfparts:'Parts'};
+		
 		$scope.headerForCsv = {itemCode:'Item Code',itemName:'Item Name',itemAmount:'Amount'};
+
 		$scope.refreshFilter = function(){
 			$scope.assembliesToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
 		};
 		
-		$scope.insertarAssemnliesInProject = function(){
+		$scope.insertarAssembliesInProject = function(){
 			$scope.progressBarInsertAssemblydisable = false;
 			var projectId = $scope.projectInfo._id;
 			var assembliesCollection = $scope.assembliesToInsert;
 				// console.log('aqui voy a llamar a la api para guardar esa monda');
 				shop.projectUpdate.update({_id:projectId},assembliesCollection,function (){
-					$scope.assembliesToInsert=[];
+					$scope.assembliesToInsert = [];
 					$scope.callAssemblies();   
 					var  indexOfProject = $scope.projects.indexOf($scope.projectInfo);      
 					$scope.projectQuery(indexOfProject);
@@ -42,14 +46,13 @@
 				});
 			};
 
-			$scope.passAssembly = function(obj){
+		$scope.passAssembly = function(obj){
 				// console.log(obj);
 				handleProjects.passAssembly(obj);
 				handleProjects.passProject($scope.projectInfo);
-			};
+		};
 
-			$scope.deleteAssemblyFromProject = function(obj){
-
+		$scope.deleteAssemblyFromProject = function(obj){
 				
 				var filterItemsToAddBack =  _.filter(obj.assemblyItems,function (item){
 					return item.itemAssembled === true;
@@ -57,7 +60,7 @@
 
 				var itemsToAddBack =  handleProjects.resumeCodeAndAmount(filterItemsToAddBack);
 
-				console.log(itemsToAddBack);
+				// console.log(itemsToAddBack);
 				var r = confirm('Are you sure to delete Assembly: '+ obj.assemblyName);
 				 	if(r===true){
 				 		var query = {};
@@ -81,13 +84,14 @@
 				 	}else{
 				 		return;
 				 	}
-				
-			};
+        };
 
-
-			
-
-
+       $scope.insertAssemblyCsv = function(){
+	       	console.log($scope.objAssembly);
+	       	$scope.projectInfo.projectAssemblies.push($scope.objAssembly);
+	       	$scope.updateProject($scope.projectInfo);	       
+	       	$scope.insertCsv = false;
+       };
 
   // assemblies in projects logic
 
@@ -115,8 +119,10 @@
                                     $scope.prueba = result.data;
                                     var l = $scope.prueba.length;
                                     $scope.prueba.splice((l-1),1);
-                                    $scope.collection = $scope.prueba;
-                                    $scope.$apply();           
+                                    $scope.csvCollection = $scope.prueba;
+                                    $scope.$apply();
+                                    $scope.objAssembly.assemblyItems = $scope.csvCollection;
+
                             }
                     });
                 });

@@ -5,6 +5,7 @@
 		  		<th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
 		  			<p ng-click="order(key)">{{val}}</p>
 		 		</th>
+		 		
 		  		<th ng-hide="createAssembly" class="text-center"><p>Handling</p></th>
 		  		<th ng-show="createAssembly" class="text-center"><p>{{itemsToInsert.length}} Selected</p></th>          
 	   		</tr>
@@ -18,10 +19,9 @@
 		  		<td class="iTable">{{sample.insertedAmount}}</td>
 		  		<td class="iTable">{{sample.itemType}}</td>
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>		  		
-		  		<td class="iTable">{{sample.itemBuyPrice}}</td>
 		 		<td ng-hide="createAssembly" class="iTable">
-		 		 	<i class="fa fa-pencil-square-o" ng-click="editObj(sample)"></i>&nbsp&nbsp
-		 		 	<i class="fa fa-info-circle" ng-click="readObj(sample)"></i>&nbsp&nbsp
+		 		 	<i class="fa fa-pencil-square-o" ng-click="editObj(sample)"></i>&nbsp;&nbsp;
+		 		 	<i class="fa fa-info-circle" ng-click="readObj(sample)"></i>&nbsp;&nbsp;
 			 		<i class="fa fa-trash" ng-click="deleteObj(sample)"></i>
 			 		
 		  		</td>

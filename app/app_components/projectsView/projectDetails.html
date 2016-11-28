@@ -3,29 +3,28 @@
 		<md-subheader  class="md-no-sticky">        
 			<div layout="row" flex >
 				<p class="viewSubHeader text-center" flex="80" layout="row">
-					<span flex>{{projectInfo.projectName}}</span>
-					<span flex>{{projectInfo.projectNumber}}</span>
-					<span flex>{{projectInfo.projectType}}</span>
-					<span flex>{{projectInfo.projectAssemblies.length}} Baugruppen</span>
+					<span flex>{{projectInfo.projectName |uppercase}}</span>
+					<span flex>{{projectInfo.projectNumber |uppercase}}</span>
+					<span flex>{{projectInfo.projectType |uppercase}}</span>
+					<span flex>{{projectInfo.projectAssemblies.length}} BAUGRUPPEN</span>
 				</p>
 
 				<span flex></span>
 
-				<p ng-hide="insertNewAssembly" class="viewSubHeader text-center" ng-click="showAssemblies()">
+				<p ng-hide="insertNewAssembly || insertCsv" class="viewSubHeader text-center" ng-click="showAssemblies()">
 					<md-tooltip>
 	    			Insert Assembly in Project
-	  				</md-tooltip>
-	  				
+	  				</md-tooltip>	  				
 					<i   class="fa fa-plus fa-lg" ></i>
 				</p> &nbsp;
-				<p  class="viewSubHeader text-center" ng-click="insertCsv=true">
+				<p  ng-hide="insertNewAssembly || insertCsv" class="viewSubHeader text-center" ng-click="insertCsv=true">
 					<md-tooltip>
 	    			Upload CSV File
 	  				</md-tooltip>
 	  				
-					<i class="fa fa-upload fa-lg" aria-hidden="true"></i>
+					<i class="fa fa-arrow-circle-up fa-lg" aria-hidden="true"></i>
 				</p>           
-				<p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertarAssemnliesInProject()">
+				<p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertarAssembliesInProject()">
 					<i   class="fa fa-check-circle fa-lg  text-success" ></i>
 				</p>
 				<p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertNewAssembly=false">
@@ -67,17 +66,24 @@
 
 		<div ng-show="insertCsv">
 			<div layout="row" flex layout-margin>
-				
 				<input-tag></input-tag>
-				<md-input-container flex>
-                <label>Assembly Name</label>
-                <input type="text" ng-model="obj.itemCode">
-            </md-input-container>
 
-            <md-input-container  flex>
-                <label>Assembly Number</label>
-                <input type="text" ng-model="obj.itemName">
-            </md-input-container>
+				<md-input-container flex>
+	                <label>Assembly Name</label>
+	                <input type="text" ng-model="objAssembly.assemblyName" capitalize>
+            	</md-input-container>
+
+	            <md-input-container  flex>
+	                <label>Assembly Number</label>
+	                <input type="text" ng-model="objAssembly.assemblyNumber" capitalize>
+	            </md-input-container>
+
+	            <p class="viewSubHeader text-center" ng-click="insertAssemblyCsv()">
+					<i layout-padding  class="fa fa-check-circle fa-2x  text-success" ></i>
+				</p>
+				<p class="viewSubHeader text-center" ng-click="insertCsv=false">
+					<i layout-padding  class="fa fa-times fa-2x text-danger" ></i>
+				</p>
 			</div>
 			
 			<table class="table table-hover table-responsive panel">    
@@ -91,7 +97,7 @@
 				</thead>
 
 				<tbody>
-					<tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
+					<tr ng-repeat="sample in csvCollection | filter:search | orderBy:predicate:reverse" class="text-center">
 						<td class="">{{sample.itemCode | limitTo:30}}</td>                
 						<td class="">{{sample.itemName}}</td>
 						<td class="">{{sample.itemAmount}}</td>

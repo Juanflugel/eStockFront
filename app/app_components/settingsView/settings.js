@@ -14,18 +14,16 @@ angular.module('settingsModule',[])
     };
 
     $scope.createAssembly = false;
+
     var query = {itemType:'SCHRAUBE'};
 
     $scope.loadFilter = function(){
         $scope.firmaId = shop.getCompanyId();
-        $scope.filterBy = shop.getCompanyFilters();// cargando los filtros de la Empresa
-        $scope.assembliesList = $scope.filterBy[3].array; // lista de assemblies
-        $scope.providersList = $scope.filterBy[1].array; // lista de proveedores
     };
+
     // Retrieve data from API the whole list without filter
-    $scope.queryData = function (){
+    $scope.queryData = function (query){
         shop.items.query(query,function (data){
-            // console.log(query);
             $scope.collection = data; // show the results
             var codesArray = handleProjects.getJustCode($scope.collection); // to consult all inserted items
             codesArray.push('0');
@@ -42,58 +40,33 @@ angular.module('settingsModule',[])
     };
 
     $scope.firmaId = shop.getCompanyId();
+
     if ($scope.firmaId) { // to load filters and Id
-        // console.log('from service');
+        //console.log('from service');
         $scope.refresh();
     }
 
     $scope.$on("companyInfoAvailable",function(){ // to load filters and id without problems
-        // console.log('pinki winki');
+        //console.log('pinki winki');
         $scope.refresh();
         
     });
 
-        
-
-    $scope.queryByFilter = function(){ // function to query by any registerd filter
-        var j = {};
-        j[$scope.filterModel.queryObjKey] = $scope.queryTag;
-        query = j;
-        query.companyId = $scope.firmaId;
-        $scope.queryData();
-    };
-
-    $scope.queryByCode = function(){ // funcion para poder buscar una pieza cualquiera por codigo desde el input principal
-                query = {};
-                query.companyId = $scope.firmaId;
-                query.string = $scope.search;
-                shop.itemsCodeOrName.query(query,function (data){
-                    $scope.collection = data;
-                    var codesArray = handleProjects.getJustCode($scope.collection);
-                    codesArray.push('0');
-                    $scope.insertedItems(codesArray);
-            },function (error){
-                console.log(error);
-            });         
-        
-    };
     $scope.insertedItems = function(codesArray){
-        var q = {}; //  prepare query to search i all open proyects
+        var q = {}; //  prepare query to search in all open proyects
         q.companyId = $scope.firmaId;
         q.projectState = 'open';
         q.codesArray = codesArray;
         shop.itemsInserted.query(q,function (data){
             handleProjects.addInsertedAmount($scope.collection,data);
-            // console.log('todo bien');
-
         },function (error){
             console.log(error);
         });
-    };
+    };   
 
     // table functionality
 
-    $scope.header = {itemCode:'Item Code',itemAmount:'Stock',insertedAmount:'Assembled' ,itemType:'Type',itemName:'Name',itemBuyPrice:'Price'};
+    $scope.header = {itemCode:'Item Code',itemAmount:'Stock',insertedAmount:'Assembled' ,itemType:'Type',itemName:'Name'};
             // order by header Item
     
             // edit a Object displayed on the table
@@ -183,7 +156,7 @@ angular.module('settingsModule',[])
     $scope.itemsNewAssembly = [];
 
     $scope.refreshFilter = function(){ // filter for all intems to be inserted
-    $scope.itemsToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
+        $scope.itemsToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
     };
 
     $scope.insertItemInAssembly = function(){
@@ -220,33 +193,28 @@ angular.module('settingsModule',[])
         }   
     };
 
+    $scope.selected = [];
+
+    $scope.toggle = function (item, list) {
+        $scope.queryByCode();
+        var idx = list.indexOf(item);
+
+        if (idx > -1) {
+            list.splice(idx, 1);
+            console.log($scope.selected);
+        }
+        else {
+          list.push(item);
+          console.log($scope.selected);
+        }
+      };
+
+      $scope.exists = function (item, list) {
+        return list.indexOf(item) > -1;
+      };
+
+
 }])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -264,8 +232,8 @@ angular.module('settingsModule',[])
     // Runs during compile
     return {
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        // templateUrl: 'app_components/settingsView/settingsViewHeader.html'      
-        templateUrl: 'settingsView/settingsViewHeader.html'
+        templateUrl: 'app_components/settingsView/settingsViewHeader.html'      
+        //templateUrl: 'settingsView/settingsViewHeader.html'
     };
 }])
 .directive('iForm', [function (){
@@ -302,8 +270,8 @@ angular.module('settingsModule',[])
     // Runs during compile
     return {
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        // templateUrl: 'app_components/settingsView/itable.html', 
-        templateUrl:'settingsView/itable.html',  
+        templateUrl: 'app_components/settingsView/itable.html', 
+        //templateUrl:'settingsView/itable.html',  
         link: function($scope) {
             $scope.order = function(predicate){
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
