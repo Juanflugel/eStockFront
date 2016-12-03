@@ -49,7 +49,7 @@ angular.module('services', ['ngResource'])
   return {
     
     // request to the API
-    prueba : $resource('http://' + Config.ip + ':' + Config.port + '/handleProjects'),
+    prueba : $resource(root + '/handleProjects'),
     pruebaUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/handleProjects',{},{ update: {method: 'PUT'}}),
     list : $resource('http://' + Config.ip + ':' + Config.port + '/items'),
     items: $resource('http://' + Config.ip + ':' + Config.port + '/items',{}),
@@ -71,6 +71,7 @@ angular.module('services', ['ngResource'])
     orders :$resource(root + '/orders',{}),
     ordersUpdate :$resource(root + '/orders',{},{ update: {method: 'PUT'}}),
     projectsAmouts :$resource(root + '/pendingInProject',{}),
+    totalInsertedAndPending :$resource(root + '/totalInsertedAndPending',{}),
     // request to the API
     // company Information
     passCompanyInfo: function(objCompany){

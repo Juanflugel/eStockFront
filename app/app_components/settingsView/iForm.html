@@ -25,10 +25,6 @@
 				<label>Item Brand</label>
 				<input type="text" ng-model="obj.itemBrand" ng-readonly="justInfo">
 			</md-input-container>
-			<!-- <md-input-container ng-hide ="!obj.itemProvider && justInfo">
-				<label>Item Provider</label>
-				<input type="text" ng-model="obj.itemProvider" ng-readonly="justInfo">
-			</md-input-container> -->
 			<md-input-container ng-hide ="!obj.itemProvider && justInfo" style="width:175px;margin-right:10px;">
         		<label>Provider</label>
 		        <md-select ng-model="obj.itemProvider" ng-disabled="justInfo">    				
@@ -51,10 +47,7 @@
 		        </md-select>
 		     </md-input-container>
 		     <!-- input para assembly name -->
-			<!-- <md-input-container ng-hide ="!obj.itemAssemblyName && justInfo">
-				<label>Assembly Name</label>
-				<input type="text" ng-model="obj.itemAssemblyName" ng-readonly="justInfo">
-			</md-input-container> -->
+
 			<md-input-container ng-hide ="!obj.itemCategorie && justInfo">
 				<label>Item Categorie</label>
 				<input type="text" ng-model="obj.itemCategorie" ng-readonly="justInfo">

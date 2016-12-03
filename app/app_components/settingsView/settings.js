@@ -24,10 +24,11 @@ angular.module('settingsModule',[])
     // Retrieve data from API the whole list without filter
     $scope.queryData = function (query){
         shop.items.query(query,function (data){
+            console.log(query);
             $scope.collection = data; // show the results
             var codesArray = handleProjects.getJustCode($scope.collection); // to consult all inserted items
             codesArray.push('0');
-            $scope.insertedItems(codesArray);
+            $scope.addInsertedAndPendingsAmounts(codesArray);
         },function (error){
             console.log(error);
         });
@@ -36,7 +37,7 @@ angular.module('settingsModule',[])
     $scope.refresh = function(){
         $scope.loadFilter();
         query.companyId = $scope.firmaId;
-        $scope.queryData();
+        $scope.queryData(query);
     };
 
     $scope.firmaId = shop.getCompanyId();
@@ -52,13 +53,14 @@ angular.module('settingsModule',[])
         
     });
 
-    $scope.insertedItems = function(codesArray){
+    $scope.addInsertedAndPendingsAmounts = function(codesArray){ // call all items that need to be assembled in open projects
         var q = {}; //  prepare query to search in all open proyects
         q.companyId = $scope.firmaId;
         q.projectState = 'open';
         q.codesArray = codesArray;
-        shop.itemsInserted.query(q,function (data){
-            handleProjects.addInsertedAmount($scope.collection,data);
+        shop.totalInsertedAndPending.query(q,function (data){
+            handleProjects.addResumeInsertedAndPending($scope.collection,data);
+            console.log($scope.collection);
         },function (error){
             console.log(error);
         });
@@ -66,7 +68,7 @@ angular.module('settingsModule',[])
 
     // table functionality
 
-    $scope.header = {itemCode:'Item Code',itemAmount:'Stock',insertedAmount:'Assembled' ,itemType:'Type',itemName:'Name'};
+    $scope.header = {itemCode:'Item Code',itemAmount:'Stock',insertedAmount:'Assembled',totalPendingAmount:'Pending',neto:'Neto',itemType:'Type',itemName:'Name'};
             // order by header Item
     
             // edit a Object displayed on the table
@@ -174,7 +176,7 @@ angular.module('settingsModule',[])
     };
 
     $scope.createNewAssembly = function(){ // funcion para crear nuevo emsamble desde la vista configraciones
-        var obj= {};
+        var obj = {};
         obj.assemblyName = $scope.assembly.projectName;
         obj.assemblyNumber = $scope.assembly.projectNumber;
         obj.assemblyItems = $scope.itemsNewAssembly;
@@ -192,26 +194,6 @@ angular.module('settingsModule',[])
 
         }   
     };
-
-    $scope.selected = [];
-
-    $scope.toggle = function (item, list) {
-        $scope.queryByCode();
-        var idx = list.indexOf(item);
-
-        if (idx > -1) {
-            list.splice(idx, 1);
-            console.log($scope.selected);
-        }
-        else {
-          list.push(item);
-          console.log($scope.selected);
-        }
-      };
-
-      $scope.exists = function (item, list) {
-        return list.indexOf(item) > -1;
-      };
 
 
 }])

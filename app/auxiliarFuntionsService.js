@@ -6,34 +6,32 @@ angular
 
     function handleProjects (){
 
-      var currentProject = {};
-      var currentAssembly = {};
+        var currentProject = {};
+        var currentAssembly = {};
 
-         var passProject =function(obj){
-          currentProject = obj;
+        var passProject =function(obj){
+            currentProject = obj;
         };
 
-    var passAssembly = function(obj){
-      currentAssembly = obj;
-    };
+        var passAssembly = function(obj){
+          currentAssembly = obj;
+        };
 
-     var getCurrentProject = function() {
-        return currentProject;
-     };
+        var getCurrentProject = function() {
+            return currentProject;
+        };
 
-     var getCurrentAssembly = function() {
-       
-       return currentAssembly;
- 
-    };
+        var getCurrentAssembly = function() {           
+           return currentAssembly;     
+        };
 
         var getJustCode = function(collection){
-          var codeCol = [];
-          _.each(collection,function (obj){
-            var a = obj.itemCode;
-            codeCol.push(a);
-          });
-          return codeCol;
+            var codeCol = [];
+            _.each(collection,function (obj){
+                var a = obj.itemCode;
+                codeCol.push(a);
+            });
+            return codeCol;
         };
 
         var resumeCodeAndAmount = function  (collection) {
@@ -88,21 +86,28 @@ angular
 
         };
 
-        var addInsertedAmount = function(colStock,colAssembly){ // para mostrar la cantidad en stock de cada item
-          var objWithInsertedAmount = [];
-           var lcolStock = colStock.length;
-          _.each(colAssembly,function (colAssemblyObj){
+        var addResumeInsertedAndPending = function(colStock,colResume){ // to show the total assmebled and  pending amounts to be assembled in open projects 
             
-                for(var i =0;i<lcolStock;i++){
-                  var currentObj = colStock[i];
-                  if(colAssemblyObj.itemCode === currentObj.itemCode){
-                   currentObj.insertedAmount = colAssemblyObj.itemAmount;
-                    objWithInsertedAmount.push(currentObj);
-                  }
-                }
+            var objsWithResumedAmounts = [];
+            _.each(colStock,function (stockObj){
+                _.each(colResume,function (resumeObj) {
+                    if(resumeObj.itemCode === stockObj.itemCode){
+                        stockObj.totalPendingAmount = resumeObj.totalPendingAmount || 0;
+                        stockObj.insertedAmount = resumeObj.insertedAmount || 0;
+                        stockObj.neto = stockObj.itemAmount - stockObj.totalPendingAmount;
+                        objsWithResumedAmounts.push(stockObj);
+                    }
+                });
+
+                if(!stockObj.totalPendingAmount && !stockObj.insertedAmount){
+                  stockObj.totalPendingAmount = 0;
+                  stockObj.insertedAmount = 0;
+                  stockObj.neto = stockObj.itemAmount - stockObj.totalPendingAmount;
+                  objsWithResumedAmounts.push(stockObj);
+                }                
           });
 
-          return objWithInsertedAmount;
+          return objsWithResumedAmounts;
 
         };
 
@@ -199,7 +204,6 @@ angular
             subtract2arrays : subtract2arrays,
             checkIfNegative : checkIfNegative,
             addAmountFromStock : addAmountFromStock,
-            addInsertedAmount : addInsertedAmount,
             passProject : passProject,
             passAssembly : passAssembly,
             getCurrentAssembly : getCurrentAssembly,
@@ -208,7 +212,8 @@ angular
             orderObjectsForOrder : orderObjectsForOrder,
             addProjectsAmounts : addProjectsAmounts,
             completeProjects: completeProjects,
-            addProjectProperty : addProjectProperty
+            addProjectProperty : addProjectProperty,
+            addResumeInsertedAndPending : addResumeInsertedAndPending
         };
   
   }

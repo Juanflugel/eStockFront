@@ -28,10 +28,12 @@ angular.module('DirectivesModule',[])
                 query.companyId = $scope.firmaId;
                 query.string = $scope.search;                
                 shop.itemsCodeOrName.query(query,function (data){
+                    console.log(query);
                     $scope.collection = data;
                     var codesArray = handleProjects.getJustCode($scope.collection);
                     codesArray.push('0');
-                    $scope.insertedItems(codesArray);
+                    $scope.addInsertedAndPendingsAmounts(codesArray);
+                    
 
 	            },function (error){
 	                console.log(error);
