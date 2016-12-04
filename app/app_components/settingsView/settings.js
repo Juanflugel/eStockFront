@@ -38,6 +38,7 @@ angular.module('settingsModule',[])
         
     $scope.refresh = function(){
         $scope.loadFilter();
+        $scope.setFilters();
         query.companyId = $scope.firmaId;
         $scope.queryData(query);
     };
@@ -45,6 +46,7 @@ angular.module('settingsModule',[])
     $scope.firmaId = shop.getCompanyId();
 
     if ($scope.firmaId) { // to load filters and Id
+        $scope.setFilters();
         $scope.refresh();
     }
 

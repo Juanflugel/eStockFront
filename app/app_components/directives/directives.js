@@ -10,7 +10,10 @@ angular.module('DirectivesModule',[])
         templateUrl:'directives/searchHeader.html',  
         link: function($scope) {
 
-            $scope.filterBy = shop.getCompanyFilters();// cargando los filtros de la Empresa
+            $scope.setFilters = function(){
+                $scope.filterBy = shop.getCompanyFilters();// cargando los filtros de la Empresa
+            };
+            
 
             $scope.querySearch = function(query){
 
