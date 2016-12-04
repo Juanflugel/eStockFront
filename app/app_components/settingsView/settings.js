@@ -4,6 +4,7 @@ angular.module('settingsModule',[])
 
 .controller('settingsCtrl',['$scope','shop','handleProjects','$location','$anchorScroll',function ($scope,shop,handleProjects,$location,$anchorScroll) {
     
+    $scope.dashBoard = true; //just to know if the order directives should use the insert funtions
     $scope.gotoHash = function(x) {
       var newHash = x;
       if ($location.hash() !== newHash) {
@@ -21,19 +22,20 @@ angular.module('settingsModule',[])
         $scope.firmaId = shop.getCompanyId();
     };
 
-    // Retrieve data from API the whole list without filter
     $scope.queryData = function (query){
         shop.items.query(query,function (data){
             console.log(query);
             $scope.collection = data; // show the results
-            var codesArray = handleProjects.getJustCode($scope.collection); // to consult all inserted items
+            
+            var codesArray = handleProjects.getJustCode($scope.collection);
             codesArray.push('0');
-            $scope.addInsertedAndPendingsAmounts(codesArray);
+            $scope.addInsertedAndPendingsAmounts(codesArray); 
         },function (error){
             console.log(error);
         });
     };
-    
+    // Retrieve data from API the whole list without filter
+        
     $scope.refresh = function(){
         $scope.loadFilter();
         query.companyId = $scope.firmaId;
@@ -43,24 +45,20 @@ angular.module('settingsModule',[])
     $scope.firmaId = shop.getCompanyId();
 
     if ($scope.firmaId) { // to load filters and Id
-        //console.log('from service');
         $scope.refresh();
     }
 
     $scope.$on("companyInfoAvailable",function(){ // to load filters and id without problems
-        //console.log('pinki winki');
-        $scope.refresh();
-        
+        $scope.refresh();        
     });
 
-    $scope.addInsertedAndPendingsAmounts = function(codesArray){ // call all items that need to be assembled in open projects
+    $scope.addInsertedAndPendingsAmounts = function(codesArray){ // call all items inserted and the ones need to be assembled in open projects
         var q = {}; //  prepare query to search in all open proyects
         q.companyId = $scope.firmaId;
         q.projectState = 'open';
         q.codesArray = codesArray;
         shop.totalInsertedAndPending.query(q,function (data){
             handleProjects.addResumeInsertedAndPending($scope.collection,data);
-            console.log($scope.collection);
         },function (error){
             console.log(error);
         });
@@ -68,7 +66,7 @@ angular.module('settingsModule',[])
 
     // table functionality
 
-    $scope.header = {itemCode:'Item Code',itemAmount:'Stock',insertedAmount:'Assembled',totalPendingAmount:'Pending',neto:'Neto',itemType:'Type',itemName:'Name'};
+    $scope.header = {itemCode:'Item Code',itemAmount:'Stock',neto:'Neto',insertedAmount:'Assembled',totalPendingAmount:'Pending',itemType:'Type',itemName:'Name'};
             // order by header Item
     
             // edit a Object displayed on the table
@@ -114,24 +112,24 @@ angular.module('settingsModule',[])
     $scope.createObj = function(obj){
         obj.companyId = $scope.firmaId;
         shop.items.save(obj,function (data){
-                        if(data){
-                            $scope.obj = {};
-                        $scope.newItem = false;
-                        }
-                        
-                        // console.log('objeto guardado plenamente');
-                    },function (error){
-                        console.log(error);
-                    });
+
+            if(data){
+                $scope.obj = {};
+                $scope.newItem = false;
+            }
+
+        },function (error){
+            console.log(error);
+        });
     };  
 
     $scope.updateObj = function(obj){
-                    var idDocument = obj._id;
-                    shop.itemidUpdate.update({_id:idDocument},obj,function (){           
-                         $scope.editItem = false;               
-                         }, function (error){
-                            alert('The item amount was not updated:'+error);
-                         });
+        var idDocument = obj._id;
+        shop.itemidUpdate.update({_id:idDocument},obj,function (){           
+            $scope.editItem = false;               
+            },function (error){
+            alert('The item amount was not updated:'+ error);
+        });
     };
 
     $scope.newitem = function(){
@@ -214,8 +212,8 @@ angular.module('settingsModule',[])
     // Runs during compile
     return {
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        templateUrl: 'app_components/settingsView/settingsViewHeader.html'      
-        //templateUrl: 'settingsView/settingsViewHeader.html'
+        //templateUrl: 'app_components/settingsView/settingsViewHeader.html'      
+        templateUrl: 'settingsView/settingsViewHeader.html'
     };
 }])
 .directive('iForm', [function (){
@@ -252,8 +250,8 @@ angular.module('settingsModule',[])
     // Runs during compile
     return {
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        templateUrl: 'app_components/settingsView/itable.html', 
-        //templateUrl:'settingsView/itable.html',  
+        //templateUrl: 'app_components/settingsView/itable.html', 
+        templateUrl:'settingsView/itable.html',  
         link: function($scope) {
             $scope.order = function(predicate){
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;

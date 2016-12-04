@@ -16,7 +16,7 @@ angular.module('assembliesModule',['services'])
         shop.assembly.query(query,function (data){
                 $scope.assemblies = data;
                 $scope.assemblyInfo = $scope.assemblies[index] || $scope.assemblies[0];
-                $scope.collection = $scope.assemblyInfo.assemblyItems;
+                $scope.collectionA = $scope.assemblyInfo.assemblyItems;
                 $scope.progressBardisable = true;
                 // console.log(data.length);
             },function (error){
@@ -103,7 +103,7 @@ angular.module('assembliesModule',['services'])
     $scope.showAssemblyItems = function(obj,index){ // show all the items that belong to an assembly
         assemblyIndex = index;
         $scope.assemblyInfo = obj;
-        $scope.collection = obj.assemblyItems;
+        $scope.collectionA = obj.assemblyItems;
         $scope.gotoHash('top');
     };
 
@@ -129,7 +129,7 @@ angular.module('assembliesModule',['services'])
         shop.assemblyUpdate.update(query,obj,function (data){
             console.log(data);
             $scope.assemblyInfo = data;
-            $scope.collection = $scope.assemblyInfo.assemblyItems;
+            $scope.collectionA = $scope.assemblyInfo.assemblyItems;
             $scope.insertObjInAssembly = false;
         },function (error){
             console.log(error);
@@ -159,7 +159,7 @@ angular.module('assembliesModule',['services'])
                 query.itemCode = obj.itemCode;
                 console.log(query);
                 shop.assemblyUpdate.update(query,obj,function (){
-                 $scope.collection.splice($scope.collection.indexOf(obj),1);
+                 $scope.collectionA.splice($scope.collectionA.indexOf(obj),1);
                 },function (error){
                     console.log(error);
                 });
@@ -171,47 +171,18 @@ angular.module('assembliesModule',['services'])
     };
     // assembly details logic - once you select an assembly
 
-    // assembly update logic - insert multiple items from stock
-    $scope.filterModel = {};
-    $scope.queryByCode = function(){ // funcion para poder buscar una pieza cualquiera por codigo desde el input principal
-                var query = {};
-                query.companyId = $scope.firmaId;
-                query.string = $scope.search;
-                shop.itemsCodeOrName.query(query,function (data){
-                    $scope.itemsForAssembly = data;
-                    
-            },function (error){
-                console.log(error);
-            });         
-        
-    };
-    
-    $scope.loadFilter = function(){
-        $scope.filterBy = shop.getCompanyFilters();// cargando los filtros de la Empresa
-        $scope.assembliesList = $scope.filterBy[3].array; // lista de assemblies
-        $scope.providersList = $scope.filterBy[1].array; // lista de proveedores
-    };
 
-    $scope.queryByFilter = function(){ // function to query by any registerd filter
-        var j = {};
-        j[$scope.filterModel.queryObjKey] = $scope.queryTag;
-        var query = j;
-        query.companyId = $scope.firmaId;
-        shop.items.query(query,function (data){
-            $scope.itemsForAssembly  = data; // show the results
-        },function (error){
-            console.log(error);
-        });
-    };
 
     $scope.refreshFilter = function(){ // filter for all intems to be inserted
-        $scope.itemsToInsert =_.filter($scope.itemsForAssembly, function(obj){ return obj.insert === true; });
+        // collection here is setted in the headerSearch directive
+        $scope.itemsToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
     };
 
     $scope.listOfitemsToInsertInAssembly = [];
-    $scope.itemsToInsert = [];
+    $scope.itemsToInsert = [];// to link with the directive
 
     $scope.insertItemInAssembly = function(){
+
         if($scope.itemsToInsert.length > 0){
             $scope.progressBardisable = false;
             _.each($scope.itemsToInsert,function(obj){
@@ -282,7 +253,7 @@ angular.module('assembliesModule',['services'])
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
     templateUrl: 'assembliesView/assemblyDetailsHeader.html'
-    // templateUrl: 'app_components/assembliesView/assemblyDetailsHeader.html'     
+    //templateUrl: 'app_components/assembliesView/assemblyDetailsHeader.html'     
 
   };
 }])
@@ -291,7 +262,7 @@ angular.module('assembliesModule',['services'])
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
     templateUrl: 'assembliesView/assemblyTable.html',
-    // templateUrl: 'app_components/assembliesView/assemblyTable.html',
+    //templateUrl: 'app_components/assembliesView/assemblyTable.html',
     link: function($scope) {
             $scope.order = function(predicate){
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;

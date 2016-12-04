@@ -104,14 +104,15 @@
         
         // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        templateUrl: 'app_components/projectsView/input.html',
+        //templateUrl: 'app_components/projectsView/input.html',
+        templateUrl:'projectsView/input.html',		
         
-        link: function($scope, iElm, iAttrs, controller) {
+        link: function($scope) {
 
             var inputFile = angular.element('#i-input');
 
                 inputFile.bind("change", function(e){
-                  
+                  	
                     $scope.file = (e.srcElement || e.target).files[0];
                     Papa.parse($scope.file,{
                             header:true,
@@ -128,13 +129,13 @@
                 });
 
                 $scope.click = function(){
-                        console.log('click desde directiva');
+                        $scope.csvCollection = [];
                         inputFile.trigger('click');
-                }
+                };
         }
             
         
-    }
+    };
 }]);
 
 }());

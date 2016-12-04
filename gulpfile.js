@@ -52,17 +52,17 @@ gulp.task('default', function() {
 });
 
 // Watch .js files
-gulp.watch('app/**/*.js', ['scripts']);
+// gulp.watch('app/**/*.js', ['scripts']);
 
-gulp.task('watch', function() {
+// gulp.task('watch', function() {
 
   // Watch .js files
   // gulp.watch('app/**/*.js', ['scripts']); 
 
   // Create LiveReload server
-  livereload.listen();
+  // livereload.listen();
 
   // Watch any files in dist/, reload on change
-  gulp.watch(['dist/**']).on('change', livereload.changed);
+  // gulp.watch(['dist/**']).on('change', livereload.changed);
 
-});
+// });

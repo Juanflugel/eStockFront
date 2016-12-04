@@ -6,11 +6,26 @@ angular.module('DirectivesModule',[])
 	
 	return {
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        templateUrl: 'app_components/directives/searchHeader.html', 
-        //templateUrl:'settingsView/itable.html',  
+        //templateUrl: 'app_components/directives/searchHeader.html', 
+        templateUrl:'directives/searchHeader.html',  
         link: function($scope) {
 
             $scope.filterBy = shop.getCompanyFilters();// cargando los filtros de la Empresa
+
+            $scope.querySearch = function(query){
+
+                 shop.items.query(query,function (data){
+                    $scope.collection = data; // show the results
+                    if($scope.dashBoard === true){
+                        var codesArray = handleProjects.getJustCode($scope.collection);
+                        codesArray.push('0');
+                        $scope.addInsertedAndPendingsAmounts(codesArray);
+                    }  
+                },function (error){
+                    console.log(error);
+                });
+
+            };
 
             $scope.queryByFilter = function(){ // function to query by any registerd filter
 		        var j = {};
@@ -18,7 +33,7 @@ angular.module('DirectivesModule',[])
 		        var query = j;
 		        query.companyId = $scope.firmaId;
 		        $scope.search = ''; // clean the other model
-		        $scope.queryData(query);
+		        $scope.querySearch(query);
 		    };
 
 		    $scope.queryByCode = function(){ // funcion para poder buscar una pieza cualquiera por codigo desde el input principal
@@ -28,11 +43,14 @@ angular.module('DirectivesModule',[])
                 query.companyId = $scope.firmaId;
                 query.string = $scope.search;                
                 shop.itemsCodeOrName.query(query,function (data){
-                    console.log(query);
+
                     $scope.collection = data;
-                    var codesArray = handleProjects.getJustCode($scope.collection);
-                    codesArray.push('0');
-                    $scope.addInsertedAndPendingsAmounts(codesArray);
+
+                    if($scope.dashBoard === true){
+                        var codesArray = handleProjects.getJustCode($scope.collection);
+                        codesArray.push('0');
+                        $scope.addInsertedAndPendingsAmounts(codesArray);
+                    }              
                     
 
 	            },function (error){

@@ -14,9 +14,9 @@
 	   		<tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
 		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>
 		  		<td class="iTable" contentEditable="{{createAssembly}}" ng-model="sample.itemAmount" type="number">{{sample.itemAmount}}</td>
-		  		<td class="iTable">{{sample.insertedAmount}}</td>
-		  		<td class="iTable">{{sample.totalPendingAmount}}</td>
 		  		<td class="iTable">{{sample.neto}}</td>
+		  		<td class="iTable">{{sample.insertedAmount}}</td>
+		  		<td class="iTable">{{sample.totalPendingAmount}}</td>		  		
 		  		<td class="iTable">{{sample.itemType}}</td>
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>		  		
 		 		<td ng-hide="createAssembly" class="iTable">

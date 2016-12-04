@@ -72,10 +72,10 @@
 
 </div>
     <div ng-show="insertObjInAssembly">
-        <div layout="row" flex>
+<!--         <div layout="row" flex>
             <md-input-container md-no-float flex>
             <md-icon><i class="fa fa-search fa-lg "></i></md-icon>
-            <input type="text" ng-model="search" ng-model-options="{ debounce: 400 }" placeholder="Here you can find all the items you have in your Stock" ng-change="queryByCode()">
+            <input type="text" ng-model="search" ng-model-options="{ debounce: 400 }" placeholder="Here  monda you can find all the items you have in your Stock" ng-change="queryByCode()">
         </md-input-container>
         <md-input-container flex="20" md-no-float>
             <md-select ng-model="filterModel" placeholder="Filter By">
@@ -87,9 +87,10 @@
             <md-option ng-value ="tag" ng-repeat="tag in filterModel.array">{{tag}}</md-option>
             </md-select>
         </md-input-container>
-    </div>
+    </div> -->
+    <search-header flex></search-header>
 
-    <table class="table table-hover table-responsive panel" ng-show="itemsForAssembly">    
+    <table class="table table-hover table-responsive panel">    
             <thead>
             <tr class="table" >
                 <th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
@@ -101,11 +102,9 @@
             </thead>
 
             <tbody>
-            <tr ng-repeat="sample in itemsForAssembly | filter:search | orderBy:predicate:reverse" class="text-center">
+            <tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
                 <td class="iTable">{{sample.itemCode | limitTo:17}}</td>
-                <!-- <td class="iTable">{{sample.itemName}}</td> -->
                 <td class="iTable" contentEditable="true" ng-model="sample.itemAmount" type="number">{{sample.itemAmount}}</td>
-
                 <td class="iTable">{{sample.itemName | limitTo:30}}</td>                
                 <td ng-show="createAssembly"><input type="checkbox" ng-change="refreshFilter()" ng-model="sample.insert"></td>
             </tr>

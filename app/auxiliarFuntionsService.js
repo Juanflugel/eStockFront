@@ -136,66 +136,9 @@ angular
           return objready;
         };
 
-        var completeProjects = function(colStock,arrayPro){ 
-          // it is a function to complete the structure for each object to be able to show it in the view correctly
+        
 
-          var results =  _.each(colStock,function (objStock){
-                var oSPA = objStock.projectsAmounts;
-                var oSPAL = oSPA.length;
-
-                  if(oSPAL ===0 ){
-                    _.each(arrayPro,function (pn){
-                      oSPA.push({'projectNumber':pn,'netoAmount':0,'itemAssembled':false});
-                    })
-                  }
-
-                  if (oSPAL < arrayPro.length  && oSPAL != 0){
-                      _.each(oSPA,function (i){                        
-                        _.each(arrayPro,function (pn){
-                             if(i.projectNumber !=pn && oSPAL < arrayPro.length){
-                                oSPA.push({'projectNumber':pn,'netoAmount':0,'itemAssembled':false});
-                             }                             
-                        });
-                      });
-                  }
-            });
-            return results;  
-        };
-
-        var addProjectsAmounts = function(colStock,colPro,l){ // two differents collections Stock(base), projects( to add)
-         var results = _.each(colStock,function (objStock){
-                objStock.projectsAmounts = [];
-
-                  _.each(colPro,function (objPro){                    
-
-                      if(objStock.itemCode === objPro.itemCode){
-                        objStock.projectsAmounts.push({'projectNumber':objPro.projectNumber,'netoAmount':objPro.netoAmount,'itemAssembled':objPro.itemAssembled})
-                      }                         
-
-                  });
-
-          });
-
-
-          return results;
-        };
-
-        var addProjectProperty = function(colStock,colProItems){
-            var results = _.each(colStock,function (objStock){
-                    
-                  _.each(colProItems,function (objPro){
-                      if(objStock.itemCode === objPro.itemCode ){
-                        var prop = objPro.projectNumber.toString();                        
-                        objStock[prop] = {'netoAmount':objPro.netoAmount,'itemAssembled':objPro.itemAssembled};
-                        
-                      }
-                  });
-
-                  
-            });
-
-            return results;
-        };
+        
 
 
         return {
@@ -210,9 +153,6 @@ angular
             getCurrentProject : getCurrentProject,
             orderObjects : orderObjects,
             orderObjectsForOrder : orderObjectsForOrder,
-            addProjectsAmounts : addProjectsAmounts,
-            completeProjects: completeProjects,
-            addProjectProperty : addProjectProperty,
             addResumeInsertedAndPending : addResumeInsertedAndPending
         };
   

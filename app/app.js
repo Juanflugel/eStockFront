@@ -48,7 +48,7 @@ angular.module('eStockFront',[
    .state('app', {
             abstract: true,
             url: '/app',
-            // templateUrl: 'app_components/menu/menu.html',
+            //templateUrl: 'app_components/menu/menu.html',
             templateUrl: 'menu/menu.html',
             controller:'menuCtrl'
 
@@ -56,7 +56,7 @@ angular.module('eStockFront',[
 
     .state('app.Settings', {
       url: "/Settings",
-      // templateUrl:"app_components/settingsView/settingsView.html",
+      //templateUrl:"app_components/settingsView/settingsView.html",
       templateUrl:"settingsView/settingsView.html",
       controller:'settingsCtrl'
     })
@@ -74,15 +74,15 @@ angular.module('eStockFront',[
     })
     .state('app.Projects', {
       url: "/Projects",
-      // templateUrl:"app_components/projectsView/projectsView.html",
+      //templateUrl:"app_components/projectsView/projectsView.html",
       templateUrl:"projectsView/projectsView.html",
       controller:'projectsCtrl'
 
     })
     .state('app.Projects.Details', {
       url: "/:id",
-      templateUrl:"app_components/projectsView/projectDetails.html",
-      //templateUrl:"projectsView/projectDetails.html",
+      //templateUrl:"app_components/projectsView/projectDetails.html",
+      templateUrl:"projectsView/projectDetails.html",
       controller:'ProjectDetailsCtrl'
 
     })
@@ -96,7 +96,7 @@ angular.module('eStockFront',[
 
     .state('app.Assemblies', {
       url: "/Assemblies",
-      // templateUrl:"app_components/assembliesView/assembliesView.html",
+      //templateUrl:"app_components/assembliesView/assembliesView.html",
       templateUrl:"assembliesView/assembliesView.html",
       controller:'assembliesCtrl'
 
@@ -137,14 +137,14 @@ angular.module('eStockFront',[
       require: 'ngModel',
       link: function(scope, element, attrs, modelCtrl) {
         var capitalize = function(inputValue) {
-          if (inputValue == undefined) inputValue = '';
+          if (inputValue === undefined) {inputValue = '';}
           var capitalized = inputValue.toUpperCase();
           if (capitalized !== inputValue) {
             modelCtrl.$setViewValue(capitalized);
             modelCtrl.$render();
           }
           return capitalized;
-        }
+        };
         modelCtrl.$parsers.push(capitalize);
         capitalize(scope[attrs.ngModel]); // capitalize initial value
       }

@@ -89,6 +89,7 @@
     // Custom Globals
     "globals"       : {
     "angular":false,
+    "Papa":false,
     "_": false
     }        // additional predefined global variables
 }

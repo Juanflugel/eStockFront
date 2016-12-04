@@ -122,7 +122,7 @@
 		 	$scope.progressBardisable = false;
 		 	var idDocument = obj._id;
 		 	obj.projectNumber = obj.projectNumber.toUpperCase();
-		 	shop.projectUpdate.update({_id:idDocument},obj,function (data){
+		 	shop.projectUpdate.update({_id:idDocument},obj,function (){
 		 		var  indexOfProject = $scope.projects.indexOf($scope.projectInfo);      
 				$scope.projectQuery(indexOfProject);
 		 		$scope.editProject = false;
@@ -130,7 +130,7 @@
 		 		$scope.obj = {};
 
 		 	},function (error){
-		 		alert('updated faild');
+		 		alert('Project update faild' + error);
 		 	});
 		 };
 
