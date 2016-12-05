@@ -15,6 +15,18 @@
 	      }
 	    };
 
+	    $scope.addAmountFromStock = function(){
+			var codesArray = handleProjects.getJustCode($scope.collection);
+			var q = {}; //  prepare query to search in all open proyects
+	        q.companyId = $scope.firmaId;
+	        q.array = codesArray;
+	        shop.items.query(q,function (data){
+	            handleProjects.addAmountFromStock($scope.collection,data);
+	        },function (error){
+	            console.log(error);
+	        });
+		};
+
 		$scope.populateViewFromServer = function(){
 			var query = {};
 			query.companyId = $scope.firmaId;
@@ -25,8 +37,9 @@
 				$scope.assemblies = $scope.currentProject.projectAssemblies; // assembly collection
 				aindex = $scope.assemblies.findIndex(function (x){ return x.assemblyNumber === $state.params.idAssembly;});
 				$scope.currentAssembly = $scope.currentProject.projectAssemblies[aindex]; // the assembly Obj
-				$scope.collection = $scope.currentAssembly.assemblyItems; // table to show items in assembly in a project
+				$scope.collection = $scope.currentAssembly.assemblyItems; // table to show items in assembly in a project				
 				$scope.progressBarEditItem = true;
+				$scope.addAmountFromStock();				
 				handleProjects.passProject($scope.currentProject);
 
 			},function (err){
@@ -36,15 +49,16 @@
 		
 		$scope.currentProject = handleProjects.getCurrentProject();
 		$scope.progressBarEditItem = true;
-		$scope.header = {itemStatus:'Status',itemCode:'Item Code',neededAmount:'Amount',itemName:'Name'};
+		$scope.header = {itemStatus:'Status',itemCode:'Item Code',neededAmount:'Amount',stock:'Stock',itemName:'Name'};
 
 		$scope.assemblies = $scope.currentProject.projectAssemblies; // assembly collection
 		$scope.currentAssembly = handleProjects.getCurrentAssembly(); // the assembly Obj
 		$scope.collection = $scope.currentAssembly.assemblyItems; // table to show items in assembly in a project
+		$scope.addAmountFromStock();
 		
 		console.log('immer wieder');
 
-		if($scope.firmaId && _.keys($scope.currentProject).length ===0){
+		if($scope.firmaId && _.keys($scope.currentProject).length === 0){
 			console.log('from service');
 			$scope.populateViewFromServer(); // to call all projects
 			
@@ -56,6 +70,7 @@
 			$scope.populateViewFromServer();
 		});
 
+		
 
 		$scope.seeAssembliesDetails = function(obj){
 			handleProjects.passAssembly(obj); // cule gallo
