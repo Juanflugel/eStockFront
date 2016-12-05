@@ -70,7 +70,6 @@ angular.module('services', ['ngResource'])
     usersUpdate:$resource(root+ '/users',{},{ update: {method: 'PUT'}}),
     orders :$resource(root + '/orders',{}),
     ordersUpdate :$resource(root + '/orders',{},{ update: {method: 'PUT'}}),
-    projectsAmouts :$resource(root + '/pendingInProject',{}),
     totalInsertedAndPending :$resource(root + '/totalInsertedAndPending',{}),
     // request to the API
     // company Information

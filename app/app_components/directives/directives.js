@@ -12,8 +12,19 @@ angular.module('DirectivesModule',[])
 
             $scope.setFilters = function(){
                 $scope.filterBy = shop.getCompanyFilters();// cargando los filtros de la Empresa
+                $scope.providersList = $scope.filterBy[1].array;
+                $scope.assembliesList = $scope.filterBy[3].array;
             };
             
+            
+            if ($scope.firmaId) { // to load filters and Id        
+                $scope.setFilters(); 
+            }
+
+            $scope.$on("companyInfoAvailable",function(){ // to load filters and id without problems
+                $scope.setFilters();        
+            });
+
 
             $scope.querySearch = function(query){
 
