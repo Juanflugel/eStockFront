@@ -95,17 +95,19 @@ angular.module('settingsModule',[])
                 
             };
 
-    $scope.deleteObj = function(item,index){
+    $scope.deleteObj = function(item){
 
                 var r = confirm('Are you sure to delete Item: '+ item.itemName);
                     if (r === true) {
-                     shop.items.remove({_id:item._id},function (data){
-                        $scope.collection.splice(index,1);
+                        var index = $scope.collection.indexOf(item);
+                     shop.items.remove({_id:item._id},function (data){                        
                         alert('Item: '+ data.itemName+' successfully deleted');
-                        $scope.refresh();
+                        $scope.collection.splice(index,1);
+                        
                      });
                     } else {
-                        return;
+                        //return;
+                        console.log(index);
                     }
 
             };
@@ -113,11 +115,14 @@ angular.module('settingsModule',[])
     $scope.createObj = function(obj){
         obj.companyId = $scope.firmaId;
         shop.items.save(obj,function (data){
-
-            if(data){
+            
                 $scope.obj = {};
                 $scope.newItem = false;
-            }
+
+                if($scope.search !='' && $scope.search){
+                    $scope.queryByCode();
+                }
+          
 
         },function (error){
             console.log(error);

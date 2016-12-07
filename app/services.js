@@ -33,7 +33,7 @@ angular.module('services', ['ngResource'])
 .factory('Config', function () {
   return {
       version : '0.0.1',
-      ip: 'www.estock.website', // localhost www.estock.website
+      ip: 'localhost', // localhost www.estock.website
       port: 5006,
       protocol: 'http'
   };
@@ -61,6 +61,8 @@ angular.module('services', ['ngResource'])
     projectRequiredAmounts:$resource('http://' + Config.ip + ':' + Config.port + '/requiredAmounts',{}),
     projectGeneralView:$resource('http://' + Config.ip + ':' + Config.port + '/projectGeneralView',{}),
     projectUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/projects',{},{ update: {method: 'PUT'}}),
+    // is a function to perform update operations in the items array embedded in projects
+    itemsInProject:$resource('http://' + Config.ip + ':' + Config.port + '/itemsInproject',{},{ update: {method: 'PUT'}}),
     assembly:$resource('http://' + Config.ip + ':' + Config.port + '/assemblies',{}),
     assemblyUpdate:$resource('http://' + Config.ip + ':' + Config.port + '/assemblies',{},{ update: {method: 'PUT'}}),
     company: $resource('http://' + Config.ip + ':' + Config.port + '/company',{}),

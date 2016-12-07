@@ -104,6 +104,30 @@
         	});
         };
 
+        $scope.pullItemFromProject = function(item){
+
+        	var r = confirm('Are you sure to delete the item: ' + item.itemCode);
+				 	if(r===true){
+				 		var index = $scope.collection.indexOf(item);				 		
+				 		var query = {};
+				 		query.companyId = $scope.firmaId;
+				 		query.projectNumber = $scope.currentProject.projectNumber;
+				 		query['projectAssemblies.assemblyNumber'] = $scope.currentAssembly.assemblyNumber;
+				 		console.log(query,index);
+				 		shop.itemsInProject.update(query,$scope.collection,function(){
+				 			alert('Item '+ item.itemCode +' deleted from Project '+$scope.currentProject.projectNumber);
+				 			$scope.collection.splice(index,1);
+				 		},function (error){
+				 			console.log(error)
+				 		})
+				 		
+				 	}else{
+				 		alert('click false');
+				 	}
+
+
+        };
+
 	}]);
 
 
