@@ -22,12 +22,12 @@
 	    			Upload CSV File
 	  				</md-tooltip>
 	  				
-					<i class="fa fa-arrow-circle-up fa-lg" aria-hidden="true"></i>
+					<i class="fa fa-file-excel-o fa-lg text-success" aria-hidden="true"></i>
 				</p>           
-				<p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertarAssembliesInProject()">
+				<p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertAssembliesInProject()">
 					<i   class="fa fa-check-circle fa-lg  text-success" ></i>
 				</p>
-				<p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertNewAssembly=false">
+				<p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="forgetInsertAssemblies()">
 					<i   class="fa fa-times fa-lg text-danger" ></i>
 				</p>
 
@@ -51,10 +51,10 @@
 
 				<tbody>
 					<tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
-						<td class="">{{sample.assemblyName | limitTo:30}}</td>                
-						<td class="">{{sample.assemblyNumber}}</td>
-						<td class="">{{sample.assemblyItems.length}}</td>
-						<td class="">
+						<td class="iTable">{{sample.assemblyName | limitTo:30}}</td>                
+						<td class="iTable">{{sample.assemblyNumber}}</td>
+						<td class="iTable">{{sample.assemblyItems.length}}</td>
+						<td class="iTable">
 							<input type="checkbox" ng-change="refreshFilter()" ng-model="sample.insert">               
 						</td>
 
@@ -65,9 +65,9 @@
 		</div>
 
 		<div ng-show="insertCsv">
-			<div layout="row" flex layout-margin>
-				<input-tag></input-tag>
-
+			<md-divider flex></md-divider>
+			<div layout="row" flex layout-margin>				
+				&nbsp;&nbsp;
 				<md-input-container flex>
 	                <label>Assembly Name</label>
 	                <input type="text" ng-model="objAssembly.assemblyName" capitalize>
@@ -77,6 +77,8 @@
 	                <label>Assembly Number</label>
 	                <input type="text" ng-model="objAssembly.assemblyNumber" capitalize>
 	            </md-input-container>
+
+	            <input-tag></input-tag>
 
 	            <p class="viewSubHeader text-center" ng-click="insertAssemblyCsv()">
 					<i layout-padding  class="fa fa-check-circle fa-2x  text-success" ></i>

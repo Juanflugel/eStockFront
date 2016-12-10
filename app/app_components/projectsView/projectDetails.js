@@ -29,7 +29,7 @@
 			$scope.assembliesToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
 		};
 		
-		$scope.insertarAssembliesInProject = function(){
+		$scope.insertAssembliesInProject = function(){
 			$scope.progressBarInsertAssemblydisable = false;
 			var projectId = $scope.projectInfo._id;
 			var assembliesCollection = $scope.assembliesToInsert;
@@ -44,7 +44,12 @@
 				},function (error){
 					console.log(error);
 				});
-			};
+		};
+
+		$scope.forgetInsertAssemblies = function(){
+			$scope.assembliesToInsert = [];
+			$scope.insertNewAssembly = false;
+		};
 
 		$scope.passAssembly = function(obj){
 				// console.log(obj);
@@ -104,8 +109,8 @@
         
         // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        //templateUrl: 'app_components/projectsView/input.html',
-        templateUrl:'projectsView/input.html',		
+        templateUrl: 'app_components/projectsView/input.html',
+        //templateUrl:'projectsView/input.html',		
         
         link: function($scope) {
 

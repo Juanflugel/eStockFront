@@ -48,8 +48,14 @@ angular.module('assembliesModule',['services'])
 
     $scope.editAssembly = function(obj){ // open the form to update assembly info
         $scope.Objassembly = obj;
+        $scope.Objassembly.subAssemblies = $scope.Objassembly.subAssemblies || [];
         $scope.editAssemblyInfo = true;
         $scope.gotoHash('top');
+    };
+
+    $scope.pushSubAssembly = function(subObj){
+       $scope.Objassembly.subAssemblies.push(subObj);
+       $scope.subObj = {};
     };
     
 
@@ -121,21 +127,6 @@ angular.module('assembliesModule',['services'])
         
     };
 
-    $scope.insertItemInAssembly = function(obj){ // query to the api to insert a new item
-        
-        var query = {};
-        query.companyId = $scope.firmaId;
-        query.assemblyNumber = $scope.assemblyInfo.assemblyNumber;
-        shop.assemblyUpdate.update(query,obj,function (data){
-            console.log(data);
-            $scope.assemblyInfo = data;
-            $scope.collectionA = $scope.assemblyInfo.assemblyItems;
-            $scope.insertObjInAssembly = false;
-        },function (error){
-            console.log(error);
-        });
-    };
-
     $scope.updateItemInAssembly = function(obj){
         var query = {};
         query.companyId = $scope.firmaId;
@@ -184,7 +175,9 @@ angular.module('assembliesModule',['services'])
     $scope.insertItemInAssembly = function(){
 
         if($scope.itemsToInsert.length > 0){
+            // just to show the query loading
             $scope.progressBardisable = false;
+            // in case they have no property "item Assembled" is setted to false
             _.each($scope.itemsToInsert,function(obj){
                 obj.itemAssembled = false;
             });
@@ -194,15 +187,16 @@ angular.module('assembliesModule',['services'])
             updateQuery.companyId = $scope.companyId;
             updateQuery.assemblyNumber = $scope.assemblyInfo.assemblyNumber;
             shop.assemblyUpdate.update(updateQuery,$scope.listOfitemsToInsertInAssembly,function (){
-                console.log('listo el pollo');
-                //$scope.queryByFilter();
+                
                 $scope.assembliesQuery(assemblyIndex);
                 $scope.filterModel = {};
                 $scope.itemsToInsert = [];
                 $scope.itemsForAssembly = []; // just to clean de inserted items array
                 $scope.search = ''; // just to clean the model when the insertion process ocurs
+                $scope.collection = [];
                 $scope.progressBardisable = true;
                 $scope.insertObjInAssembly = false;
+
             },function (error){
                 console.log(error);
             });
@@ -210,6 +204,12 @@ angular.module('assembliesModule',['services'])
             return;
         }
        
+    };
+
+    $scope.abortToInsertItemsInAssembly = function(){
+        $scope.collection = [];
+        $scope.search = '';
+        $scope.insertObjInAssembly = false;
     };
 
 
@@ -243,8 +243,8 @@ angular.module('assembliesModule',['services'])
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    templateUrl: 'assembliesView/assembliesListCard.html'
-    // templateUrl: 'app_components/assembliesView/assembliesListCard.html'     
+    //templateUrl: 'assembliesView/assembliesListCard.html'
+    templateUrl: 'app_components/assembliesView/assembliesListCard.html'     
 
   };
 }])
@@ -252,8 +252,8 @@ angular.module('assembliesModule',['services'])
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    templateUrl: 'assembliesView/assemblyDetailsHeader.html'
-    //templateUrl: 'app_components/assembliesView/assemblyDetailsHeader.html'     
+    //templateUrl: 'assembliesView/assemblyDetailsHeader.html'
+    templateUrl: 'app_components/assembliesView/assemblyDetailsHeader.html'     
 
   };
 }])

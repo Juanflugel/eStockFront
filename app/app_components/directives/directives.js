@@ -55,8 +55,13 @@ angular.module('DirectivesModule',[])
                 $scope.filterModel =''; // clean the other model
                 $scope.queryTag = '';
                 query.companyId = $scope.firmaId;
-                query.string = $scope.search;                
-                shop.itemsCodeOrName.query(query,function (data){
+                query.string = $scope.search;
+
+                if ($scope.search === ''){
+                    return
+                }
+                else{
+                    shop.itemsCodeOrName.query(query,function (data){
 
                     $scope.collection = data;
 
@@ -64,12 +69,13 @@ angular.module('DirectivesModule',[])
                         var codesArray = handleProjects.getJustCode($scope.collection);
                         codesArray.push('0');
                         $scope.addInsertedAndPendingsAmounts(codesArray);
-                    }              
-                    
+                    }      
 
-	            },function (error){
-	                console.log(error);
-	            });         
+                    },function (error){
+                        console.log(error);
+                    }); 
+                }               
+                        
         
     		};
 

@@ -8,16 +8,22 @@
                 <span flex>{{assemblyInfo.assemblyItems.length}} Bauteile</span>
                 
             </p>
-            <span flex></span>
-                <p ng-show="insertObjInAssembly" class="listMenu" layout="row" layout-align="center center" ng-click="insertItemInAssembly()" flex ="15">
-                    <i class="fa fa-upload text-success"></i> &nbsp; Insert Items
-                </p>
+            <span flex></span>                
 
-	 			<p ng-hide="insertObjInAssembly" class="viewSubHeader" ng-click="newObj();loadFilter()"><i   class="fa fa-plus fa-lg" ></i>
+	 			<p ng-hide="insertObjInAssembly" class="viewSubHeader" ng-click="newObj()">
+                    <i   class="fa fa-plus fa-lg" ></i>
                     <md-tooltip>
-                 Insert Items 
+                        Insert Items 
                     </md-tooltip>
                 </p>
+
+                <p class="viewSubHeader text-center" ng-click="">
+                    <md-tooltip>
+                    Upload CSV File
+                    </md-tooltip>
+                    
+                    <i class="fa fa-file-excel-o fa-lg text-success" aria-hidden="true"></i>
+                </p> 
 	 
  		</div>
 	</md-subheader>
@@ -43,6 +49,16 @@
                 <label>Item Amount</label>
                 <input type="number" ng-model="obj.itemAmount">
             </md-input-container>
+
+            <md-input-container>
+                <label>Sub Assembly Name</label>
+                <input type="text" ng-model="obj.subAssemblyName">
+            </md-input-container>
+
+              <md-input-container>
+                <label>sub Assembly Number</label>
+                <input type="text" ng-model="obj.subAssemblyNumber">
+            </md-input-container>
               
             &nbsp;
           <!-- editing part -->
@@ -54,48 +70,13 @@
                 <i  ng-click="editObjInAssembly=false;closeForm()"  layout-padding class="fa fa-times fa-2x text-danger">                    
                 </i>&nbsp; &nbsp; &nbsp;              
             </div>
-            <!-- editing part -->
-            <!-- inserting part -->
-            <div ng-hide="editObjInAssembly" ng-show="insertObjInAssembly">
-              <i  ng-click="insertItemInAssembly(obj)" layout-padding class="fa fa-check-circle fa-2x text-success" >  
-            </i>&nbsp; &nbsp; &nbsp;
-            </div>
-            <div ng-hide="editObjInAssembly" ng-show="insertObjInAssembly">
-              <i  ng-click="insertObjInAssembly=false;closeForm()"  layout-padding class="fa fa-times fa-2x text-danger"></i>
-              &nbsp; &nbsp; &nbsp;
-            </div>
-            <!-- inserting part -->
-        
+            <!-- editing part -->        
         </div>
     
   </div>
 
 </div>
-    <div ng-show="insertObjInAssembly">
-
-    <search-header flex></search-header>
-
-    <table class="table table-hover table-responsive panel">    
-            <thead>
-            <tr class="table" >
-                <th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
-                    <p ng-click="order(key)">{{val}}</p>
-                </th>
-                <th ng-hide="createAssembly" class="text-center"><p>Handling</p></th>
-                <th ng-show="createAssembly" class="text-center"><p>{{itemsToInsert.length}} Selected</p></th>          
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
-                <td class="iTable">{{sample.itemCode | limitTo:17}}</td>
-                <td class="iTable" contentEditable="true" ng-model="sample.itemAmount" type="number">{{sample.itemAmount}}</td>
-                <td class="iTable">{{sample.itemName | limitTo:30}}</td>                
-                <td ng-show="createAssembly"><input type="checkbox" ng-change="refreshFilter()" ng-model="sample.insert"></td>
-            </tr>
-            </tbody>    
-    </table>  
-    </div>
+ 
     
 
-		</md-card>
+</md-card>
