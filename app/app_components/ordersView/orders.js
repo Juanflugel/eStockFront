@@ -130,8 +130,8 @@
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    templateUrl: 'app_components/ordersView/orderDetailsHeader.html',    
-    //templateUrl: 'ordersView/orderDetailsHeader.html',
+    //templateUrl: 'app_components/ordersView/orderDetailsHeader.html',    
+    templateUrl: 'ordersView/orderDetailsHeader.html',
     link: function($scope) {
 
         $scope.insertNewItemInOrder = function(){

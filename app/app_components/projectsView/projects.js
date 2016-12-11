@@ -187,8 +187,8 @@
   // Runs during compile
   return {
 	restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-	//templateUrl: 'projectsView/projectListCard.html'
-	templateUrl: 'app_components/projectsView/projectDetails.html'    
+	templateUrl: 'projectsView/projectDetails.html'
+	//templateUrl: 'app_components/projectsView/projectDetails.html'    
 
 };
 }]);

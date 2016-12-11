@@ -97,31 +97,28 @@ angular.module('settingsModule',[])
 
     $scope.deleteObj = function(item){
 
-                var r = confirm('Are you sure to delete Item: '+ item.itemName);
-                    if (r === true) {
-                        var index = $scope.collection.indexOf(item);
-                     shop.items.remove({_id:item._id},function (data){                        
-                        alert('Item: '+ data.itemName+' successfully deleted');
-                        $scope.collection.splice(index,1);
-                        
-                     });
-                    } else {
-                        //return;
-                        console.log(index);
-                    }
-
-            };
+        var r = confirm('Are you sure to delete Item: '+ item.itemName);
+        if (r === true) {
+            var index = $scope.collection.indexOf(item);
+            shop.items.remove({_id:item._id},function (data){                        
+                alert('Item: '+ data.itemName+' successfully deleted');
+                $scope.collection.splice(index,1);           
+            });
+            } 
+            else {
+                return;
+            }
+    };
 
     $scope.createObj = function(obj){
         obj.companyId = $scope.firmaId;
-        shop.items.save(obj,function (data){
-            
-                $scope.obj = {};
-                $scope.newItem = false;
+        shop.items.save(obj,function (){            
+            $scope.obj = {};
+            $scope.newItem = false;
 
-                if($scope.search !='' && $scope.search){
+            if($scope.search !=='' && $scope.search){
                     $scope.queryByCode();
-                }
+            }
           
 
         },function (error){

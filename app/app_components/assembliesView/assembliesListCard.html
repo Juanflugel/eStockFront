@@ -29,32 +29,7 @@
                         <input type="text" ng-model="Objassembly.assemblyNumber">
                     </md-input-container>
 
-                    <div layout="row" layout-margin>
-                        <table class="table table-hover table-responsive panel">  
-                        <thead>
-                            <tr class="table">
-                                <th class="text-center">Sub Assembly</th>               
-                                <th class="text-center">Number</th>
-                                <th class="text-center">Del</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="subAssembly in Objassembly.subAssemblies" class="text-center">
-                                <td class="iTable">{{subAssembly.subAssemblyName}}</td>
-                                <td class="iTable">{{subAssembly.subAssemblyNumber}}</td>
-                                <td class="iTable"> <i ng-click="startNewAssembly=false"class="fa fa-times"></i></td>
-                            </tr>
-                        </tbody>   
-                    </table>
-
-                         <!-- <label>Sub Assemblies</label>
-                         <p ng-repeat="subAssembly in Objassembly.subAssemblies">{{subAssembly.subAssemblyName}}-{{subAssembly.subAssemblyNumber}}</p> -->
-                    </div>           
-                       
-                        
-                  
-
-                    <div layout="row" layout-margin>
+                     <div layout="row" layout-margin>
                         <md-input-container >
                             <label>Sub Assembly Name</label>
                             <input type="text" ng-model="subObj.subAssemblyName">
@@ -63,9 +38,30 @@
                             <label>Sub Assembly Number</label>
                             <input type="text" ng-model="subObj.subAssemblyNumber">
                         </md-input-container>
-                         <i ng-click="pushSubAssembly(subObj)"  layout-margin class="fa fa-check-circle fa-lg text-success" >    
+                         <i ng-click="pushSubAssembly(subObj)"  layout-padding class="fa fa-check-circle fa-lg text-success" >    
                         </i>
                     </div>
+
+                    <div layout="row">
+                        <table class="table table-hover table-responsive panel">  
+                            <thead>
+                                <tr class="table">
+                                    <th class="text-center">Sub Assembly</th>               
+                                    <th class="text-center">Number</th>
+                                    <th class="text-center">Del</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="subAssembly in Objassembly.subAssemblies" class="text-center">
+                                    <td class="iTable">{{subAssembly.subAssemblyName}}</td>
+                                    <td class="iTable">{{subAssembly.subAssemblyNumber}}</td>
+                                    <td class="iTable"> <i ng-click="pullSubAssembly(subAssembly)"class="fa fa-times"></i></td>
+                                </tr>
+                            </tbody>   
+                        </table>
+                    </div>     
+                                             
+                   
 
                     <div layout="row" layout-margin flex>
                         <span flex></span>
@@ -75,7 +71,7 @@
                         <i ng-show="startNewAssembly" ng-click="startNewAssembly=false" layout-margin   class="fa fa-times fa-2x text-danger"></i>
                         <i ng-hide="startNewAssembly" ng-click="updateAssemblyInfo(Objassembly)"  layout-margin class="fa fa-check-circle fa-2x text-success" >    
                         </i>
-                        <i ng-hide="startNewAssembly" ng-click="editAssemblyInfo=false;closeForm()" layout-margin   class="fa fa-times fa-2x text-danger"></i>
+                        <i ng-hide="startNewAssembly" ng-click="abortEditAssemblyInfo();closeForm()" layout-margin   class="fa fa-times fa-2x text-danger"></i>
                         &nbsp; &nbsp;
                     </div>      
 

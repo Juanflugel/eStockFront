@@ -11,7 +11,7 @@
     		</thead>
 
     		<tbody>
-	   		<tr ng-repeat="sample in collectionA | filter:search | orderBy:predicate:reverse" class="text-center">
+	   		<tr ng-repeat="sample in collectionA |filter:search |filter:{subAssemblyNumber:filterSubAssembly.subAssemblyNumber} | orderBy:predicate:reverse" class="text-center">
 		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>		  		
 		  		<td class="iTable">{{sample.itemAmount}}</td>
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>

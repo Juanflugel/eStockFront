@@ -109,8 +109,8 @@
         
         // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        templateUrl: 'app_components/projectsView/input.html',
-        //templateUrl:'projectsView/input.html',		
+        //templateUrl: 'app_components/projectsView/input.html',
+        templateUrl:'projectsView/input.html',		
         
         link: function($scope) {
 

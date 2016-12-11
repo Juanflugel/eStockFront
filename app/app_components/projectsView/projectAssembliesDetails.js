@@ -108,7 +108,8 @@
 
         	var r = confirm('Are you sure to delete the item: ' + item.itemCode);
 				 	if(r===true){
-				 		var index = $scope.collection.indexOf(item);				 		
+				 		var index = $scope.collection.indexOf(item);
+				 		$scope.collection.splice(index,1);				 		
 				 		var query = {};
 				 		query.companyId = $scope.firmaId;
 				 		query.projectNumber = $scope.currentProject.projectNumber;
@@ -116,15 +117,27 @@
 				 		console.log(query,index);
 				 		shop.itemsInProject.update(query,$scope.collection,function(){
 				 			alert('Item '+ item.itemCode +' deleted from Project '+$scope.currentProject.projectNumber);
-				 			$scope.collection.splice(index,1);
+				 			
+
+				 			if(item.itemAssembled===true){
+				 				var itemsToAddBack = [[item.itemCode,item.itemAmount],[0,0]];
+				 				var query1 = {};
+				 				query1.companyId = $scope.firmaId;
+				 				shop.itemIncrement.update(query1,itemsToAddBack,function (){
+				 				alert('items amount restored');
+					 			},function (error){
+					 				console.log(error);
+					 			});
+
+				 			}
+
 				 		},function (error){
-				 			console.log(error)
-				 		})
+				 			console.log(error);
+				 		});
 				 		
 				 	}else{
 				 		alert('click false');
 				 	}
-
 
         };
 

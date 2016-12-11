@@ -58,7 +58,7 @@ angular.module('DirectivesModule',[])
                 query.string = $scope.search;
 
                 if ($scope.search === ''){
-                    return
+                    return;
                 }
                 else{
                     shop.itemsCodeOrName.query(query,function (data){

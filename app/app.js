@@ -68,8 +68,8 @@ angular.module('eStockFront',[
     })
     .state('app.Orders', {
       url: "/Orders",
-      //templateUrl:"ordersView/ordersView.html",
-      templateUrl:"app_components/ordersView/ordersView.html",
+      templateUrl:"ordersView/ordersView.html",
+      //templateUrl:"app_components/ordersView/ordersView.html",
       controller:'ordersCtrl'
     })
     .state('app.Projects', {
@@ -81,23 +81,23 @@ angular.module('eStockFront',[
     })
     .state('app.Projects.Details', {
       url: "/:id",
-      templateUrl:"app_components/projectsView/projectDetails.html",
-      //templateUrl:"projectsView/projectDetails.html",
+      //templateUrl:"app_components/projectsView/projectDetails.html",
+      templateUrl:"projectsView/projectDetails.html",
       controller:'ProjectDetailsCtrl'
 
     })
    .state('app.assemblyDetails', {
       url: "/Projects/:pId/:idAssembly",
-      templateUrl:"app_components/projectsView/projectAssembliesDetails.html",
-      //templateUrl:"projectsView/projectAssembliesDetails.html",
+      //templateUrl:"app_components/projectsView/projectAssembliesDetails.html",
+      templateUrl:"projectsView/projectAssembliesDetails.html",
       controller:'projectsAssemblyDetailCtrl'
 
     })
 
     .state('app.Assemblies', {
       url: "/Assemblies",
-      templateUrl:"app_components/assembliesView/assembliesView.html",
-      //templateUrl:"assembliesView/assembliesView.html",
+      //templateUrl:"app_components/assembliesView/assembliesView.html",
+      templateUrl:"assembliesView/assembliesView.html",
       controller:'assembliesCtrl'
 
     })

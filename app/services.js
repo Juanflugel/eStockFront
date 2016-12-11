@@ -33,7 +33,7 @@ angular.module('services', ['ngResource'])
 .factory('Config', function () {
   return {
       version : '0.0.1',
-      ip: 'localhost', // localhost www.estock.website
+      ip: 'www.estock.website', // localhost www.estock.website
       port: 5006,
       protocol: 'http'
   };

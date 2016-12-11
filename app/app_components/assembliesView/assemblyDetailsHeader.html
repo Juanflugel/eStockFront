@@ -1,14 +1,18 @@
 
 <md-card id="top">
-	<md-subheader  class="md-no-sticky">        
-		<div layout="row" flex>
+	<md-subheader  class="md-no-sticky littlePadding">        
+		<div layout="row" flex layout-align="center center">
 			<p class="viewSubHeader text-center"  layout="row" flex="80">
                 <span flex>{{assemblyInfo.assemblyName}}</span>
                 <span flex>{{assemblyInfo.assemblyNumber}}</span>
                 <span flex>{{assemblyInfo.assemblyItems.length}} Bauteile</span>
                 
             </p>
-            <span flex></span>                
+            <md-input-container  md-no-float>
+                <md-select ng-model="filterSubAssembly" placeholder="Select a Sub Assembly" ng-change="showModel()">
+                <md-option ng-value ="subA" ng-repeat="subA in subACol">{{subA.subAssemblyNumber | uppercase}}</md-option>
+                </md-select>
+            </md-input-container>          
 
 	 			<p ng-hide="insertObjInAssembly" class="viewSubHeader" ng-click="newObj()">
                     <i   class="fa fa-plus fa-lg" ></i>
@@ -16,13 +20,12 @@
                         Insert Items 
                     </md-tooltip>
                 </p>
-
+                &nbsp;
                 <p class="viewSubHeader text-center" ng-click="">
+                    <i class="fa fa-file-excel-o fa-lg text-success" aria-hidden="true"></i>
                     <md-tooltip>
                     Upload CSV File
-                    </md-tooltip>
-                    
-                    <i class="fa fa-file-excel-o fa-lg text-success" aria-hidden="true"></i>
+                    </md-tooltip>                                    
                 </p> 
 	 
  		</div>
@@ -50,15 +53,19 @@
                 <input type="number" ng-model="obj.itemAmount">
             </md-input-container>
 
-            <md-input-container>
-                <label>Sub Assembly Name</label>
-                <input type="text" ng-model="obj.subAssemblyName">
+            <md-input-container  md-no-float>
+                <md-select ng-model="obj.subAssemblyNumber" placeholder="Select a Sub Assembly" ng-change="setOtherValue(obj)">
+                <md-option ng-value ="subA.subAssemblyNumber" ng-repeat="subA in subACol">{{subA.subAssemblyNumber | uppercase}}</md-option>
+                </md-select>
             </md-input-container>
 
-              <md-input-container>
-                <label>sub Assembly Number</label>
-                <input type="text" ng-model="obj.subAssemblyNumber">
-            </md-input-container>
+            <md-input-container  md-no-float>
+                <md-select ng-model="obj.subAssemblyName" placeholder="Select a Sub Assembly" ng-change="setOtherValue(obj)">
+                <md-option ng-value ="subA.subAssemblyName" ng-repeat="subA in subACol">{{subA.subAssemblyName | uppercase}}</md-option>
+                </md-select>
+            </md-input-container> 
+
+            
               
             &nbsp;
           <!-- editing part -->

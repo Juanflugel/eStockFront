@@ -2,28 +2,29 @@
 	<md-card> <!-- header from projects details view  -->
 		<md-subheader  class="md-no-sticky">        
 			<div layout="row" flex >
+
 				<p class="viewSubHeader text-center" flex="80" layout="row">
 					<span flex>{{projectInfo.projectName |uppercase}}</span>
 					<span flex>{{projectInfo.projectNumber |uppercase}}</span>
 					<span flex>{{projectInfo.projectType |uppercase}}</span>
 					<span flex>{{projectInfo.projectAssemblies.length}} BAUGRUPPEN</span>
 				</p>
-
 				<span flex></span>
 
 				<p ng-hide="insertNewAssembly || insertCsv" class="viewSubHeader text-center" ng-click="showAssemblies()">
+					<i   class="fa fa-plus fa-lg" ></i>
 					<md-tooltip>
 	    			Insert Assembly in Project
-	  				</md-tooltip>	  				
-					<i   class="fa fa-plus fa-lg" ></i>
+	  				</md-tooltip>				
 				</p> &nbsp;
 				<p  ng-hide="insertNewAssembly || insertCsv" class="viewSubHeader text-center" ng-click="insertCsv=true">
+					<i class="fa fa-file-excel-o fa-lg text-success" aria-hidden="true"></i>
 					<md-tooltip>
 	    			Upload CSV File
-	  				</md-tooltip>
-	  				
-					<i class="fa fa-file-excel-o fa-lg text-success" aria-hidden="true"></i>
-				</p>           
+	  				</md-tooltip>	
+					
+				</p>
+
 				<p ng-show="insertNewAssembly" class="viewSubHeader text-center" ng-click="insertAssembliesInProject()">
 					<i   class="fa fa-check-circle fa-lg  text-success" ></i>
 				</p>
@@ -63,9 +64,10 @@
 			</table> 
 			<!-- tabla para insertar ensambles en un projecto --> 
 		</div>
+	</md-card> <!-- header from projects details view  -->
 
-		<div ng-show="insertCsv">
-			<md-divider flex></md-divider>
+	<md-card ng-show="insertCsv" layout-padding>
+
 			<div layout="row" flex layout-margin>				
 				&nbsp;&nbsp;
 				<md-input-container flex>
@@ -88,7 +90,7 @@
 				</p>
 			</div>
 			
-			<table class="table table-hover table-responsive panel">    
+			<table class="table table-hover table-responsive panel" ng-show="csvCollection.length > 0">    
 				<thead>
 					<tr class="table" >
 						<th ng-repeat="(key, val) in headerForCsv" style="cursor:pointer;" class="text-center">
@@ -100,10 +102,10 @@
 
 				<tbody>
 					<tr ng-repeat="sample in csvCollection | filter:search | orderBy:predicate:reverse" class="text-center">
-						<td class="">{{sample.itemCode | limitTo:30}}</td>                
-						<td class="">{{sample.itemName}}</td>
-						<td class="">{{sample.itemAmount}}</td>
-						<td class="">
+						<td class="iTable">{{sample.itemCode | limitTo:30}}</td>                
+						<td class="iTable">{{sample.itemName}}</td>
+						<td class="iTable">{{sample.itemAmount}}</td>
+						<td class="iTable">
 							<input type="checkbox" ng-change="refreshFilter()" ng-model="sample.insert">               
 						</td>
 
@@ -111,10 +113,7 @@
 				</tbody>    
 			</table> 
 			
-		</div>
-
-
-	</md-card> <!-- header from projects details view  -->
+		</md-card>
 
 <!-- component to show the all asemblies that are part of a project-->	
 	<md-card flex>

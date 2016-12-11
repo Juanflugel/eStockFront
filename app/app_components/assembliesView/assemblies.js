@@ -16,6 +16,7 @@ angular.module('assembliesModule',['services'])
         shop.assembly.query(query,function (data){
                 $scope.assemblies = data;
                 $scope.assemblyInfo = $scope.assemblies[index] || $scope.assemblies[0];
+                $scope.subACol = $scope.assemblyInfo.subAssemblies;
                 $scope.collectionA = $scope.assemblyInfo.assemblyItems;
                 $scope.progressBardisable = true;
                 // console.log(data.length);
@@ -53,11 +54,28 @@ angular.module('assembliesModule',['services'])
         $scope.gotoHash('top');
     };
 
-    $scope.pushSubAssembly = function(subObj){
+    $scope.pushSubAssembly = function(subObj){ // to add a New Sub assembly to a main assembly
        $scope.Objassembly.subAssemblies.push(subObj);
        $scope.subObj = {};
     };
+
+    $scope.pullSubAssembly = function(subObj){
+
+        var r = confirm('Are you sure to delete Sub Assembly: '+ subObj.subAssemblyNumber);
+        if (r === true){
+            var subIndex = $scope.Objassembly.subAssemblies.indexOf(subObj);
+            $scope.Objassembly.subAssemblies.splice(subIndex,1);
+        }
+        else{
+            return;
+        }
+        
+    };
     
+    $scope.abortEditAssemblyInfo = function(){
+        $scope.subObj = {};
+        $scope.editAssemblyInfo = false;
+    };
 
     $scope.updateAssemblyInfo = function(obj){ // update the info in the server
         $scope.progressBardisable = false;
@@ -109,8 +127,11 @@ angular.module('assembliesModule',['services'])
     $scope.showAssemblyItems = function(obj,index){ // show all the items that belong to an assembly
         assemblyIndex = index;
         $scope.assemblyInfo = obj;
+        $scope.subACol = $scope.assemblyInfo.subAssemblies;
+        $scope.filterSubAssembly = ''; // clean the scope in order to show all the items
         $scope.collectionA = obj.assemblyItems;
         $scope.gotoHash('top');
+        console.log($scope.subACol);
     };
 
     $scope.editObj = function(obj){ // edit a item inside an assembly
@@ -124,6 +145,7 @@ angular.module('assembliesModule',['services'])
         $scope.obj = {};
         $scope.editObjInAssembly = false;
         $scope.insertObjInAssembly = true;
+        $scope.filterSubAssembly = '';
         
     };
 
@@ -212,6 +234,25 @@ angular.module('assembliesModule',['services'])
         $scope.insertObjInAssembly = false;
     };
 
+    $scope.setOtherValue = function(subObj){ //to guarantee that when user select a vaule from subassemblies the other value is automatic setted
+        var currentSubAssemblyObj = {};
+        if(subObj.subAssemblyNumber){
+            currentSubAssemblyObj =_.find($scope.subACol,function (i){
+                return i.subAssemblyNumber === subObj.subAssemblyNumber;
+            });
+            $scope.obj.subAssemblyName = currentSubAssemblyObj.subAssemblyName;
+        }
+
+        if(subObj.subAssemblyName){
+            currentSubAssemblyObj =_.find($scope.subACol,function (i){
+                return i.subAssemblyName === subObj.subAssemblyName;
+            });
+            $scope.obj.subAssemblyNumber = currentSubAssemblyObj.subAssemblyNumber;
+        }       
+       
+    };
+
+
 
     // assembly update logic - insert multiple items from stock
 
@@ -243,8 +284,8 @@ angular.module('assembliesModule',['services'])
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    //templateUrl: 'assembliesView/assembliesListCard.html'
-    templateUrl: 'app_components/assembliesView/assembliesListCard.html'     
+    templateUrl: 'assembliesView/assembliesListCard.html'
+    //templateUrl: 'app_components/assembliesView/assembliesListCard.html'     
 
   };
 }])
@@ -252,8 +293,8 @@ angular.module('assembliesModule',['services'])
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    //templateUrl: 'assembliesView/assemblyDetailsHeader.html'
-    templateUrl: 'app_components/assembliesView/assemblyDetailsHeader.html'     
+    templateUrl: 'assembliesView/assemblyDetailsHeader.html'
+    //templateUrl: 'app_components/assembliesView/assemblyDetailsHeader.html'     
 
   };
 }])
