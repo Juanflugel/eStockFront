@@ -2,6 +2,45 @@
 <orders-list-card flex="25"> </orders-list-card>
 <div layout="column" flex id="top">
 	<order-details-header></order-details-header>
+	<md-card>
+		<div layout="row">
+			<search-header flex></search-header>			        
+			<p class="viewSubHeader" ng-show="insertObjInAssembly" ng-click="insertItemInAssembly()">
+                <i layout-padding class="fa fa-floppy-o fa-2x text-primary"></i>
+                <md-tooltip>
+                    Insert Items 
+                </md-tooltip>
+            </p>
+			<p class="viewSubHeader" ng-hide="editObjInAssembly" ng-show="insertObjInAssembly">
+			    <i layout-padding  class="fa fa-times fa-2x text-danger" ng-click="abortToInsertItemsInAssembly()"></i>
+			              &nbsp;
+			</p>
+		</div>
+
+		<table class="table table-hover table-responsive panel" ng-show="collection.length > 0">    
+			            <thead>
+			            <tr class="table" >
+			                <th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
+			                    <p ng-click="order(key)">{{val}}</p>
+			                </th>
+			                <th class="text-center"><p>{{itemsToInsert.length}} Selected</p></th>          
+			            </tr>
+			            </thead>
+
+			            <tbody>
+			            <tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
+			                <td class="iTable">{{sample.itemCode | limitTo:17}}</td>
+			                <td class="iTable">{{sample.itemName | limitTo:30}}</td>  
+			                <td class="iTable">{{sample.itemAmount}}</td>
+			                <td class="iTable" contentEditable="true" ng-model="sample.amountOrdered" type="number">{{sample.amountOrdered}}</td>
+			                <td class="iTable" contentEditable="true" ng-model="sample.itemBuyPrice" type="number">{{sample.itemBuyPrice}}</td>
+		  					<td class="iTable">{{sample.totalPrice | number | limitTo:4}}</td>           
+			                <td><input type="checkbox" ng-change="filterItemsToInsertInOrder()" ng-model="sample.insert"></td>
+			            </tr>
+			            </tbody>    
+			    </table>  
+
+	</md-card>
 	<order-table flex></order-table>
 <div>
 </div >

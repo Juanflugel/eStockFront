@@ -68,8 +68,8 @@ angular.module('eStockFront',[
     })
     .state('app.Orders', {
       url: "/Orders",
-      templateUrl:"ordersView/ordersView.html",
-      //templateUrl:"app_components/ordersView/ordersView.html",
+      //templateUrl:"ordersView/ordersView.html",
+      templateUrl:"app_components/ordersView/ordersView.html",
       controller:'ordersCtrl'
     })
     .state('app.Projects', {

@@ -2,16 +2,15 @@
 	<table class="table table-hover table-responsive panel">    
     		<thead>
 	   		<tr class="table" >
-		  		<th ng-repeat="(key, val) in header" style="cursor:pointer;" class="text-center">
+		  		<th ng-repeat="(key, val) in headerO" style="cursor:pointer;" class="text-center">
 		  			<p ng-click="order(key)">{{val}}</p>
 		 		</th>
-		  		
 		  		          
 	   		</tr>
     		</thead>
 
     		<tbody>
-	   		<tr ng-repeat="sample in collection | filter:search | orderBy:predicate:reverse" class="text-center">
+	   		<tr ng-repeat="sample in collectionO | filter:search | orderBy:predicate:reverse" class="text-center">
 	   			<td class="iTable" ng-show="sample.isDelivered"><i class="fa fa-check-circle fa-lg text-success" > </i> </td>
 	   				
 	   			<td class="iTable" ng-hide="sample.isDelivered">
@@ -19,7 +18,7 @@
 		  		<td class="iTable">{{sample.itemCode | limitTo:17}}</td>			  		
 		  		<td class="iTable">{{sample.itemName | limitTo:30}}</td>
 		  		<td class="iTable">{{sample.amountOrdered}}</td>
-		  		<td class="iTable">{{sample.itemPrice | number}}</td>
+		  		<td class="iTable">{{sample.itemBuyPrice | number}}</td>
 		  		<td class="iTable">{{sample.totalPrice | number | limitTo:4}}</td>
 
 		 		<td class="iTable">

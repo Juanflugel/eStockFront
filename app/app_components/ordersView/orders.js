@@ -4,7 +4,7 @@
   angular.module('ordersModule',[])
   .controller('ordersCtrl',['$scope','shop','handleProjects',function ($scope,shop,handleProjects){
 
-
+    $scope.header = {itemCode:'Item Code',itemName:'Item Name',itemAmount:'Item Amount',amountOrdered:'Ordered Amount',itemPrice: 'Item Price',totalPrice:'Total Price'}
     $scope.oindex = 0;
     $scope.toDownload = [];
     $scope.firmaId = shop.getCompanyId();
@@ -17,10 +17,10 @@
                     $scope.orders = data;
                     console.log(data);
                     $scope.orderInfo = data[index] || data[0] || [];
-                    $scope.collection = $scope.orderInfo.orderedItems || [];
+                    $scope.collectionO = $scope.orderInfo.orderedItems || [];
                     $scope.progressBardisable = true;
 
-                    _.each($scope.collection,function(obj){
+                    _.each($scope.collectionO,function(obj){
                       var i = handleProjects.orderObjectsForOrder(obj);
                       $scope.toDownload.push(i);
                     });
@@ -42,7 +42,7 @@
         $scope.queryOrders();
      });
 
-     $scope.totalPrice = function(){
+    $scope.totalPrice = function(){
       $scope.obj.totalPrice = $scope.obj.amountOrdered * $scope.obj.itemPrice;
     };
 
@@ -51,6 +51,15 @@
       $scope.obj.totalPrice = obj.amountOrdered * obj.itemPrice;
       $scope.insertObjInOrder = false;
       $scope.editObjInOrder = true;
+    };
+
+    $scope.itemsToInsert = [];
+
+    $scope.filterItemsToInsertInOrder = function(){
+     $scope.itemsToInsert = _.filter($scope.collection,function (item){
+        return item.insert === true;
+     });
+     console.log($scope.itemsToInsert);
     };
      
     
@@ -71,9 +80,9 @@
                 $scope.showOrderDetails = function(obj,index){
                     $scope.oindex = index;
                     $scope.orderInfo = obj;
-                    $scope.collection = $scope.orderInfo.orderedItems;
+                    $scope.collectionO = $scope.orderInfo.orderedItems;
                     $scope.toDownload = [];
-                    _.each($scope.collection,function(obj){
+                    _.each($scope.collectionO,function(obj){
                       var i = handleProjects.orderObjectsForOrder(obj);
                       $scope.toDownload.push(i);
                     });
@@ -181,8 +190,8 @@
   // Runs during compile
   return {
     restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-    //templateUrl: 'app_components/ordersView/orderTable.html',
-    templateUrl: 'ordersView/orderTable.html',
+    templateUrl: 'app_components/ordersView/orderTable.html',
+    //templateUrl: 'ordersView/orderTable.html',
     link: function($scope) {
 
       $scope.deleteItemFromOrder = function(item){
@@ -205,7 +214,7 @@
                 };
 
 
-      $scope.header = {isDelivered:'Delivered',itemCode:'Item Code',itemName:'Name',itemAmount:'Ordered Amount',itemBuyPrice:'Price',totalPrice:'Total',handle:'Handle'};
+      $scope.headerO = {isDelivered:'Delivered',itemCode:'Item Code',itemName:'Name',itemAmount:'Ordered Amount',itemBuyPrice:'Price',totalPrice:'Total',handle:'Handle'};
       $scope.order = function(predicate){
         $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
         $scope.predicate = predicate;

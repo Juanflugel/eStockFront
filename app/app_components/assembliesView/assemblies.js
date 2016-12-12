@@ -188,7 +188,7 @@ angular.module('assembliesModule',['services'])
 
     $scope.refreshFilter = function(){ // filter for all intems to be inserted
         // collection here is setted in the headerSearch directive
-        $scope.itemsToInsert =_.filter($scope.collection, function(obj){ return obj.insert === true; });
+        $scope.itemsToInsert =_.filter($scope.collection, function (obj){ return obj.insert === true; });
     };
 
     $scope.listOfitemsToInsertInAssembly = [];
